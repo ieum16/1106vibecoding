@@ -17,7 +17,9 @@
 ## 화면
 
 ![처음 열었을 때](screenshot.png)
+
 ![할 일을 작성한 모습](screenshot-2.png)
+
 ![할 일을 완료한 모습](screenshot-3.png)
 
 ## 강사 예시에서 바꾼 점
