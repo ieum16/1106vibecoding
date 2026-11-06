@@ -72,7 +72,7 @@ def last_commit(path):
 
 def read_text(path):
     try:
-        return path.read_text(encoding="utf-8")
+        return path.read_text(encoding="utf-8-sig")
     except (UnicodeDecodeError, OSError):
         return None
 
