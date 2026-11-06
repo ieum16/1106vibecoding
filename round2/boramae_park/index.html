@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="NEXUS LAB — 가상 팀 소개 페이지" />
+  <title>NEXUS LAB // TEAM TERMINAL</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <div class="scanlines" aria-hidden="true"></div>
+  <div class="terminal" id="terminal">
+    <header class="titlebar">
+      <div class="lights" aria-hidden="true"><i class="light"></i><i class="light"></i><i class="light"></i></div>
+      <img class="logo-image" src="images/logo.png" alt="NEXUS LAB 로고" />
+      <span class="path">workspace/nexus-lab/team-profile</span>
+      <button class="menu-toggle" id="menuToggle" type="button" aria-label="메뉴 열기" aria-expanded="false"><span></span><span></span><span></span></button>
+      <nav class="desktop-nav" aria-label="페이지 메뉴">
+        <a href="#about" class="active">ABOUT</a>
+        <a href="#people">PEOPLE</a>
+        <a href="#projects">PROJECTS</a>
+        <a href="#contact">CONTACT</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero" aria-labelledby="site-title">
+        <div class="section-inner">
+          <div class="boot-line"><span><i class="online-dot"></i><b class="online">SYSTEM READY</b></span><span>::</span><span>TEAM PROFILE / V1.0</span><span>::</span><span>2026</span></div>
+          <p class="prompt">init / nexus-lab</p>
+          <h1 class="terminal-name" id="site-title">NEXUS<span>LAB</span></h1>
+          <div class="hero-grid">
+            <p class="hero-copy">조직의 복잡한 업무 흐름을 연결하고, 더 나은 디지털 도구를 만드는 가상 팀입니다.<i class="cursor" aria-hidden="true"></i></p>
+            <aside class="hero-meta" aria-label="팀 요약">
+              <p><span class="bracket">[x]</span> TEAM SCALE</p><strong>05 / CORE</strong>
+              <p class="mini">STRATEGY · PRODUCT · DESIGN<br />ENGINEERING · DATA</p>
+            </aside>
+          </div>
+          <a class="scroll-hint" href="#about">EXECUTE: EXPLORE PROFILE</a>
+        </div>
+      </section>
+
+      <section class="about" id="about">
+        <div class="section-inner">
+          <div class="section-header"><div><p class="prompt">cat ./about.txt</p><span class="section-index">01 // ABOUT</span></div><div><h2>흩어진 일을<br />다음 실행으로 연결합니다.</h2><p>NEXUS LAB은 팀과 팀 사이에서 생기는 복잡한 흐름을 더 읽기 쉽게 만들고, 누구나 사용할 수 있는 디지털 도구로 바꾸는 가상 팀입니다.</p></div></div>
+          <div class="about-grid">
+            <div class="about-text"><p>문제의 맥락을 읽고, 함께 움직일 수 있는 화면과 도구를 만듭니다.</p><p><span class="bracket">[x]</span> 이 페이지의 인물과 프로젝트는 모두 연습용 가상 정보입니다.</p></div>
+            <dl class="stat-list"><div><dt>TEAM TYPE</dt><dd>Digital Innovation Team</dd></div><div><dt>WORK MODE</dt><dd>Cross-functional</dd></div><div><dt>LOGO ASSET</dt><dd>images/logo.png</dd></div></dl>
+          </div>
+        </div>
+      </section>
+
+      <section class="people" id="people">
+        <div class="section-inner">
+          <div class="section-header"><div><p class="prompt">ls ./people</p><span class="section-index">02 // PEOPLE</span></div><div><h2>서로 다른 언어로<br />같은 문제를 풉니다.</h2><p>전략부터 데이터까지, 다섯 가지 역할이 하나의 제품 경험을 함께 만듭니다.</p></div></div>
+          <div class="member-grid">
+            <article class="member"><span class="member-id">MEMBER_01</span><h3>NOVA-01</h3><span class="member-role">TEAM LEAD · STRATEGY</span><p>팀의 문제를 선명한 방향으로 정리합니다.</p></article>
+            <article class="member"><span class="member-id">MEMBER_02</span><h3>PULSE-02</h3><span class="member-role">PRODUCT MANAGER</span><p>아이디어를 실제로 쓸 수 있는 경험으로 만듭니다.</p></article>
+            <article class="member"><span class="member-id">MEMBER_03</span><h3>GRID-03</h3><span class="member-role">PRODUCT DESIGNER</span><p>복잡한 흐름을 쉽게 이해되는 화면으로 바꿉니다.</p></article>
+            <article class="member"><span class="member-id">MEMBER_04</span><h3>LOOP-04</h3><span class="member-role">FRONTEND ENGINEER</span><p>빠르고 안정적인 웹 경험을 구현합니다.</p></article>
+            <article class="member"><span class="member-id">MEMBER_05</span><h3>SIGNAL-05</h3><span class="member-role">DATA ANALYST</span><p>데이터에서 다음 행동의 힌트를 찾습니다.</p></article>
+          </div>
+        </div>
+      </section>
+
+      <section class="projects" id="projects">
+        <div class="section-inner">
+          <div class="section-header"><div><p class="prompt">git log --projects</p><span class="section-index">03 // PROJECTS</span></div><div><h2>함께 만든 결과를<br />작은 단위로 남깁니다.</h2><p>아래 프로젝트는 NEXUS LAB의 연습용 가상 사례입니다.</p></div></div>
+          <div class="project-toolbar" role="group" aria-label="프로젝트 분야 필터">
+            <span class="toolbar-label">FILTER:</span>
+            <button class="filter-button active" type="button" data-filter="all" aria-pressed="true">ALL</button>
+            <button class="filter-button" type="button" data-filter="strategy" aria-pressed="false">STRATEGY</button>
+            <button class="filter-button" type="button" data-filter="product" aria-pressed="false">PRODUCT</button>
+            <button class="filter-button" type="button" data-filter="design" aria-pressed="false">DESIGN</button>
+            <button class="filter-button" type="button" data-filter="engineering" aria-pressed="false">ENGINEERING</button>
+            <button class="filter-button" type="button" data-filter="data" aria-pressed="false">DATA</button>
+          </div>
+          <p class="filter-status" id="filterStatus" role="status">전체 프로젝트 3개를 표시하고 있습니다.</p>
+          <div class="project-grid">
+            <article class="project" data-project="strategy data"><div><span class="project-no">PROJECT_01</span><h3>Flow Map</h3><p>팀 간 요청 흐름을 한눈에 정리하는 업무 지도</p></div><footer>STRATEGY · DATA</footer></article>
+            <article class="project" data-project="product design"><div><span class="project-no">PROJECT_02</span><h3>Signal Desk</h3><p>반복 문의를 모아 우선순위를 정하는 간단한 대시보드</p></div><footer>PRODUCT · DESIGN</footer></article>
+            <article class="project" data-project="design engineering"><div><span class="project-no">PROJECT_03</span><h3>Launch Kit</h3><p>새 프로젝트의 시작 과정을 안내하는 내부 웹 도구</p></div><footer>DESIGN · ENGINEERING</footer></article>
+          </div>
+          <div class="todo-grid" aria-label="준비가 필요한 콘텐츠">
+            <div class="todo"><span>ASSET / LOGO</span><strong>logo.png</strong></div>
+            <div class="todo"><span>PROJECT / EXTERNAL LINK</span><strong><span class="required">[준비 필요]</span></strong></div>
+            <div class="todo"><span>CONTACT / CHANNEL</span><strong><span class="required">[준비 필요]</span></strong></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="contact" id="contact">
+        <div class="section-inner">
+          <div class="contact-grid">
+            <div class="contact-message"><p class="prompt">cat ./contact.txt</p><h2>다음 연결을<br />준비하고 있습니다.</h2><p>실제 문의 방법이 정해진 뒤 이 영역에 채널을 추가할 수 있습니다.</p></div>
+            <aside class="contact-note"><p><span class="bracket">[x]</span> CONTACT CHANNEL</p><strong><span class="required">[준비 필요]</span></strong></aside>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="terminal-footer"><span class="git">on branch <b>team-profile</b> · clean</span><span class="footer-status">NEXUS LAB / <b>STATIC SITE</b> / ALL SYSTEMS READY</span></footer>
+  </div>
+</body>
+</html>
