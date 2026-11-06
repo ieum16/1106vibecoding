@@ -1,0 +1,319 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>오늘의 할일!</title>
+<style>
+  /* 빗썸고딕 (SIL OFL) — 확장 프로그램 안에 포함되어 인터넷 없이도 보임 */
+  @font-face { font-family: "Bithumb Gothic Original"; src: url("fonts/BithumbGothic-Original.woff2") format("woff2"); font-weight: 700; font-display: swap; }
+  @font-face { font-family: "Bithumb Gothic Basic"; src: url("fonts/BithumbGothic-Basic.woff2") format("woff2"); font-weight: 700; font-display: swap; }
+  :root {
+    --sky: #6ec3f4;
+    --sky-deep: #3d9be0;
+    --cloud: #ffffff;
+    --wood: #72bce8;
+    --wood-dark: #2d6c99;
+    --ink: #24465f;
+    --paper: #f0f9ff;
+    --yellow: #c7eaff;
+    --red: #e2392f;
+    --green: #2f9e57;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: "Bithumb Gothic Basic", sans-serif;
+    font-weight: 700;
+    color: var(--ink);
+    background: linear-gradient(160deg, #bce6ff, #e9f7ff 55%, #cdeaff);
+  }
+
+  /* 하늘색 간판 */
+  header { text-align: center; padding: 28px 16px 8px; }
+  .sign {
+    display: inline-block;
+    padding: 14px 34px 10px;
+    background: repeating-linear-gradient(0deg, var(--wood) 0 14px, #65b1e0 14px 16px);
+    border: 5px solid var(--wood-dark);
+    border-radius: 12px;
+    box-shadow: 0 8px 0 var(--wood-dark), 0 14px 24px rgba(0,0,0,.25);
+    transform: rotate(-2deg);
+  }
+  .sign small {
+    display: block;
+    font-family: "Bithumb Gothic Original", sans-serif;
+    color: var(--yellow);
+    font-size: 15px;
+    letter-spacing: 3px;
+    text-shadow: 2px 2px 0 var(--wood-dark);
+  }
+  .sign h1 {
+    margin: 0;
+    font-family: "Bithumb Gothic Original", sans-serif;
+    font-weight: 700;
+    font-size: clamp(30px, 6vw, 46px);
+    color: #fff;
+    -webkit-text-stroke: 2px var(--wood-dark);
+    text-shadow: 3px 3px 0 var(--wood-dark);
+  }
+
+  main {
+    max-width: 1040px;
+    margin: 0 auto;
+    padding: 20px 16px 48px;
+    display: grid;
+    grid-template-columns: 1fr 1.1fr;
+    gap: 24px;
+    align-items: start;
+  }
+  @media (max-width: 820px) { main { grid-template-columns: 1fr; } }
+
+  /* 웹툰 컷 */
+  .panel {
+    background: var(--paper);
+    border: 4px solid var(--ink);
+    border-radius: 6px;
+    box-shadow: 8px 8px 0 var(--ink);
+    position: relative;
+  }
+
+  /* 캐릭터 무대 */
+  .stage {
+    padding: 22px 18px 0;
+    overflow: hidden;
+    background-color: #d9f0ff;
+    background-image: radial-gradient(rgba(61,155,224,.18) 1.6px, transparent 1.8px);
+    background-size: 12px 12px;
+    position: sticky;
+    top: 16px;
+  }
+  @media (max-width: 820px) { .stage { position: relative; top: 0; } }
+
+  .bubble {
+    position: relative;
+    background: #fff;
+    border: 4px solid var(--ink);
+    border-radius: 42px;
+    padding: 22px 24px;
+    font-size: clamp(20px, 2.6vw, 25px);
+    line-height: 1.45;
+    min-height: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    word-break: keep-all;
+    box-shadow: 4px 4px 0 rgba(0,0,0,.15);
+    z-index: 2;
+  }
+  .bubble::after, .bubble::before {
+    content: "";
+    position: absolute;
+    left: 50%;
+    border-style: solid;
+  }
+  .bubble::before { /* 꼬리 테두리 */
+    bottom: -30px;
+    margin-left: -8px;
+    border-width: 30px 22px 0 0;
+    border-color: var(--ink) transparent transparent transparent;
+  }
+  .bubble::after { /* 꼬리 안쪽 */
+    bottom: -21px;
+    margin-left: -3px;
+    border-width: 22px 14px 0 0;
+    border-color: #fff transparent transparent transparent;
+  }
+  .bubble.shout { /* 칭찬할 때: 뾰족한 외침 말풍선 느낌 */
+    background: var(--yellow);
+    border-radius: 18px;
+    animation: shake .4s;
+  }
+  .bubble.shout::after { border-color: var(--yellow) transparent transparent transparent; }
+  .bubble b { color: var(--red); }
+
+  .char-wrap { position: relative; display: flex; justify-content: center; margin-top: 36px; }
+  .char-wrap { height: 330px; align-items: flex-end; }
+  .pochacco {
+    height: 320px; width: auto; display: block;
+    transform-origin: bottom center;
+    filter: drop-shadow(4px 4px 0 rgba(0,0,0,.25));
+    margin-bottom: -4px;
+  }
+  .pochacco.closeup { height: 340px; margin-bottom: -26px; }   /* 칭찬 컷은 가까이 */
+  .pochacco.talk { animation: bob .5s ease-in-out 2; }
+  .pochacco.cheer { animation: jump .6s ease-out 2; }
+
+  /* 효과음 글자 */
+  .sfx {
+    position: absolute;
+    font-family: "Bithumb Gothic Original", sans-serif;
+    font-size: 54px;
+    color: var(--red);
+    -webkit-text-stroke: 3px var(--ink);
+    pointer-events: none;
+    opacity: 0;
+    z-index: 3;
+  }
+  .sfx.pop { animation: sfx 1s ease-out forwards; }
+
+
+  /* 할 일 목록 */
+  .board { padding: 20px; }
+  .board h2 {
+    margin: 0 0 14px;
+    font-family: "Bithumb Gothic Original", sans-serif; font-weight: 700;
+    font-size: 26px;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .badge {
+    font-family: "Bithumb Gothic Basic", sans-serif; font-size: 16px;
+    background: var(--yellow); border: 3px solid var(--ink); border-radius: 30px;
+    padding: 3px 12px;
+  }
+  form { display: flex; gap: 8px; margin-bottom: 18px; }
+  form input {
+    flex: 1; min-width: 0;
+    font: inherit; font-size: 19px;
+    padding: 12px 14px;
+    border: 3px solid var(--ink); border-radius: 10px;
+    background: #fff;
+  }
+  form input:focus { outline: 3px solid var(--sky-deep); outline-offset: 1px; }
+  .btn {
+    font: inherit; font-size: 18px;
+    border: 3px solid var(--ink); border-radius: 10px;
+    padding: 10px 16px;
+    cursor: pointer;
+    box-shadow: 3px 3px 0 var(--ink);
+    transition: transform .08s, box-shadow .08s;
+    white-space: nowrap;
+  }
+  .btn:active { transform: translate(3px, 3px); box-shadow: 0 0 0 var(--ink); }
+  .btn-add { background: #2475ae; color: #fff; }
+  .btn-ok { background: #2c7f9b; color: #fff; }
+  .btn-undo { background: #fff; font-size: 15px; padding: 7px 10px; }
+
+  ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 14px; }
+  li {
+    display: flex; align-items: center; gap: 10px;
+  }
+  .mini {
+    width: 46px; height: 46px; flex: none;
+    border: 3px solid var(--ink); border-radius: 50%;
+    background: var(--sky); overflow: hidden;
+  }
+  .mini svg, .mini img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .item-bubble {
+    position: relative; flex: 1; min-width: 0;
+    background: #fff;
+    border: 3px solid var(--ink); border-radius: 18px;
+    padding: 10px 14px;
+    font-size: 18px;
+    cursor: pointer;
+    word-break: break-all;
+  }
+  .item-bubble::before {
+    content: ""; position: absolute; left: -13px; top: 14px;
+    border-style: solid; border-width: 8px 13px 8px 0;
+    border-color: transparent var(--ink) transparent transparent;
+  }
+  .item-bubble::after {
+    content: ""; position: absolute; left: -8px; top: 17px;
+    border-style: solid; border-width: 5px 8px 5px 0;
+    border-color: transparent #fff transparent transparent;
+  }
+  .item-bubble:hover { background: #f3fbff; }
+  .item-bubble:hover::after { border-right-color: #f3fbff; }
+  li.done .item-bubble { background: #e3f1fc; color: #637b8e; text-decoration: line-through; }
+  li.done .item-bubble::after { border-right-color: #e3f1fc; }
+  .stamp {
+    position: absolute; right: -6px; top: -14px;
+    font-size: 13px; color: var(--red);
+    border: 2px solid var(--red); border-radius: 6px;
+    padding: 1px 6px; background: #fff;
+    transform: rotate(10deg);
+    text-decoration: none; display: inline-block;
+  }
+  .del {
+    background: none; border: none; cursor: pointer;
+    font-size: 20px; color: #999; padding: 4px;
+  }
+  .del:hover { color: var(--red); }
+  .empty { text-align: center; color: #777; padding: 24px 0 8px; font-size: 18px; }
+
+  @keyframes bob { 0%,100% { transform: rotate(0) } 25% { transform: rotate(-3deg) } 75% { transform: rotate(3deg) } }
+  @keyframes jump { 0%,100% { transform: translateY(0) } 40% { transform: translateY(-28px) scale(1.04) } }
+  @keyframes shake { 0%,100% { transform: translateX(0) } 25% { transform: translateX(-6px) rotate(-1deg) } 75% { transform: translateX(6px) rotate(1deg) } }
+  @keyframes sfx { 0% { opacity: 0; transform: scale(.3) rotate(-15deg) } 30% { opacity: 1; transform: scale(1.2) rotate(-8deg) } 100% { opacity: 0; transform: scale(1) translateY(-40px) rotate(-8deg) } }
+  @media (prefers-reduced-motion: reduce) { * { animation: none !important; } }
+
+  /* 확장 프로그램 팝업 (가로 400px 안에 맞춤) */
+  .open-full {
+    position: absolute; right: 12px; top: 12px; z-index: 5;
+    font: inherit; font-size: 13px;
+    background: #fff; border: 2px solid var(--ink); border-radius: 20px;
+    padding: 4px 10px; cursor: pointer; display: none;
+  }
+  html.popup .open-full { display: block; }
+  html.popup body { width: 400px; }
+  html.popup header { padding: 14px 12px 0; position: relative; }
+  html.popup .sign { padding: 8px 18px 6px; transform: rotate(-1.5deg); }
+  html.popup .sign small { font-size: 11px; }
+  html.popup .sign h1 { font-size: 24px; }
+  html.popup main { grid-template-columns: 1fr; gap: 14px; padding: 12px 12px 18px; }
+  html.popup .stage { position: relative; top: 0; min-height: 0; padding: 14px 12px 0; box-shadow: 5px 5px 0 var(--ink); }
+  html.popup .bubble { font-size: 18px; min-height: 76px; padding: 14px 16px; border-radius: 30px; }
+  html.popup .char-wrap { height: 190px; margin-top: 22px; }
+  html.popup .pochacco { height: 186px; }
+  html.popup .pochacco.closeup { height: 200px; margin-bottom: -18px; }
+  html.popup .sfx { font-size: 38px; }
+  html.popup #sfx { top: 110px !important; }
+  html.popup #sfx2 { top: 140px !important; }
+  html.popup .board { padding: 14px; box-shadow: 5px 5px 0 var(--ink); }
+  html.popup .board h2 { font-size: 21px; }
+  html.popup form input { font-size: 16px; padding: 9px 10px; }
+  html.popup .btn { font-size: 16px; padding: 8px 12px; }
+  html.popup .btn-undo { font-size: 13px; padding: 6px 8px; }
+  html.popup .item-bubble { font-size: 16px; padding: 8px 12px; }
+  html.popup .mini { width: 38px; height: 38px; }
+</style>
+</head>
+<body>
+
+<header>
+  <button class="open-full" id="openFull" type="button">↗ 크게 보기</button>
+  <div class="sign">
+    <small>아라라의 to do list</small>
+    <h1>오늘의 할일!</h1>
+  </div>
+</header>
+
+<main>
+  <!-- 캐릭터 컷 -->
+  <section class="panel stage" aria-live="polite">
+    <div class="bubble" id="bubble"><span id="bubbleText">안녕! 오늘도 함께해!</span></div>
+    <div class="sfx" id="sfx" style="left:18px; top:150px;">팡!</div>
+    <div class="sfx" id="sfx2" style="right:24px; top:210px; color:var(--yellow);">★</div>
+    <div class="char-wrap">
+      <img id="pochacco" class="pochacco" src="img/pochacco-stand.png" alt="아라라">
+    </div>
+  </section>
+
+  <!-- 할 일 컷 -->
+  <section class="panel board">
+    <h2>to do list <span class="badge" id="count">0 / 0</span></h2>
+    <form id="form" autocomplete="off">
+      <input id="input" placeholder="할 일을 적어줘!" maxlength="60">
+      <button class="btn btn-add" type="submit">추가</button>
+    </form>
+    <ul id="list"></ul>
+    <p class="empty" id="empty">아직 할 일이 없어. 하나 적어볼까?</p>
+  </section>
+</main>
+
+<script src="todo.js"></script>
+</body>
+</html>
