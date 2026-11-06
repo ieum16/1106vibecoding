@@ -1,0 +1,11 @@
+{
+  "manifest_version": 3,
+  "name": "오늘 할 일 작성기",
+  "version": "1.0.0",
+  "description": "오늘 할 일을 추가하고 완료 여부를 관리합니다.",
+  "permissions": ["storage"],
+  "action": {
+    "default_title": "오늘 할 일 작성기",
+    "default_popup": "popup.html"
+  }
+}

@@ -1,0 +1,75 @@
+:root {
+  color-scheme: light;
+  font-family: "Pretendard", "Noto Sans KR", "Malgun Gothic", sans-serif;
+  background: #eeeaf6;
+  color: #302448;
+}
+* { box-sizing: border-box; }
+body {
+  width: 380px;
+  min-height: 520px;
+  margin: 0;
+  background: linear-gradient(180deg, #fafbff, #eeeaf6);
+  font-size: 20px;
+  border-top: 7px solid #a8e635;
+}
+button, input { font: inherit; }
+.app { padding: 22px 22px 26px; }
+header { margin-bottom: 24px; padding-bottom: 20px; text-align: center; border-bottom: 3px solid #a8e635; }
+.eyebrow { margin: 0; color: #604093; font-size: 15px; font-weight: 800; letter-spacing: 0.06em; }
+.ranger-emblem { display: flex; align-items: center; justify-content: center; margin: 14px 0 8px; }
+.buzz-badge { display: block; width: 240px; max-width: 100%; height: auto; object-fit: contain; filter: drop-shadow(0 8px 8px rgb(64 49 107 / 12%)); }
+h1 { margin: 0; font-size: 36px; line-height: 1.2; letter-spacing: -0.05em; }
+.mission-motto { margin: 8px 0 0; font-size: 15px; color: #695184; font-weight: 700; }
+.remaining {
+  display: inline-block;
+  margin: 14px 0 0;
+  padding: 7px 14px;
+  border: 1px solid #98cf37;
+  border-radius: 8px;
+  background: #c4f278;
+  color: #30451b;
+  font-size: 17px;
+  font-weight: 800;
+  box-shadow: 0 3px 0 #a4d950;
+}
+.input-row { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 8px; }
+input[type="text"] {
+  min-width: 0;
+  width: 100%;
+  padding: 13px 12px;
+  border: 2px solid #c8bbdd;
+  border-radius: 12px;
+  outline: none;
+  background: #fff;
+  color: #302448;
+  font-size: 19px;
+}
+input[type="text"]::placeholder { color: #7a6b8e; }
+input[type="text"]:focus { border-color: #7751b0; box-shadow: 0 0 0 3px rgb(119 81 176 / 16%); }
+.add-button { padding: 0 16px; border: 2px solid #563382; border-radius: 12px; background: #7751b0; color: #fff; font-weight: 800; cursor: pointer; box-shadow: 0 3px 0 #432768; }
+.add-button:hover { background: #604093; }
+button:focus-visible, input[type="checkbox"]:focus-visible { outline: 3px solid #2975ad; outline-offset: 3px; }
+.error { min-height: 23px; margin: 7px 2px 0; color: #b42318; font-size: 16px; font-weight: 700; }
+.todo-list { display: grid; gap: 12px; margin: 10px 0 0; padding: 0; list-style: none; }
+.todo-item {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 11px;
+  padding: 13px 12px;
+  border: 1px solid #ddd4e9;
+  border-left: 5px solid #a8e635;
+  border-radius: 14px;
+  background: #fff;
+  box-shadow: 0 4px 12px rgb(64 49 107 / 7%);
+}
+.todo-item input[type="checkbox"] { width: 24px; height: 24px; margin: 0; accent-color: #7751b0; cursor: pointer; }
+.todo-text { min-width: 0; overflow-wrap: anywhere; white-space: pre-wrap; font-size: 19px; font-weight: 700; line-height: 1.45; }
+.todo-item.completed { border-left-color: #b6a5ce; background: #f6f3fa; }
+.todo-item.completed .todo-text { color: #81758f; text-decoration: line-through; }
+.delete-button { width: 36px; height: 36px; padding: 0; border: 0; border-radius: 10px; background: #eee8f6; color: #695184; font-size: 22px; font-weight: 800; line-height: 1; cursor: pointer; }
+.delete-button:hover { background: #fde8e5; color: #b42318; }
+.empty-message { margin: 24px 0 0; padding: 20px 10px; border: 2px dashed #cfc0e2; border-radius: 14px; color: #695184; text-align: center; font-size: 18px; }
+.empty-message[hidden] { display: none; }
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
