@@ -1,53 +1,39 @@
 <!doctype html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Icon Desk · 아이콘 데스크</title>
+  <title>오늘 할 일 작성기</title>
   <link rel="stylesheet" href="popup.css">
-  <script src="search-core.js" defer></script>
-  <script src="popup.js" defer></script>
 </head>
 <body>
-  <header>
-    <div class="brand"><span class="brand-mark" aria-hidden="true">✳</span><div><h1>Icon Desk</h1><p>업무에 맞는 아이콘을, 빠르게.</p></div></div>
-    <button id="open-window" class="quiet" type="button" title="별도 창에서 열기">새 창 ↗</button>
-  </header>
-  <main>
-    <form id="search-form">
-      <div class="section-label">01 / SEARCH</div>
-      <div class="inputs">
-        <label>한글 키워드 <span>선택</span><input id="keyword-ko" maxlength="80" placeholder="예: 고객 지원" autocomplete="off"></label>
-        <label>영문 키워드 <span>선택</span><input id="keyword-en" maxlength="80" placeholder="예: support" autocomplete="off" spellcheck="false" lang="en"></label>
+  <main class="app">
+    <header>
+      <p class="eyebrow">TODAY</p>
+      <h1>오늘 할 일</h1>
+      <p id="remaining" class="remaining" aria-live="polite">남은 할 일 0개</p>
+    </header>
+
+    <form id="todo-form" novalidate>
+      <label for="todo-input" class="sr-only">새 할 일</label>
+      <div class="input-row">
+        <textarea
+          id="todo-input"
+          rows="1"
+          maxlength="100"
+          placeholder="할 일을 입력하세요"
+          autocomplete="off"
+          autofocus
+        ></textarea>
+        <button type="button" class="add-button">추가</button>
       </div>
-      <p class="hint">하나만 입력해도 돼요. 둘 다 입력하면 공통 결과만 찾아요.</p>
-      <div class="search-options">
-        <label class="compact">종류<select id="kind"><option value="all">전체</option><option value="icons">아이콘</option><option value="avatars">아바타 · 인물</option></select></label>
-        <label class="compact">스타일<select id="style"><option value="all">모든 스타일</option><option value="line">선형</option><option value="filled">채움</option><option value="color">컬러</option></select></label>
-        <button id="search-button" class="primary" type="submit">아이콘 찾기 <span aria-hidden="true">↗</span></button>
-      </div>
-      <div class="privacy">검색어는 Iconify로 전송됩니다. 한글은 기본 사전에 없으면 MyMemory로 전송해 자동 번역합니다. 민감한 정보는 입력하지 마세요.</div>
+      <p id="input-error" class="error" role="alert" aria-live="assertive"></p>
     </form>
-    <section class="results-section" aria-labelledby="results-heading">
-      <div class="section-top"><h2 id="results-heading">02 / RESULTS <span id="count">0</span></h2><button id="cancel" class="quiet" hidden type="button">검색 취소</button></div>
-      <p id="status" role="status" aria-live="polite">어떤 아이콘이 필요한가요?</p>
-      <p id="query-detail" class="hint"></p>
-      <div id="empty" class="empty"><span aria-hidden="true">✦</span><strong>아이디어를 키워드로 바꿔보세요</strong><p>보안, 데이터, 개발자, coffee…<br>검색 결과에서 마음에 드는 그림을 선택하세요.</p></div>
-      <div id="results" class="results" role="group" aria-label="아이콘 검색 결과"></div>
-    </section>
-    <section id="editor" hidden aria-labelledby="editor-heading">
-      <div class="section-label" id="editor-heading">03 / EXPORT</div>
-      <div class="editor-content">
-        <div class="large-preview"><img id="selected-image" alt="선택한 아이콘"></div>
-        <div class="export-settings"><strong id="selected-name"></strong><p id="selected-source" class="hint"></p><a id="license-link" target="_blank" rel="noopener noreferrer">라이선스 확인 ↗</a>
-          <div class="export-options"><label class="compact">색상<input id="color" type="color" value="#3949ab"></label><label class="compact">크기<select id="size"><option value="128">128 px</option><option value="256" selected>256 px</option><option value="512">512 px</option><option value="1024">1024 px</option></select></label></div>
-          <p id="color-hint" class="hint">투명 배경으로 저장됩니다.</p>
-        </div>
-      </div>
-      <div class="download-actions"><button id="download-svg" type="button" class="primary">SVG 다운로드</button><button id="download-png" type="button" class="secondary">PNG 다운로드</button><button id="copy-svg" type="button" class="secondary">SVG 복사</button></div>
-      <p id="export-status" role="status" aria-live="polite"></p>
-    </section>
+
+    <ul id="todo-list" class="todo-list" aria-label="할 일 목록"></ul>
+    <p id="empty-message" class="empty-message">할 일을 추가해 보세요.</p>
   </main>
-  <footer>ICON DESK <span>Powered by Iconify · 최대 10개 추천</span></footer>
+
+  <script src="popup.js"></script>
 </body>
 </html>
