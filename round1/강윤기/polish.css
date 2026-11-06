@@ -21,3 +21,9 @@ html:has(body.popup-view){overflow:hidden}.popup-view{height:580px;max-height:60
 
 /* More compact main clock. */
 .dashboard-view #clock{font-size:clamp(48px,6.4vw,86px);letter-spacing:-3px}@media(max-width:600px){.dashboard-view #clock{font-size:clamp(42px,10.5vw,64px);letter-spacing:-1.5px}}
+
+/* Use the remaining popup height for complete, compact task rows. */
+.popup-view #notes-panel #memo-list{flex:1 1 0;min-height:0;max-height:none;overflow:hidden}
+.popup-view #notes-panel #memo-list li{height:32px;min-height:32px;padding:5px 0;align-items:center}
+.popup-view #notes-panel #memo-list li[hidden]{display:none}
+.popup-view #notes-panel #memo-list li>p{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;line-height:20px}

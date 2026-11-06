@@ -17,9 +17,17 @@
     }catch{message.textContent='저장하지 못했습니다. 입력 내용을 유지했으니 다시 시도해 주세요.';return false;}
     finally{controls(false);}
   }
+  function fitPopupItems(){
+    if(!isPopup)return;
+    const capacity=Math.max(0,Math.floor(list.clientHeight/32));
+    [...list.children].forEach((row,index)=>{row.hidden=index>=capacity;});
+    const shown=Math.min(items.length,capacity);
+    root.querySelector('#memo-count').textContent=shown<items.length?`전체 ${items.length}개 · 최근 ${shown}개`:`${items.length}개`;
+  }
+  if(isPopup)new ResizeObserver(fitPopupItems).observe(list);
   function render(){
-    list.replaceChildren();root.querySelector('#memo-count').textContent=isPopup&&items.length>1?`전체 ${items.length}개 · 최근 1개`:`${items.length}개`;root.querySelector('#memo-empty').hidden=items.length>0;
-    const visibleItems=isPopup?[...items].sort((a,b)=>b.createdAt-a.createdAt).slice(0,1):items;
+    list.replaceChildren();root.querySelector('#memo-count').textContent=`${items.length}개`;root.querySelector('#memo-empty').hidden=items.length>0;
+    const visibleItems=isPopup?[...items].sort((a,b)=>b.createdAt-a.createdAt):items;
     for(const item of visibleItems){
       const row=document.createElement('li'),body=document.createElement('p'),actions=document.createElement('div'),edit=document.createElement('button'),remove=document.createElement('button');
       body.textContent=item.text;body.title=item.text;actions.className='memo-item-actions';edit.type=remove.type='button';edit.textContent='수정';remove.textContent='삭제';
@@ -28,6 +36,7 @@
       remove.addEventListener('click',async()=>{if(busy)return;if(await save(items.filter(note=>note.id!==item.id))){if(editing===item.id)reset();render();}});
       actions.append(edit,remove);row.append(body,actions);list.append(row);
     }
+    fitPopupItems();
   }
   root.querySelector('#memo-form').addEventListener('submit',async event=>{
     event.preventDefault();if(!ready||busy)return;const text=input.value.trim();
