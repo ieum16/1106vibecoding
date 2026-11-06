@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>레이달랩 | 팀 작업실</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='18' fill='%23243653'/%3E%3Cpath fill='%23F7F3EC' d='M14 14h24l14 14v22H14V14z'/%3E%3Cpath fill='%23D9A56E' d='M38 14v14h14L38 14z'/%3E%3C/svg%3E">
+<style>
+:root{--navy:#243653;--paper:#f7f3ec;--sand:#d9a56e;--ink:#243653;--muted:#536078;--line:#ded6ca;--white:#fffdf8}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:90px}
+body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.65 system-ui,sans-serif;word-break:keep-all}
+a{color:inherit}
+:focus-visible{outline:3px solid #936128;outline-offset:4px}
+header{position:sticky;top:0;z-index:2;background:var(--white);border-bottom:1px solid var(--line)}
+.bar,main,footer{width:min(1080px,calc(100% - 32px));margin:auto}
+.bar{min-height:68px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.brand{display:flex;align-items:center;gap:10px;font-weight:800;text-decoration:none}
+.brand img,.mark{width:36px;height:36px;border-radius:10px}
+.mark{display:grid;place-items:center;background:var(--navy);color:#fff}
+.brand svg.mark{display:block;background:transparent}
+[hidden]{display:none!important}
+nav{display:flex;gap:20px}
+nav a{font-size:.91rem;text-decoration:none;font-weight:650}
+nav a:hover{text-decoration:underline}
+button{font:inherit;cursor:pointer}
+#menu-button{display:none}
+main{padding:32px 0 56px}
+section+section{margin-top:38px}
+.hero{background:var(--navy);color:#fff;border-radius:26px;padding:clamp(20px,5vw,54px);box-shadow:0 10px 24px #24365320}
+.eyebrow{font-size:.77rem;font-weight:800;letter-spacing:.14em;color:#765022;margin:0 0 6px}
+.hero .eyebrow{color:#f2cda5}
+h1,h2,h3,p{margin-top:0}
+h1{font-size:clamp(2.2rem,6vw,4.1rem);line-height:1.15;margin-bottom:12px;letter-spacing:-.055em}
+h2{font-size:clamp(1.55rem,4vw,2.2rem);line-height:1.25;margin-bottom:10px;letter-spacing:-.04em}
+h3{font-size:1.06rem;margin-bottom:6px}
+p:last-child{margin-bottom:0}
+.hero>p:not(.eyebrow){color:#e2e9f3}
+.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.card,.panel{padding:clamp(16px,3vw,28px);border-radius:18px;background:var(--white);border:1px solid var(--line);box-shadow:0 4px 12px #24365309}
+.pending{border:1px dashed #dfc3a6;border-radius:16px;padding:18px;margin-top:24px;background:#ffffff10}
+.pending p{color:#e2e9f3}
+.badge{display:inline-block;background:#f2d5b7;color:#493316;border-radius:30px;padding:2px 10px;font-size:.76rem;font-weight:750;margin-bottom:8px}
+.panel>p,.card p,.hint,footer{color:var(--muted)}
+form{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+label{display:grid;gap:5px;font-weight:650;min-width:0}
+.wide{grid-column:1/-1}
+input,textarea{font:inherit;color:var(--ink);background:white;border:1px solid #aaa296;border-radius:9px;padding:9px 11px;width:100%}
+textarea{resize:vertical}
+.action,#menu-button{background:var(--navy);color:white;border:0;border-radius:9px;padding:8px 14px;font-weight:700}
+.actions{display:flex;align-items:center;flex-wrap:wrap;gap:12px}
+.hint{font-size:.88rem}
+footer{border-top:1px solid var(--line);padding:18px 0 28px;font-size:.86rem}
+@media(max-width:900px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:639px){
+#menu-button{display:block}
+nav{display:none;position:absolute;top:100%;left:0;right:0;background:var(--white);border-bottom:1px solid var(--line);padding:12px 16px;flex-direction:column;gap:0}
+nav[data-open=true]{display:flex}
+nav a{padding:9px 0}
+.grid,form{grid-template-columns:1fr}
+main{padding-top:20px}
+}
+</style>
+</head>
+<body>
+<header>
+  <div class="bar">
+    <a class="brand" href="#tools">
+      <svg class="mark" viewBox="0 0 64 64" role="img" aria-label="레이달랩 로고">
+        <rect width="64" height="64" rx="18" fill="#243653"/>
+        <path fill="#F7F3EC" d="M14 14h24l14 14v22H14V14z"/>
+        <path fill="#D9A56E" d="M38 14v14h14L38 14z"/>
+      </svg>
+      레이달랩
+    </a>
+    <button id="menu-button" type="button" aria-expanded="false" aria-controls="menu">☰ 메뉴</button>
+    <nav id="menu" aria-label="페이지 메뉴">
+      <a href="#intro">레이달랩 소개</a><a href="#work">하는 일</a><a href="#tools">만든 도구</a><a href="#ideas">자동화 제안</a>
+    </nav>
+  </div>
+</header>
+<main>
+  <section id="tools" class="hero" aria-labelledby="tools-title">
+    <p class="eyebrow">레이달랩 팀 작업실</p>
+    <h1 id="tools-title">만든 도구</h1>
+    <p>팀이 만든 자동화 도구를 둘러보고, 내 업무에 적용할 아이디어를 찾아보세요.</p>
+    <article class="pending">
+      <span class="badge">준비 중</span>
+      <h3>첫 번째 자동화 도구</h3>
+      <p>도구가 등록되면 여기에 소개와 링크를 올려요.</p>
+    </article>
+  </section>
+  <section id="ideas" class="panel" aria-labelledby="ideas-title">
+    <p class="eyebrow">다음 실험</p>
+    <h2 id="ideas-title">자동화 제안</h2>
+    <p>반복하는 일과 원하는 결과를 적고, 제안문을 복사해 팀에 공유하세요.</p>
+    <form id="proposal">
+      <label>반복하는 일<input name="task" required placeholder="예: 회의록에서 할 일 찾기"></label>
+      <label>얼마나 자주 하나요?<input name="frequency" required placeholder="예: 매주 금요일"></label>
+      <label class="wide">원하는 결과<textarea name="outcome" rows="3" required placeholder="예: 담당자와 기한이 담긴 할 일 목록"></textarea></label>
+      <div class="wide actions">
+        <button class="action" type="submit">제안문 복사</button>
+        <span id="status" class="hint" role="status"></span>
+      </div>
+      <label id="preview" class="wide" hidden>완성된 제안문<textarea id="result" rows="5" readonly></textarea></label>
+    </form>
+  </section>
+  <section id="intro" class="panel" aria-labelledby="intro-title">
+    <p class="eyebrow">팀 소개</p>
+    <h2 id="intro-title">반복 업무를 자동화 도구로 바꾸는 팀</h2>
+    <p>레이달이 에이전트 4명과 함께 운영해요. 이 작업실에서 레이달을 포함한 팀원 4명이 도구를 살펴보고 다음 실험을 제안해요.</p>
+  </section>
+  <section id="work" aria-labelledby="work-title">
+    <p class="eyebrow">업무에 적용하기</p>
+    <h2 id="work-title">하는 일</h2>
+    <div class="grid">
+      <article class="card"><h3>메일 분류</h3><p>메일을 주제별로 나누고 답장이 필요한 메일을 표시해요.</p></article>
+      <article class="card"><h3>회의록 요약</h3><p>결정 사항과 할 일을 정리하고 담당자와 기한을 뽑아요.</p></article>
+      <article class="card"><h3>보고서 초안 작성</h3><p>흩어진 업무 메모를 주간 보고서 양식에 맞춰 정리해요.</p></article>
+    </div>
+  </section>
+</main>
+<footer>레이달랩 · 팀 작업실</footer>
+<script>
+const menuButton = document.querySelector('#menu-button');
+const menu = document.querySelector('#menu');
+function setMenu(open) {
+  menu.dataset.open = String(open);
+  menuButton.setAttribute('aria-expanded', String(open));
+}
+menuButton.addEventListener('click', () => setMenu(menu.dataset.open !== 'true'));
+menu.addEventListener('click', event => {
+  const link = event.target.closest('a');
+  if (!link) return;
+  if (menu.dataset.open === 'true') {
+    const target = document.querySelector(link.hash);
+    target.tabIndex = -1;
+    target.focus({ preventScroll: true });
+  }
+  setMenu(false);
+});
+document.addEventListener('keydown', event => {
+  if (event.key === 'Escape' && menu.dataset.open === 'true') {
+    setMenu(false);
+    menuButton.focus();
+  }
+});
+
+const form = document.querySelector('#proposal');
+const result = document.querySelector('#result');
+const status = document.querySelector('#status');
+form.addEventListener('submit', async event => {
+  event.preventDefault();
+  const values = new FormData(form);
+  const task = values.get('task').trim();
+  const frequency = values.get('frequency').trim();
+  const outcome = values.get('outcome').trim();
+  if (!task || !frequency || !outcome) {
+    status.textContent = '세 항목에 내용을 입력해 주세요.';
+    return;
+  }
+  result.value = ['[레이달랩 자동화 제안]', '반복하는 일: ' + task,
+    '빈도: ' + frequency, '원하는 결과: ' + outcome].join('\n');
+  document.querySelector('#preview').hidden = false;
+  try {
+    await navigator.clipboard.writeText(result.value);
+    status.textContent = '제안문을 복사했어요.';
+  } catch {
+    result.focus();
+    result.select();
+    status.textContent = '선택된 제안문을 직접 복사해 주세요.';
+  }
+});
+</script>
+</body>
+</html>
