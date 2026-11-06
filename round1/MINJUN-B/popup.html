@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="ko" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark light">
+  <title>도라에몽과 좋은 하루</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="popup.js" defer></script>
+</head>
+<body>
+  <div class="app">
+    <header class="header">
+      <div class="brand"><span class="eyebrow">DORAEMON'S DAILY ADVENTURE</span><h1>도라에몽과 좋은 하루</h1><p id="today-label"></p></div>
+      <div class="header-actions"><button id="theme-toggle" class="icon-button" type="button" aria-label="라이트 모드로 변경" title="테마 변경">☀</button><button id="settings-toggle" class="icon-button" type="button" aria-label="설정 열기" aria-haspopup="dialog" title="설정">⚙</button></div>
+    </header>
+      <section class="companion-card" aria-label="도라에몽의 응원">
+        <span id="comic-sfx" class="comic-sfx" aria-hidden="true">짠!</span>
+        <button class="character" type="button" data-costume-next title="누르면 다른 도라에몽으로 변신"><span class="dora-art" data-dora-art></span></button>
+        <div class="speech-bubble"><p id="cheer-message" data-costume-message role="status" aria-live="polite">작은 일도 하나씩, 오늘도 함께 해보자!</p></div>
+      </section>
+    <main id="dashboard" class="dashboard" aria-label="오늘의 대시보드" tabindex="0">
+      <section id="fortune-section" class="dashboard-section" aria-labelledby="fortune-title">
+        <div class="section-heading"><div><span class="section-kicker">첫 번째 이야기 · FORTUNE</span><h2 id="fortune-title">🔮 오늘의 운세 &amp; 행운 솔루션</h2></div><span class="chip">DAILY</span></div>
+        <form id="birthday-form" novalidate>
+          <label for="birth-date">생년월일 <span class="muted">양력 기준</span></label>
+          <div class="input-row"><input id="birth-date" type="date" min="1900-01-01" required aria-describedby="birthday-help fortune-status"><button id="save-birthday" class="secondary" type="submit">저장</button><button id="delete-birthday" class="text-button" type="button" hidden>삭제</button></div>
+          <p id="birthday-help" class="hint">생년월일은 이 브라우저에만 저장되며 외부로 전송되지 않아요.</p>
+        </form>
+        <button id="show-fortune" class="primary" type="button">✦ 오늘의 운세 보기</button>
+        <p id="fortune-status" class="status" role="status" aria-live="polite"></p>
+        <div id="fortune-placeholder" class="placeholder"><span aria-hidden="true">✧</span><p>오늘의 좋은 기운을 만나보세요.</p></div>
+        <div id="fortune-result" hidden>
+          <div id="overall-card" class="overall"></div>
+          <div id="fortune-scores" class="score-grid"></div>
+          <section class="solutions" aria-labelledby="solution-title"><div class="section-heading"><h3 id="solution-title">🍀 오늘의 행운 솔루션</h3><span id="solution-badge" class="chip"></span></div><p id="solution-intro" class="hint"></p><dl id="solution-list"></dl></section>
+        </div>
+        <p class="footnote">재미로 보는 창작 운세입니다. 실제 미래나 건강 상태를 예측하지 않습니다.</p>
+      </section>
+      <section id="lotto-section" class="dashboard-section" aria-labelledby="lotto-title">
+        <div class="section-heading"><div><span class="section-kicker">두 번째 이야기 · LUCKY NUMBERS</span><h2 id="lotto-title">🎰 행운의 로또</h2></div><span class="chip">6 / 45</span></div>
+        <fieldset class="mode-options"><legend class="sr-only">번호 생성 방식</legend><label><input name="lotto-mode" type="radio" value="random" checked> 일반 랜덤</label><label><input name="lotto-mode" type="radio" value="fortune"> 운세 기반</label></fieldset>
+        <p id="mode-help" class="hint">중복 없이 1~45 중 여섯 숫자를 무작위로 추첨해요.</p>
+        <div id="generated-numbers" class="balls" aria-label="추천 번호"><span class="muted">행운의 숫자를 뽑아보세요</span></div>
+        <p id="generated-meta" class="hint center"></p>
+        <button id="generate-numbers" class="primary" type="button">✦ 로또 번호 생성</button>
+        <p id="lotto-status" class="status" role="status" aria-live="polite"></p>
+        <div class="draw-block">
+          <div class="section-heading"><h3>최신 · 과거 당첨 번호</h3><button id="refresh-draw" class="text-button" type="button">↻ 최신 조회</button></div>
+          <label class="sr-only" for="draw-round">조회할 추첨 회차</label><select id="draw-round" disabled><option value="">회차를 불러오는 중</option></select>
+          <p id="draw-status" class="status" role="status" aria-live="polite">당첨 결과를 불러오는 중…</p>
+          <div id="draw-result" hidden><div class="draw-meta"><strong id="draw-heading"></strong><time id="draw-date"></time></div><div id="winning-numbers" class="balls" aria-label="당첨 번호"></div><p id="draw-source" class="hint"></p></div>
+          <p id="match-result" class="match-result" role="status" aria-live="polite" hidden></p>
+          <a class="source-link" href="https://www.dhlottery.co.kr/" target="_blank" rel="noopener noreferrer">동행복권에서 공식 결과 확인 ↗</a>
+        </div>
+        <p class="footnote">추천은 예측이 아니며 두 모드의 당첨 확률은 같습니다. 실제 당첨 여부는 공식 발표를 확인하세요.</p>
+        <p class="footnote">데이터: <a href="https://visionary153.github.io/lotto-api/" target="_blank" rel="noopener noreferrer">lotto-api</a> · <a href="https://github.com/smok95/lotto" target="_blank" rel="noopener noreferrer">smok95/lotto</a> (비공식, 오류·갱신 지연 가능)</p>
+      </section>
+      <section id="todo-section" class="dashboard-section" aria-labelledby="todo-title">
+        <div class="section-heading"><div><span class="section-kicker">세 번째 이야기 · TODAY'S MISSION</span><h2 id="todo-title">📝 오늘 할 일 주머니</h2></div><span id="remaining" class="remaining" aria-live="polite">남은 할 일 0개</span></div>
+        <form id="todo-form" novalidate><label class="sr-only" for="todo-input">새 할 일</label><div class="input-row"><input id="todo-input" type="text" maxlength="100" placeholder="오늘 할 일을 담아보세요" autocomplete="off"><button id="add-button" class="secondary" type="submit">＋ 추가</button></div><p id="input-error" class="status error" role="alert"></p></form>
+        <div class="todo-actions"><button id="random-button" class="lucky-button" type="button" disabled>✦ 행운 할 일 추천</button><button id="clear-button" class="text-button danger" type="button" disabled>전체 삭제</button></div>
+        <ul id="todo-list" class="todo-list" aria-label="할 일 목록"></ul>
+        <p id="empty-message" class="empty-message"><span class="pocket-icon" aria-hidden="true"></span>아직 비어 있는 주머니에<br>오늘의 작은 도전을 담아볼까요?</p>
+      </section>
+      <footer>✧ 작은 행운과 작은 실천으로 채우는 하루</footer>
+    </main>
+    <p id="app-status" class="app-status" role="status" aria-live="polite"></p>
+  </div>
+  <dialog id="settings-dialog" aria-labelledby="settings-title">
+    <div class="section-heading"><h2 id="settings-title">⚙ 화면 및 데이터 설정</h2><button id="settings-close" class="icon-button" type="button" aria-label="설정 닫기">×</button></div>
+    <p class="hint">더 넓게 보려면 별도 창으로 열어 모서리를 드래그하세요.</p>
+    <button id="open-app-window" class="primary" type="button">↗ 크기 조절 가능한 큰 창으로 열기</button>
+    <div class="settings-divider"></div><h3>할 일 옮기기</h3><p class="hint">JSON으로 내보내거나, 기존 할 일을 유지하면서 가져옵니다.</p>
+    <div class="transfer-row"><button id="export-todos" class="secondary" type="button">↓ 내보내기</button><label class="import-label secondary" for="import-todos">↑ 가져오기<input id="import-todos" class="sr-only" type="file" accept=".json,application/json"></label></div>
+    <p id="transfer-status" class="status" role="status" aria-live="polite"></p>
+    <p class="footnote">생년월일·테마·할 일은 이 브라우저에만 저장합니다. 생년월일 삭제는 운세 섹션에서 할 수 있습니다.</p>
+  </dialog>
+  <div id="celebration" class="celebration" aria-hidden="true"></div>
+</body>
+</html>

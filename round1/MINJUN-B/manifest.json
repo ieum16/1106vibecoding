@@ -1,0 +1,28 @@
+{
+  "manifest_version": 3,
+  "name": "도라에몽과 좋은 하루 · 대시보드",
+  "version": "2.3.0",
+  "description": "운세와 행운 솔루션, 로또 추천·당첨 조회, 도라에몽과 함께하는 오늘의 할 일을 한곳에서 관리하세요.",
+  "permissions": ["storage"],
+  "host_permissions": [
+    "https://visionary153.github.io/*",
+    "https://smok95.github.io/*"
+  ],
+  "icons": {
+    "16": "icons/icon16.png",
+    "32": "icons/icon32.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "action": {
+    "default_title": "도라에몽과 좋은 하루",
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "32": "icons/icon32.png"
+    }
+  },
+  "content_security_policy": {
+    "extension_pages": "script-src 'self'; object-src 'none'; connect-src https://visionary153.github.io https://smok95.github.io"
+  }
+}
