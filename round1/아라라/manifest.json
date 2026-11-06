@@ -1,0 +1,12 @@
+{
+  "manifest_version": 3,
+  "name": "오늘의 할일!",
+  "version": "1.2",
+  "description": "아라라가 오늘 할 일을 말해 주고, 끝내면 잘했어! 라고 칭찬해 주는 투두리스트",
+  "action": {
+    "default_popup": "todo.html",
+    "default_title": "오늘의 할일!",
+    "default_icon": { "16": "icons/icon16.png", "32": "icons/icon32.png", "48": "icons/icon48.png" }
+  },
+  "icons": { "16": "icons/icon16.png", "32": "icons/icon32.png", "48": "icons/icon48.png", "128": "icons/icon128.png" }
+}

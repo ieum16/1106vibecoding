@@ -1,0 +1,22 @@
+:root { font-family: -apple-system, BlinkMacSystemFont, "Malgun Gothic", sans-serif; color: #15334c; background: #f1f9ff; color-scheme: light; }
+* { box-sizing: border-box; }
+body { width: 380px; margin: 0; background: linear-gradient(160deg, #ccefff, #f7fbff 65%); }
+main { padding: 26px 22px; }
+.eyebrow { margin: 0 0 8px; color: #286b97; font-size: 11px; font-weight: 800; letter-spacing: .15em; }
+h1 { margin: 0; font-size: 27px; letter-spacing: -.04em; }
+.intro { margin: 10px 0 24px; font-size: 13px; color: #526e81; }
+label { display: block; margin-bottom: 8px; font-size: 14px; font-weight: 700; }
+input, button { width: 100%; font: inherit; border-radius: 10px; }
+input { min-width: 0; padding: 13px 11px; border: 1px solid #9dc9e1; background: white; font-size: 13px; }
+input:focus-visible, button:focus-visible { outline: 3px solid #85c9ef; outline-offset: 2px; }
+button { margin-top: 10px; padding: 12px; border: 0; background: #126ca2; color: white; font-size: 14px; font-weight: 700; cursor: pointer; }
+button:hover { background: #0c5582; }
+button.secondary { background: #e0f0fa; color: #205879; }
+button:disabled { cursor: wait; opacity: .55; }
+section { margin-top: 20px; padding: 14px; border: 1px solid #d1e6f3; border-radius: 12px; background: #ffffffbf; }
+section p { margin: 0; font-size: 13px; line-height: 1.6; overflow-wrap: anywhere; }
+progress { width: 100%; height: 8px; margin: 12px 0 4px; accent-color: #1686bf; }
+#detail, #file { color: #526e81; font-size: 12px; }
+.note, .setup { font-size: 11px; line-height: 1.7; color: #526e81; overflow-wrap: anywhere; }
+.setup { margin-bottom: 0; }
+.error { color: #b42318; }
