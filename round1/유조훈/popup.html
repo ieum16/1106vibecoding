@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>오늘 할 일 작성기</title>
+  <link rel="stylesheet" href="popup.css">
+  <script src="popup.js" defer></script>
+</head>
+<body>
+  <main>
+    <header>
+      <p class="eyebrow">하나씩, 차근차근</p>
+      <h1>오늘 할 일</h1>
+      <p class="subtitle">작은 할 일부터 시작해 보세요.</p>
+    </header>
+    <img class="hero" src="morning-desk.png" alt="햇살이 비치는 초록 식물과 커피가 놓인 책상">
+    <form id="todo-form">
+      <label class="sr-only" for="todo-input">새 할 일</label>
+      <input id="todo-input" type="text" placeholder="할 일을 입력하세요" maxlength="200" autocomplete="off" disabled>
+      <button class="add" type="submit" disabled>추가</button>
+    </form>
+    <p id="message" class="message" role="status" aria-live="polite"></p>
+    <div class="list-heading"><h2>할 일 목록</h2><span id="remaining" aria-live="polite">남은 일 0개</span></div>
+    <ul id="todo-list"></ul>
+    <p id="empty" class="empty">아직 할 일이 없어요.<br><span>오늘의 첫 번째 할 일을 적어 보세요!</span></p>
+  </main>
+</body>
+</html>
