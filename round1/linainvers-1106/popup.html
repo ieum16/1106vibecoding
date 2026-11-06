@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>한 주, 한 걸음</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="holidays.js" defer></script>
+  <script src="popup.js" defer></script>
+</head>
+<body>
+  <main>
+    <header class="heading">
+      <div><p class="eyebrow">MY WEEKLY PLANNER</p><h1>한 주, 한 걸음<span class="brand-dot">.</span></h1><p class="subtitle">해야 할 일을 가볍게, 중요한 일은 선명하게.</p></div>
+      <button id="expand" class="quiet" title="넓은 화면으로 열기">넓게 보기 ↗</button>
+    </header>
+    <section class="summary" aria-label="이번 주 진행 현황">
+      <div><span class="summary-label">이번 주의 작은 성취</span><p><strong id="completed">0</strong><span id="total"> / 0개 완료</span></p></div>
+      <div class="progress-area"><span id="percent">0%</span><progress id="progress" value="0" max="100" aria-label="업무 완료율"></progress></div>
+    </section>
+    <nav class="week-nav" aria-label="주간 이동">
+      <div class="week-control"><button id="prev" aria-label="이전 주">‹</button><h2 id="week-title"></h2><button id="next" aria-label="다음 주">›</button></div>
+      <button id="today" class="quiet">이번 주</button>
+    </nav>
+    <div class="toolbar"><span>월–금 · 주말과 휴일은 쉬어가요</span><label><input id="important-only" type="checkbox"> <span>★ 중요 업무만</span></label></div>
+    <p id="coverage" class="notice" hidden></p>
+    <p id="excluded" class="excluded" hidden></p>
+    <section id="days" aria-label="날짜별 업무"></section>
+    <section class="settings">
+      <details id="holiday-settings"><summary>휴일 관리 <span>회사 휴무일을 추가하세요</span></summary>
+        <p class="help">2026·2027년 대한민국 공휴일 포함. 추가 휴일은 직접 등록하세요. 숨겨진 날짜의 업무는 보관됩니다.</p>
+        <form id="holiday-form"><label>날짜<input id="holiday-date" type="date" required min="1900-01-01" max="9999-12-31"></label><label class="grow">휴일 이름<input id="holiday-name" maxlength="40" placeholder="예: 회사 창립기념일" required></label><button class="primary" type="submit">휴일 추가</button></form>
+        <ul id="custom-holidays"></ul>
+        <p class="help">공휴일 자료: <a href="https://www.kasa.go.kr/prog/plcyBrf/brief/kor/sub01_01_04/view.do?plcyBrfNo=431" target="_blank" rel="noreferrer">우주항공청 월력요항</a> · 기준일 2026.11.06</p>
+      </details>
+    </section>
+    <footer><span id="save-status" role="status" aria-live="polite">이 브라우저에 자동 저장됩니다</span><span class="legend">★ 중요 <span class="legend-dot"></span> 오늘</span></footer>
+  </main>
+  <dialog id="edit-dialog"><form id="edit-form"><h2>업무 수정</h2><label for="edit-text">업무 내용</label><textarea id="edit-text" maxlength="300" rows="4" required></textarea><div class="dialog-actions"><button id="edit-cancel" type="button">취소</button><button class="primary" type="submit">저장</button></div></form></dialog>
+</body>
+</html>

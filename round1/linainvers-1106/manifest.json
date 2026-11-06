@@ -1,0 +1,8 @@
+{
+  "manifest_version": 3,
+  "name": "한 주, 한 걸음 · 주간 업무 체크",
+  "version": "1.0.0",
+  "description": "주말과 휴일을 제외한 주간 업무 목록. 중요 업무 표시와 완료 체크, 자동 저장을 지원합니다.",
+  "permissions": ["storage"],
+  "action": { "default_title": "이번 주 업무 열기", "default_popup": "popup.html" }
+}
