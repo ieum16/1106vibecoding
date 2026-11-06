@@ -4,6 +4,9 @@
     python _instructor/collect.py            # git pull 후 정리
     python _instructor/collect.py --no-pull  # 지금 있는 파일로만 정리
 
+라운드 종류: round1·round3 = 크롬 확장 프로그램(manifest.json),
+            round2 = 팀 홈페이지(index.html · prd.md · logo · screenshot.png)
+
 결과: _instructor/out/dashboard.json, _instructor/out/screenshots/<라운드>/<아이디>[-2|-3].png
       _instructor/out/rows.json (대시보드용 한 줄씩 정리본, 소개 README.md 내용 포함)
       _instructor/out/gallery.html (브라우저로 바로 여는 제출 갤러리)
@@ -27,6 +30,11 @@ IMAGE_URLS = ROOT / "_instructor" / "image_urls.json"
 ROUNDS = ["round1", "round2", "round3"]
 EXAMPLES_DIR = "[강사예시]"
 ROUND_LABELS = {"round1": "1라운드", "round2": "2라운드", "round3": "3라운드", EXAMPLES_DIR: "강사 예시"}
+# 라운드마다 무엇을 올리는지: extension = 크롬 확장 프로그램, homepage = 팀 홈페이지
+ROUND_KINDS = {"round1": "extension", "round2": "homepage", "round3": "extension"}
+LOGO_RE = re.compile(r"^(?:.*/)?logo\.(png|jpe?g|svg|webp)$", re.IGNORECASE)
+PRD_RE = re.compile(r"^(?:.*/)?(?:prd|기획서)[^/]*\.md$", re.IGNORECASE)
+SITE_RE = re.compile(r"https://[0-9A-Za-z.\-]+\.vercel\.app[^\s)>\]]*")
 TEXT_EXT = {".html", ".css", ".js", ".json", ".md", ".txt"}
 # screenshot.png (대표) + screenshot-2.png, screenshot-3.png (선택)
 SCREENSHOT_RE = re.compile(r"^screenshot(?:-([23]))?\.(png|jpe?g)$", re.IGNORECASE)
@@ -41,9 +49,13 @@ INTRO_SECTIONS = {
     "써 보는 법": "how_to",
     "다음에 붙이고 싶은 기능": "next",
     "만들면서 배운 점": "learned",
+    # 2라운드(팀 홈페이지) 양식
+    "페이지 구성": "features",
+    "배포 주소": "site",
+    "1라운드와 다른 점": "changes",
 }
 LIST_SECTIONS = {"features", "changes", "how_to", "next"}
-TEMPLATE_TITLE = "확장 프로그램 이름"
+TEMPLATE_TITLES = {"확장 프로그램 이름", "팀 홈페이지 이름"}
 IGNORED_NAMES = {".DS_Store", "Thumbs.db", "desktop.ini"}
 
 # 공개 저장소에 올라오면 안 되는 값처럼 보이는 문자열
@@ -153,9 +165,62 @@ def read_intro(folder, files):
             intro[key] = " ".join(l.strip() for l in lines if l.strip())
 
     issues = []
-    if intro["title"] in ("", TEMPLATE_TITLE) or not intro.get("features"):
+    if intro["title"] in ("", *TEMPLATE_TITLES) or not intro.get("features"):
         issues.append("소개 양식을 아직 다 채우지 않음 (이름 또는 주요 기능)")
     return intro, issues
+
+
+def read_prd(folder, files):
+    """prd.md 의 첫 # 제목과 '한 줄' 이 들어간 표 칸(없으면 첫 문단)을 읽는다."""
+    rel = next((f for f in files if PRD_RE.match(f) and "/" not in f), None) or next(
+        (f for f in files if PRD_RE.match(f)), None
+    )
+    if not rel:
+        return None
+    text = re.sub(r"<!--.*?-->", "", read_text(folder / rel) or "", flags=re.S)
+    title, one_liner = "", ""
+    for line in text.splitlines():
+        line = line.strip()
+        if not title and line.startswith("# "):
+            title = line[2:].strip()
+        cells = [c.strip(" *") for c in line.strip("|").split("|")] if line.startswith("|") else []
+        if not one_liner and len(cells) >= 2 and ("한 줄" in cells[0] or "한줄" in cells[0]):
+            one_liner = cells[1]
+    if not one_liner:
+        for para in re.split(r"\n\s*\n", text):
+            para = para.strip()
+            if para and not para.startswith(("#", "|", "-", "*", ">", "```")):
+                one_liner = " ".join(para.split())[:160]
+                break
+    # "팀 소개 페이지 PRD — 브릿지팀" 처럼 붙은 앞말은 떼어 낸다
+    title = re.sub(r"^.*?PRD\s*[—\-:·]\s*", "", title) or title
+    return {"file": rel, "title": title, "one_liner": one_liner, "text": text}
+
+
+def find_logo(entry, files, round_name, student):
+    rel = next((f for f in files if LOGO_RE.match(f) and "/" not in f), None) or next(
+        (f for f in files if LOGO_RE.match(f)), None
+    )
+    if not rel:
+        return None
+    dest = OUT / "logos" / round_name / f"{student}{Path(rel).suffix.lower()}"
+    dest.parent.mkdir(parents=True, exist_ok=True)
+    shutil.copyfile(entry / rel, dest)
+    return {"source": rel, "file": dest.relative_to(OUT).as_posix(), "sha1": hashlib.sha1(dest.read_bytes()).hexdigest()}
+
+
+def find_site(folder, files, intro):
+    """배포 주소: 소개 글의 '## 배포 주소' 칸, 없으면 .md 파일 안의 vercel.app 주소."""
+    site = (intro or {}).get("site", "")
+    m = SITE_RE.search(site)
+    if m:
+        return m.group(0)
+    for rel in files:
+        if rel.lower().endswith(".md"):
+            m = SITE_RE.search(read_text(folder / rel) or "")
+            if m:
+                return m.group(0)
+    return ""
 
 
 def collect_screenshots(entry, files, round_name, student):
@@ -203,6 +268,7 @@ def compare(prev_files, files):
 
 
 def collect_round(round_name, prev_round_files):
+    kind = ROUND_KINDS.get(round_name, "example")
     round_dir = ROOT / round_name
     submissions = {}
     stray = []
@@ -219,17 +285,37 @@ def collect_round(round_name, prev_round_files):
 
         student = entry.name
         files = collect_files(entry)
-        manifest, issues = read_manifest(entry, files)
+        prd = read_prd(entry, files)
+        is_page = kind == "homepage" or (kind == "example" and "manifest.json" not in files and "index.html" in files)
+        if is_page:
+            manifest, issues = None, []
+            if not any(f == "index.html" or f.endswith("/index.html") for f in files):
+                issues.append("index.html 없음")
+            elif "index.html" not in files:
+                issues.append("index.html 이 한 단계 안쪽에 있음")
+        else:
+            manifest, issues = read_manifest(entry, files)
         shots = collect_screenshots(entry, files, round_name, student)
         screenshot = next((s for s in shots if s["order"] == 1), None)
         if not screenshot:
             issues.append("screenshot.png 없음")
+        logo = find_logo(entry, files, round_name, student)
         intro, intro_issues = read_intro(entry, files)
-        if round_name != EXAMPLES_DIR:
+        if kind == "homepage":
+            # 2라운드는 소개 글이 선택: PRD 가 있으면 PRD 로 카드를 채운다
+            if not prd:
+                issues.append("prd.md 없음")
+            if not logo:
+                issues.append("로고(logo.png) 없음")
+        elif kind != "example":
             issues += intro_issues
 
         submission = {
+            "kind": "homepage" if is_page else "extension",
             "manifest": manifest,
+            "prd": {k: v for k, v in prd.items() if k != "text"} if prd else None,
+            "logo": logo,
+            "site_url": find_site(entry, files, intro),
             "intro": intro,
             "screenshot": screenshot,
             "screenshots": shots,
@@ -239,7 +325,7 @@ def collect_round(round_name, prev_round_files):
             "issues": issues,
             "secret_warnings": scan_secrets(entry, files),
         }
-        if student in prev_round_files:
+        if student in prev_round_files and not is_page:
             submission["changes_from_previous_round"] = compare(
                 prev_round_files[student], files
             )
@@ -265,13 +351,17 @@ def to_rows(rounds, examples):
             changes = sub.get("changes_from_previous_round")
             shot = sub["screenshot"]
             intro = sub["intro"] or {}
+            prd = sub.get("prd") or {}
+            logo = sub.get("logo")
+            title = intro.get("title") if intro.get("title") not in ("", None, *TEMPLATE_TITLES) else ""
             rows.append({
                 "round": round_name,
                 "round_label": ROUND_LABELS[round_name],
                 "student": student,
-                "name": intro.get("title") if intro.get("title") not in ("", None, TEMPLATE_TITLE) else manifest.get("name") or "",
+                "kind": sub.get("kind", "extension"),
+                "name": title or prd.get("title") or manifest.get("name") or "",
                 "description": manifest.get("description") or "",
-                "one_liner": intro.get("one_liner", ""),
+                "one_liner": intro.get("one_liner", "") or prd.get("one_liner", ""),
                 "audience": intro.get("audience", ""),
                 "features": intro.get("features", []),
                 "changes_from_example": intro.get("changes", []),
@@ -279,6 +369,11 @@ def to_rows(rounds, examples):
                 "next_ideas": intro.get("next", []),
                 "learned": intro.get("learned", ""),
                 "has_intro": bool(intro),
+                "has_prd": bool(prd),
+                "prd_file": prd.get("file", ""),
+                "logo": image_urls.get(logo["sha1"], "") if logo else "",
+                "logo_file": logo["file"] if logo else "",
+                "site_url": sub.get("site_url", ""),
                 "screenshots": [
                     {
                         "file": s["file"],
@@ -318,6 +413,7 @@ section{max-width:1240px;margin:0 auto;padding:16px}h2{font-size:18px;margin:24p
 .name{font-size:17px;font-weight:800;margin:0}.one{margin:0;color:var(--muted);font-size:14px}
 .chips{display:flex;flex-wrap:wrap;gap:6px;margin:0;padding:0;list-style:none}.chips li{font-size:12px;padding:3px 9px;border-radius:999px;background:var(--bg);border:1px solid var(--line)}
 .label{font-size:12px;font-weight:700;color:var(--muted);margin-top:4px}.changes{margin:0;padding-left:18px;font-size:13px}
+.logo{width:40px;height:40px;object-fit:contain;border-radius:8px;border:1px solid var(--line);background:#fff}.site{font-size:13px;color:var(--point);font-weight:700}
 .warn{font-size:12px;color:var(--warn)}.meta{font-size:12px;color:var(--muted);margin-top:auto}
 dialog{border:0;padding:0;background:transparent;max-width:92vw}dialog img{max-width:92vw;max-height:86vh;border-radius:10px}dialog::backdrop{background:rgba(0,0,0,.7)}
 """
@@ -354,10 +450,12 @@ def write_gallery(rows, generated_at):
                 f'<div class="shot">{shot_html}</div>'
                 + (f'<div class="thumbs">{thumbs}</div>' if thumbs else "")
                 + '<div class="body">'
-                f'<div class="who">{e(r["student"])}</div>'
+                + (f'<img class="logo" src="{e(r["logo"] or r["logo_file"])}" alt="로고">' if r["logo_file"] else "")
+                + f'<div class="who">{e(r["student"])}</div>'
                 f'<p class="name">{e(r["name"] or "(이름 없음)")}</p>'
                 + (f'<p class="one">{e(r["one_liner"])}</p>' if r["one_liner"] else "")
                 + (f'<ul class="chips">{chips}</ul>' if chips else "")
+                + (f'<a class="site" href="{e(r["site_url"])}" target="_blank" rel="noopener">사이트 열기 ↗</a>' if r["site_url"] else "")
                 + (f'<div class="label">예시에서 바꾼 점</div><ul class="changes">{changes}</ul>' if changes else "")
                 + (f'<div class="warn">! {e(problems)}</div>' if problems else "")
                 + f'<div class="meta">파일 {r["files"]}개 · {r["lines"]}줄 · {e(r["committed_at"][:16].replace("T", " "))}</div>'
@@ -406,7 +504,8 @@ def main():
             "stray_files": stray,
             "submissions": submissions,
         }
-        prev_files = {s: sub["files"] for s, sub in submissions.items()}
+        if ROUND_KINDS.get(round_name) == "extension":
+            prev_files = {s: sub["files"] for s, sub in submissions.items()}
 
     examples, _ = collect_round(EXAMPLES_DIR, {})
 
