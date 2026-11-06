@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>오늘 할 일 작성기</title>
+    <link rel="stylesheet" href="popup.css">
+    <script src="popup.js" defer></script>
+  </head>
+  <body>
+    <main class="app" aria-labelledby="app-title">
+      <header class="header">
+        <div class="eyebrow">
+          <span class="sun" aria-hidden="true">☀</span>
+          <time id="today"></time>
+        </div>
+        <h1 id="app-title">오늘 할 일 작성기<span class="title-dot" aria-hidden="true">.</span></h1>
+        <p class="subtitle">하나씩 해내는, 나의 하루</p>
+      </header>
+
+      <section class="summary" aria-label="할 일 현황">
+        <div class="summary-top">
+          <p class="remaining" role="status" aria-live="polite" aria-atomic="true">남은 할 일 <strong id="remaining-count">0</strong><span>개</span></p>
+          <span id="completion-label" class="completion-label">전체 0개 · 완료 0개</span>
+        </div>
+        <div id="progress" class="progress" role="progressbar" aria-label="완료한 할 일" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+          <div id="progress-fill" class="progress-fill"></div>
+        </div>
+      </section>
+
+      <form id="task-form" class="task-form" novalidate>
+        <label for="task-input">오늘 무엇을 할까요?</label>
+        <div class="input-row">
+          <input id="task-input" name="task" type="text" placeholder="할 일을 입력하세요" autocomplete="off" spellcheck="false" aria-describedby="feedback" disabled>
+          <button id="add-button" class="add-button" type="submit" disabled><span aria-hidden="true">+</span> 추가</button>
+        </div>
+      </form>
+      <p id="feedback" class="feedback" role="status" aria-live="polite"></p>
+
+      <section class="tasks" aria-label="할 일 목록" aria-busy="true" id="task-section">
+        <p id="loading" class="loading">목록을 불러오는 중이에요…</p>
+        <div id="empty-state" class="empty-state" hidden>
+          <div class="empty-icon" aria-hidden="true">
+            <svg viewBox="0 0 48 48" fill="none"><rect x="12" y="8" width="26" height="34" rx="5" stroke="currentColor" stroke-width="2.5"/><rect x="18" y="5" width="14" height="8" rx="3" fill="currentColor"/><path d="m18 24 3 3 5-6m-8 13h12m0-10h2" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <p class="empty-title">오늘의 첫 할 일을 적어 보세요</p>
+          <p class="empty-description">작은 일 하나부터 시작해도 좋아요.</p>
+        </div>
+        <ul id="task-list" class="task-list"></ul>
+      </section>
+
+      <footer class="footer"><span class="save-dot" aria-hidden="true"></span>이 브라우저에 자동 저장돼요</footer>
+    </main>
+  </body>
+</html>
