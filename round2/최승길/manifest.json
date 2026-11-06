@@ -1,0 +1,12 @@
+{
+  "manifest_version": 3,
+  "name": "GAStudio 팀 홈페이지",
+  "version": "1.0.0",
+  "description": "반복 사무 업무를 자동화하는 GAStudio의 팀 소개와 자동화 요청 안내입니다.",
+  "action": {
+    "default_title": "GAStudio 홈페이지 열기"
+  },
+  "background": {
+    "service_worker": "background.js"
+  }
+}
