@@ -1,0 +1,11 @@
+{
+  "manifest_version": 3,
+  "name": "chicony",
+  "version": "2.0.0",
+  "description": "과제제출",
+  "minimum_chrome_version": "120",
+  "permissions": ["activeTab", "downloads", "storage"],
+  "host_permissions": ["https://www.youtube.com/*", "https://*.googlevideo.com/*"],
+  "background": {"service_worker": "background.js", "type": "module"},
+  "action": {"default_title": "유튜브 로컬 다운로드", "default_popup": "popup.html"}
+}
