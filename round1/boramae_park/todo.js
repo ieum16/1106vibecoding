@@ -1,5 +1,5 @@
-const NAME = "고라파덕";
-const KEY = "psyduck-todo-v1";
+const NAME = "몽글";
+const KEY = "mongle-todo-v1";
 const $ = id => document.getElementById(id);
 
 const isPopup = !new URLSearchParams(location.search).has("full");
@@ -52,7 +52,7 @@ function render() {
   list.replaceChildren();
   todos.forEach(todo => {
     const item = document.createElement("li"); if (todo.done) item.className = "done";
-    item.innerHTML = `<div class="mini" aria-hidden="true"><img src="img/psyduck-reference.jpg" alt=""></div><div class="item-bubble" title="눌러서 친구에게 말하기">${esc(todo.text)}${todo.done ? '<span class="stamp">해냈다!</span>' : ""}</div>${todo.done ? '<button class="btn btn-undo" type="button" data-act="undo">되돌리기</button>' : '<button class="btn btn-ok" type="button" data-act="ok">완료</button>'}<button class="del" type="button" data-act="del" aria-label="삭제">✕</button>`;
+    item.innerHTML = `<div class="mini" aria-hidden="true"><img src="img/chiikawa-mascot.png" alt=""></div><div class="item-bubble" title="눌러서 친구에게 말하기">${esc(todo.text)}${todo.done ? '<span class="stamp">해냈다!</span>' : ""}</div>${todo.done ? '<button class="btn btn-undo" type="button" data-act="undo">되돌리기</button>' : '<button class="btn btn-ok" type="button" data-act="ok">완료</button>'}<button class="del" type="button" data-act="del" aria-label="삭제">✕</button>`;
     item.querySelector(".item-bubble").onclick = () => todo.done ? say(`<b>${esc(todo.text)}</b>, 이미 해냈지! 정말 잘했어!`) : sayToday(todo.text);
     item.querySelectorAll("button").forEach(button => button.onclick = () => act(todo, button.dataset.act));
     list.append(item);
