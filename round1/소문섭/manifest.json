@@ -1,0 +1,23 @@
+{
+  "manifest_version": 3,
+  "name": "오늘의 할 일 라인업",
+  "version": "1.0.0",
+  "description": "오늘의 할 일을 라인업에 올리고, 하나씩 완료하며 홈인하세요.",
+  "permissions": ["storage"],
+  "icons": {
+    "16": "icons/icon-16.png",
+    "32": "icons/icon-32.png",
+    "48": "icons/icon-48.png",
+    "128": "icons/icon-128.png"
+  },
+  "action": {
+    "default_icon": {
+      "16": "icons/icon-16.png",
+      "32": "icons/icon-32.png",
+      "48": "icons/icon-48.png",
+      "128": "icons/icon-128.png"
+    },
+    "default_title": "오늘의 할 일 라인업",
+    "default_popup": "popup.html"
+  }
+}
