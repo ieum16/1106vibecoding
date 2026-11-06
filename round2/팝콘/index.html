@@ -1,0 +1,415 @@
+<!doctype html>
+<html lang="ko">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#ffffff">
+<title>팀요아정 | 팀 업무 관리</title>
+<style>
+  :root{color-scheme:light;--bg:#fff;--card:#fff;--text:#222;--muted:#5f656c;--blue:#179bff;--ink-blue:#075aa0;--tint:#eff8ff;--line:#e5e8eb;--shadow:0 2px 6px #0000000a,0 4px 8px #0000000f}
+  *{box-sizing:border-box}
+  [hidden]{display:none!important}
+  html{scroll-behavior:smooth}
+  @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+  body{margin:0;background:var(--bg);color:var(--text);font:16px/1.55 "Malgun Gothic","Apple SD Gothic Neo",system-ui,sans-serif}
+  button,input,select,textarea{font:inherit}
+  a{color:inherit;text-decoration:none}
+  :focus-visible{outline:2px solid var(--blue);outline-offset:4px}
+  header{position:sticky;top:0;z-index:1;background:#fff;border-bottom:1px solid var(--line)}
+  .bar,main,footer{width:min(100% - 64px,1120px);margin:auto}
+  .bar{min-height:72px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+  .brand{display:flex;align-items:center;gap:10px;font-weight:700}
+  .brand img{display:block;width:156px;height:auto}
+  nav{display:flex;gap:8px}
+  nav a,.pill{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:8px 16px;border-radius:999px;font-size:14px;font-weight:700}
+  nav a,.pill{background:#f7f7f7;color:var(--text);border:1px solid transparent}
+  nav a{background:transparent;font-weight:600}
+  nav a[aria-current]{background:var(--tint);color:var(--ink-blue)}
+  .primary{background:var(--blue);color:#071825}
+  .pill{cursor:pointer}
+  .pill:hover,nav a:hover{border-color:var(--blue)}
+  main{padding-block:48px 88px}
+  section{scroll-margin-top:96px}
+  section+section{margin-top:88px}
+  section:not(.hero){border-top:1px solid var(--line);padding-top:48px}
+  .hero{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);align-items:center;gap:40px;padding:clamp(28px,6vw,72px);border-radius:32px;background:#f5faff}
+  .quick-links{display:flex;flex-wrap:wrap;gap:8px;margin-top:24px}
+  .quick-links .pill{background:white;border-color:#d7e8f5}
+  .quick-links .primary{background:var(--blue);border-color:transparent}
+  .hero .intro{max-width:54ch}
+  .speech{display:flex;align-items:center;gap:16px;margin:12px 0 24px}
+  .speech img{display:block;width:64px;height:64px;flex:none;object-fit:contain;filter:url(#mascot-cutout)}
+  .speech .intro{position:relative;margin:0;padding:10px 16px;border-radius:16px;background:#eff8ff}
+  .hero .speech .intro{background:#fff}
+  .speech .intro::before{content:"";position:absolute;right:100%;top:50%;transform:translateY(-50%);border:7px solid transparent;border-left:0;border-right-color:#eff8ff}
+  .hero .speech .intro::before{border-right-color:#fff}
+  .hero-art{display:block;width:100%;max-width:360px;justify-self:center}
+  .members{grid-column:1/-1;margin-top:8px}
+  .member-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:24px;list-style:none;padding:0;margin:24px 0 0}
+  .member-grid li{display:grid;justify-items:center;gap:12px;padding:24px 12px;border:1px solid var(--line);border-radius:20px;background:#f8fbff;font-weight:650}
+  .member-grid img{display:block;width:min(100%,128px);height:auto;aspect-ratio:1;object-fit:cover;border-radius:50%}
+  .section-label{display:block;margin-bottom:6px}
+  .example{margin-top:12px;color:var(--muted);font-size:14px;overflow-wrap:anywhere}
+  h1,h2,h3,p,dl{margin:0}
+  h1{font-size:clamp(30px,4.5vw,44px);line-height:1.25;letter-spacing:-.045em}
+  h2{font-size:25px;letter-spacing:-.035em}
+  h3{font-size:17px;font-weight:650;overflow-wrap:anywhere}
+  .eyebrow{color:var(--ink-blue);font-size:12px;font-weight:700;letter-spacing:.09em}
+  .intro{color:var(--muted);margin:8px 0 20px}
+  .summary{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 16px}
+  .filters{display:grid;grid-template-columns:2fr repeat(3,minmax(0,1fr));gap:16px;margin-bottom:24px;padding:20px;border:1px solid var(--line);border-radius:24px;background:#fafafa}
+  .person-filter{grid-column:1/-1;max-width:320px}
+  .file-link{color:var(--ink-blue);text-decoration:underline}
+  .filters label{font-weight:600}
+  .filters :is(input,select){border-radius:999px;border-color:#d4d8dc}
+  .empty{color:var(--muted);padding-block:12px}
+  .tag{display:inline-block;padding:4px 10px;border-radius:999px;background:#f2f2f2;color:#41474e;font-size:12px;font-weight:650}
+  .handoff{background:#d9edff;color:var(--ink-blue)}
+  .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px;align-items:start}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:24px;min-width:0}
+  .card:hover,.card:focus-within{box-shadow:var(--shadow)}
+  .card[data-handoff="true"]{background:var(--tint);border-color:#add7f9}
+  .card-top,.actions{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap}
+  .card-top{margin-bottom:12px}
+  dl{display:grid;grid-template-columns:76px minmax(0,1fr);gap:9px 12px;font-size:14px}
+  dt{color:var(--muted)}
+  dd{margin:0;overflow-wrap:anywhere;white-space:pre-wrap}
+  .actions{justify-content:flex-end;margin-top:14px}
+  form{display:grid;gap:12px}
+  label{display:grid;gap:4px;font-size:14px}
+  input:not([type=checkbox]),select,textarea{width:100%;min-width:0;padding:8px 12px;background:#fff;color:var(--text);border:1px solid #94a9bd;border-radius:8px}
+  textarea{resize:vertical}
+  .check{display:flex;align-items:center;gap:8px}
+  .message{color:#9c223a;font-size:14px}
+  footer{border-top:1px solid var(--line);padding-block:16px 24px;color:var(--muted);font-size:13px}
+  @media(max-width:640px){
+    .bar,main,footer{width:calc(100% - 32px)}
+    .bar{min-height:64px;position:relative}
+    nav{position:absolute;top:calc(100% + 8px);right:0;flex-direction:column;background:#fff;padding:8px;border:1px solid var(--line);border-radius:12px;box-shadow:0 8px 24px #16395726}
+    nav[data-open="false"]{display:none}
+    .grid{grid-template-columns:1fr}
+    .filters{grid-template-columns:1fr}
+    .hero{grid-template-columns:1fr;gap:16px}
+    .hero-art{max-width:260px}
+    .speech{gap:10px}
+    .speech img{width:48px;height:48px}
+    .members{margin-top:16px}
+    .member-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+    section+section{margin-top:56px}
+    section:not(.hero){padding-top:32px}
+    main{padding-top:24px}
+  }
+</style>
+<header>
+  <div class="bar">
+    <a class="brand" href="#intro"><img src="images/logo.png" alt="팀요아정 홈" width="2172" height="724"></a>
+    <button class="pill menu" type="button" aria-controls="navigation" aria-expanded="false" hidden>메뉴</button>
+    <nav id="navigation" aria-label="주 메뉴" data-open="false">
+      <a href="#intro" aria-current="location">팀요아정 소개</a>
+      <a href="#work">전체업무</a>
+      <a href="#schedule">일정관리</a>
+      <a href="#log">관리일지</a>
+    </nav>
+  </div>
+</header>
+<main>
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs>
+      <filter id="mascot-cutout" color-interpolation-filters="sRGB">
+        <feColorMatrix in="SourceGraphic" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  5 0 -5 0 0.85" result="mask"/>
+        <feComposite in="SourceGraphic" in2="mask" operator="in"/>
+      </filter>
+    </defs>
+  </svg>
+  <section class="hero" id="intro" aria-labelledby="intro-title">
+    <div>
+      <p class="eyebrow section-label">팀요아정 · 100명이 함께하는 업무 공간</p>
+      <h1 id="intro-title">우리 팀 업무,<br>여기서 같이 챙겨요</h1>
+      <div class="speech"><img src="images/honeycomb.png" alt="벌꿀집"><p class="intro">안녕, 벌꿀집이에요! 우리 팀이 하는 일과 다가오는 일정, 최근에 바뀐 파일을 함께 둘러봐요.</p></div>
+      <div class="quick-links">
+        <a class="pill primary" href="#work" data-scope="mine">내 업무</a>
+        <a class="pill" href="#work" data-scope="incoming">인수받을 업무</a>
+        <a class="pill" href="#schedule">이번 주 일정</a>
+      </div>
+    </div>
+    <svg class="hero-art" viewBox="0 0 360 232" aria-hidden="true">
+      <ellipse cx="185" cy="119" rx="145" ry="96" fill="#e0f1ff"/>
+      <g transform="rotate(-9 123 115)">
+        <rect x="52" y="49" width="132" height="148" rx="21" fill="#fff" stroke="#b9defb" stroke-width="2"/>
+        <rect x="69" y="67" width="34" height="34" rx="11" fill="#dbf0ff"/>
+        <path d="m78 84 5 5 10-11" fill="none" stroke="#0874c7" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M70 120h86m-86 19h72m-72 19h80" stroke="#d7e5ef" stroke-width="6" stroke-linecap="round"/>
+      </g>
+      <g transform="rotate(9 236 102)">
+        <rect x="164" y="33" width="142" height="131" rx="20" fill="#fff" stroke="#b9defb" stroke-width="2"/>
+        <path d="M164 75h142M199 27v22m72-22v22" stroke="#179bff" stroke-width="5" stroke-linecap="round"/>
+        <path d="M190 99h21m15 0h21m16 0h18m-91 27h21m52 0h18" stroke="#d7e5ef" stroke-width="6" stroke-linecap="round"/>
+        <rect x="223" y="115" width="27" height="22" rx="8" fill="#179bff"/>
+      </g>
+      <path d="M196 160a12 12 0 0 1 12-12h27l11 10h47a12 12 0 0 1 12 12v26a12 12 0 0 1-12 12h-85a12 12 0 0 1-12-12z" fill="#179bff"/>
+      <path d="M214 178h51m-51 12h34" stroke="#fff" stroke-width="4" stroke-linecap="round"/>
+      <path d="M325 53v24m-12-12h24M36 152v14m-7-7h14" stroke="#179bff" stroke-width="3" stroke-linecap="round"/>
+    </svg>
+    <div class="members" aria-labelledby="members-title">
+      <h2 id="members-title">팀원 소개</h2>
+      <ul class="member-grid">
+        <li><img src="images/honeycomb.png" alt="" width="128" height="128">벌꿀집</li>
+        <li><img src="images/choco-shell.png" alt="" width="128" height="128">초코쉘</li>
+        <li><img src="images/cherry.png" alt="" width="128" height="128">체리</li>
+        <li><img src="images/oreo.png" alt="" width="128" height="128">오레오</li>
+      </ul>
+    </div>
+  </section>
+  <section id="work" aria-labelledby="work-title">
+    <p class="eyebrow section-label">01 · 업무 현황</p>
+    <h2 id="work-title">전체업무</h2>
+    <div class="speech"><img src="images/choco-shell.png" alt="초코쉘"><p class="intro">초코쉘이에요! 팀이나 담당자로 검색해서 내 업무와 인수받을 일을 찾아보세요.</p></div>
+    <div class="filters">
+      <label>업무 검색<input id="search" type="search" placeholder="업무명, 담당자, 할 일 검색"></label>
+      <label>팀<select id="team-filter"><option value="">모든 팀</option><option>운영팀</option><option>지원팀</option><option>협업팀</option></select></label>
+      <label>업무 범위<select id="handoff-filter"><option value="">전체 업무</option><option value="true">인수 대상 전체</option><option value="mine">내 업무</option><option value="incoming">인수받을 업무</option></select></label>
+      <label>진행 상태<select id="status-filter"><option value="">전체 상태</option><option>시작 전</option><option>진행 중</option><option>완료</option></select></label>
+      <label class="person-filter" hidden>내 닉네임<input id="person" autocomplete="off" placeholder="예: 나루"></label>
+    </div>
+    <div class="summary" aria-live="polite"></div>
+    <div class="grid" id="cards"></div>
+    <p class="empty" id="empty" hidden>조건에 맞는 업무가 없습니다. 검색어나 필터를 바꿔 보세요.</p>
+  </section>
+  <section id="schedule" aria-labelledby="schedule-title">
+    <p class="eyebrow section-label">02 · 업무 일정</p>
+    <h2 id="schedule-title">일정관리</h2>
+    <div class="speech"><img src="images/cherry.png" alt="체리"><p class="intro">체리예요! 이번 주 공통 일정과 팀별 일정을 여기서 확인해요.</p></div>
+    <div class="grid">
+      <article class="card"><div class="card-top"><h3>주간 업무 요약 마감</h3><span class="tag">운영팀 · 마감 예시</span></div>
+        <dl><dt>일정</dt><dd>매주 금요일 16:00</dd><dt>할 일</dt><dd>진행 중인 업무와 다음 조치를 요약 문서에 반영</dd></dl>
+      </article>
+      <article class="card"><div class="card-top"><h3>팀 업무 현황 공유</h3><span class="tag">전사 공통 · 회의 예시</span></div>
+        <dl><dt>일정</dt><dd>매주 월요일 10:00</dd><dt>할 일</dt><dd>이번 주 우선순위와 담당자 변경 사항 확인</dd></dl>
+      </article>
+    </div>
+  </section>
+  <section id="log" aria-labelledby="log-title">
+    <p class="eyebrow section-label">03 · 업무 자료</p>
+    <h2 id="log-title">관리일지</h2>
+    <div class="speech"><img src="images/oreo.png" alt="오레오"><p class="intro">오레오예요! 업무 파일이 어디에 있고 무엇이 바뀌었는지 여기서 찾아보세요.</p></div>
+    <div class="grid">
+      <article class="card"><div class="card-top"><h3>공용 업무 양식</h3><span class="tag">기록 예시</span></div>
+        <dl><dt>파일 위치</dt><dd>팀 자료함 → 공용 양식</dd><dt>변경자</dt><dd>나루 · 지원팀</dd><dt>변경 내용</dt><dd>팀별 진행 상태를 같은 기준으로 기록하도록 공용 양식을 정리</dd></dl>
+      </article>
+      <article class="card"><div class="card-top"><h3>운영 요청 목록</h3><span class="tag">기록 예시</span></div>
+        <dl><dt>파일 위치</dt><dd>팀 자료함 → 운영 → 요청 목록</dd><dt>변경자</dt><dd>하루 · 운영팀</dd><dt>변경 내용</dt><dd>인수자가 남은 요청을 이어서 처리할 수 있도록 후속 작업과 담당자를 기록</dd></dl>
+      </article>
+    </div>
+  </section>
+</main>
+<footer>팀요아정 · 업무·일정·관리일지 예시 · 전체업무 수정 내용은 이 브라우저에 저장됩니다.</footer>
+<template id="task-view">
+  <div class="card-top"><h3></h3><div><span class="tag task-team"></span> <span class="tag handoff">인수 대상</span></div></div>
+  <dl><dt>해야 할 일</dt><dd></dd><dt>진행 상태</dt><dd></dd><dt>파일 위치</dt><dd></dd><dt>인계자</dt><dd></dd><dt>인수자</dt><dd></dd></dl>
+  <div class="actions"><button class="pill" type="button">수정</button></div>
+</template>
+<template id="task-edit">
+  <form>
+    <label>업무명<input name="title" required maxlength="100"></label>
+    <label>해야 할 일<textarea name="todo" required rows="3"></textarea></label>
+    <label>진행 상태<select name="status"><option>시작 전</option><option>진행 중</option><option>완료</option></select></label>
+    <label>파일 위치<input name="location" required></label>
+    <label>인계자<input name="from" maxlength="60"></label>
+    <label>인수자<input name="to" maxlength="60"></label>
+    <label class="check"><input name="handoff" type="checkbox"> 인수 대상</label>
+    <p class="message" role="alert" hidden></p>
+    <div class="actions"><button class="pill" type="button">취소</button><button class="pill primary">저장</button></div>
+  </form>
+</template>
+<script>
+  const key = 'team-yoajeong.tasks.v1';
+  const fields = ['title', 'todo', 'status', 'location'];
+  const people = ['from', 'to'];
+  const examples = [
+    {id:1,title:'주간 업무 요약',todo:'진행 중인 업무를 확인하고 팀 요약 문서에 반영합니다.',status:'진행 중',location:'팀 자료함 → 운영 → 주간 요약',handoff:true},
+    {id:2,title:'운영 요청 관리',todo:'미처리 요청의 진행 상태를 확인하고 다음 조치를 정리합니다.',status:'진행 중',location:'팀 자료함 → 운영 → 요청 목록',handoff:true},
+    {id:3,title:'공용 업무 양식 정리',todo:'공용 양식의 이름과 저장 위치를 확인합니다.',status:'완료',location:'팀 자료함 → 공용 양식',handoff:false},
+    {id:4,title:'협업 업무 현황 정리',todo:'진행 중인 협업 건의 담당자와 후속 작업을 확인합니다.',status:'시작 전',location:'팀 자료함 → 협업 → 업무 현황',handoff:false}
+  ];
+  const sampleOwners = [['보리','나루'],['하루','모아'],['나루',''],['모아','']];
+  const teams = ['운영팀','운영팀','지원팀','협업팀'];
+  let tasks = examples.map((task, index) => ({...task, from:sampleOwners[index][0], to:sampleOwners[index][1]}));
+  try {
+    const saved = JSON.parse(localStorage.getItem(key));
+    if (Array.isArray(saved) && saved.length === examples.length &&
+        examples.every(example => saved.some(task => task?.id === example.id &&
+          fields.every(field => typeof task[field] === 'string') &&
+          ['시작 전', '진행 중', '완료'].includes(task.status) &&
+          typeof task.handoff === 'boolean'))) {
+      tasks = saved.map(task => {
+        const original = tasks.find(item => item.id === task.id);
+        const updated = task.id === 2 && task.title === '입사 안내 자료 관리' &&
+          task.todo === '첫 주 체크리스트와 초기 설정 안내를 확인합니다.' &&
+          task.location === '팀 자료함 → 입사 안내 → 첫 주 체크리스트'
+          ? {...task, title:original.title, todo:original.todo, location:original.location} : task;
+        return {...updated, from:typeof task.from === 'string' ? task.from : '',
+          to:typeof task.to === 'string' ? task.to : ''};
+      });
+    }
+  } catch {}
+
+  const search = document.querySelector('#search');
+  const handoffFilter = document.querySelector('#handoff-filter');
+  const statusFilter = document.querySelector('#status-filter');
+  const teamFilter = document.querySelector('#team-filter');
+  const person = document.querySelector('#person');
+  const list = document.querySelector('#cards');
+  const cards = new Map();
+  function filterTasks() {
+    const query = search.value.trim().toLocaleLowerCase();
+    const name = person.value.trim().toLocaleLowerCase();
+    const scope = handoffFilter.value;
+    const personal = scope === 'mine' || scope === 'incoming';
+    person.closest('label').hidden = !personal;
+    document.querySelector('#empty').textContent = personal && !name
+      ? '내 닉네임을 입력해 업무를 확인하세요.'
+      : '조건에 맞는 업무가 없습니다. 검색어나 필터를 바꿔 보세요.';
+    let visible = 0;
+    for (const task of tasks) {
+      const matchesScope = scope === 'mine' ? name && task.from.toLocaleLowerCase() === name
+        : scope === 'incoming' ? name && task.handoff && task.to.toLocaleLowerCase() === name
+        : !scope || task.handoff;
+      const matches = matchesScope &&
+        (!teamFilter.value || teams[task.id - 1] === teamFilter.value) &&
+        (!statusFilter.value || task.status === statusFilter.value) &&
+        [...fields, ...people].some(field => task[field].toLocaleLowerCase().includes(query));
+      cards.get(task.id).hidden = !matches;
+      if (matches) visible++;
+    }
+    document.querySelector('#empty').hidden = visible !== 0;
+    return visible;
+  }
+  function updateSummary() {
+    const visible = filterTasks();
+    const counts = ['전체 ' + tasks.length + '개', '인수 대상 ' + tasks.filter(task => task.handoff).length + '개', '표시 ' + visible + '개'];
+    document.querySelector('.summary').replaceChildren(...counts.map((label, index) => {
+      const tag = document.createElement('span');
+      tag.className = index === 1 ? 'tag handoff' : 'tag';
+      tag.textContent = label;
+      return tag;
+    }));
+  }
+
+  function showTask(card, task, restoreFocus = false) {
+    const view = document.querySelector('#task-view').content.cloneNode(true);
+    view.querySelector('h3').textContent = task.title;
+    view.querySelector('.task-team').textContent = teams[task.id - 1];
+    view.querySelector('.handoff').hidden = !task.handoff;
+    view.querySelectorAll('dd').forEach((item, index) => {
+      item.textContent = task[[...fields.slice(1), ...people][index]] || '미지정';
+      if (index === 2 && /^https?:\/\/\S+$/i.test(task.location)) {
+        const link = document.createElement('a');
+        link.className = 'file-link';
+        link.href = task.location;
+        link.textContent = '업무 파일 열기';
+        item.replaceChildren(link);
+      }
+    });
+    const edit = view.querySelector('button');
+    edit.setAttribute('aria-label', task.title + ' 수정');
+    edit.addEventListener('click', () => editTask(card, task));
+    card.dataset.handoff = task.handoff;
+    card.replaceChildren(view);
+    if (restoreFocus) edit.focus();
+  }
+
+  function editTask(card, task) {
+    const editor = document.querySelector('#task-edit').content.cloneNode(true);
+    const form = editor.querySelector('form');
+    for (const field of [...fields, ...people]) form.elements.namedItem(field).value = task[field];
+    form.elements.handoff.checked = task.handoff;
+    form.querySelector('[type=button]').addEventListener('click', () => showTask(card, task, true));
+    form.addEventListener('submit', event => {
+      event.preventDefault();
+      const updated = {...task, handoff:form.elements.handoff.checked};
+      for (const field of [...fields, ...people]) updated[field] = form.elements.namedItem(field).value.trim();
+      const empty = fields.find(field => !updated[field]);
+      const message = form.querySelector('.message');
+      if (empty) {
+        message.textContent = '빈 항목을 입력해 주세요.';
+        message.hidden = false;
+        form.elements.namedItem(empty).focus();
+        return;
+      }
+      const next = tasks.map(item => item.id === task.id ? updated : item);
+      try {
+        localStorage.setItem(key, JSON.stringify(next));
+      } catch {
+        message.textContent = '브라우저에 저장하지 못했습니다. 브라우저의 저장 설정을 확인해 주세요.';
+        message.hidden = false;
+        return;
+      }
+      tasks = next;
+      showTask(card, updated, true);
+      updateSummary();
+      if (card.hidden) search.focus();
+    });
+    card.replaceChildren(editor);
+    form.elements.title.focus();
+  }
+
+  for (const task of tasks) {
+    const card = document.createElement('article');
+    card.className = 'card';
+    showTask(card, task);
+    cards.set(task.id, card);
+    list.append(card);
+  }
+  updateSummary();
+  search.addEventListener('input', updateSummary);
+  handoffFilter.addEventListener('change', updateSummary);
+  statusFilter.addEventListener('change', updateSummary);
+  teamFilter.addEventListener('change', updateSummary);
+  person.addEventListener('input', updateSummary);
+  for (const shortcut of document.querySelectorAll('[data-scope]')) {
+    shortcut.addEventListener('click', () => {
+      search.value = '';
+      teamFilter.value = '';
+      statusFilter.value = '';
+      handoffFilter.value = shortcut.dataset.scope;
+      updateSummary();
+      person.focus({preventScroll:true});
+    });
+  }
+
+  const mobile = matchMedia('(max-width: 640px)');
+  const menu = document.querySelector('.menu');
+  const nav = document.querySelector('nav');
+  function setMenu(open) {
+    nav.dataset.open = open;
+    menu.setAttribute('aria-expanded', open);
+  }
+  function syncMenu() {
+    menu.hidden = !mobile.matches;
+    setMenu(false);
+  }
+  menu.addEventListener('click', () => setMenu(nav.dataset.open !== 'true'));
+  nav.addEventListener('click', event => {
+    if (mobile.matches && event.target.closest('a')) {
+      setMenu(false);
+      menu.focus();
+    }
+  });
+  document.querySelector('header').addEventListener('keydown', event => {
+    if (event.key === 'Escape' && nav.dataset.open === 'true') {
+      setMenu(false);
+      menu.focus();
+    }
+  });
+  function updateNavigation() {
+    for (const link of nav.querySelectorAll('a')) {
+      if (link.hash === (location.hash || '#intro')) link.setAttribute('aria-current', 'location');
+      else link.removeAttribute('aria-current');
+    }
+  }
+  mobile.addEventListener('change', syncMenu);
+  window.addEventListener('hashchange', updateNavigation);
+  syncMenu();
+  updateNavigation();
+
+</script>
+</html>
