@@ -1,0 +1,17 @@
+File: pikachu-official.png
+Source: https://www.pokemon.com/static-assets/content-assets/cms2/img/pokedex/full/025.png
+Pokedex: https://www.pokemon.com/uk/pokedex/pikachu
+Downloaded: 2026-11-06
+Pokemon character artwork belongs to its respective rights holders.
+
+Files: pokemon-004.png, pokemon-005.png, pokemon-006.png,
+       pokemon-007.png, pokemon-008.png, pokemon-009.png,
+       pokemon-025.png, pokemon-026.png
+Source pattern: https://www.pokemon.com/static-assets/content-assets/cms2/img/pokedex/full/NNN.png
+Official Pokedex artwork. Downloaded: 2026-11-06.
+pokemon-009.png is retained for reference; the app uses the more front-facing UNITE image below.
+
+File: blastoise-unite.png
+Source: https://unite.pokemon.com/images/pokemon/blastoise/stat/stat-blastoise.png
+Official page: https://unite.pokemon.com/en-us/pokemon/blastoise/
+Downloaded: 2026-11-06
