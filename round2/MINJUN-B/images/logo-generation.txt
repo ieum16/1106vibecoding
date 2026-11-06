@@ -1,0 +1,7 @@
+Generation method: built-in image_gen, transparent background
+Original: insightlab-logo-original.png
+Web asset: insightlab-logo.png
+Favicon: insightlab-favicon.png
+
+Final prompt:
+Use case: logo-brand. Create a single original professional icon logo for INSIGHT LAB, a four-person team connecting data analysis, planning, content and web production. This is the final standalone icon asset for a website header and favicon, NOT a presentation sheet or mockup. Design a memorable abstract open eye / aperture made from four bold interlocking geometric strokes, with a small bright blue square insight at its center. Calm, precise, trustworthy, understated modern identity. Predominantly deep navy #14264B with a restrained blue #315BCA accent. Flat solid colors, strong clean edges, substantial strokes, excellent recognizability at 32 pixels. Icon centered and large in a square canvas with modest even padding. No text, no letters, no wordmark, no shadow, no gradient, no photographic scene, no border frame, no additional symbols, no watermark. Genuinely transparent background.
