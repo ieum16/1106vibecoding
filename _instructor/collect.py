@@ -5,7 +5,7 @@
     python _instructor/collect.py --no-pull  # 지금 있는 파일로만 정리
 
 라운드 종류: round1·round3 = 크롬 확장 프로그램(manifest.json),
-            round2 = 팀 홈페이지(index.html · prd.md · logo · screenshot.png)
+            round2 = 팀 홈페이지(prd.md · logo · README.md 의 버셀 링크, 캡처·홈페이지 파일은 선택)
 
 결과: _instructor/out/dashboard.json, _instructor/out/screenshots/<라운드>/<아이디>[-2|-3].png
       _instructor/out/rows.json (대시보드용 한 줄씩 정리본, 소개 README.md 내용 포함)
@@ -212,7 +212,7 @@ def find_logo(entry, files, round_name, student):
 def find_site(folder, files, intro):
     """배포 주소: 소개 글의 '## 배포 주소' 칸, 없으면 .md 파일 안의 vercel.app 주소."""
     site = (intro or {}).get("site", "")
-    m = SITE_RE.search(site)
+    m = SITE_RE.search(site) or re.search(r"https://[^\s)>\]]+\.[^\s)>\]]+", site)
     if m:
         return m.group(0)
     for rel in files:
@@ -289,15 +289,11 @@ def collect_round(round_name, prev_round_files):
         is_page = kind == "homepage" or (kind == "example" and "manifest.json" not in files and "index.html" in files)
         if is_page:
             manifest, issues = None, []
-            if not any(f == "index.html" or f.endswith("/index.html") for f in files):
-                issues.append("index.html 없음")
-            elif "index.html" not in files:
-                issues.append("index.html 이 한 단계 안쪽에 있음")
         else:
             manifest, issues = read_manifest(entry, files)
         shots = collect_screenshots(entry, files, round_name, student)
         screenshot = next((s for s in shots if s["order"] == 1), None)
-        if not screenshot:
+        if not screenshot and kind != "homepage":
             issues.append("screenshot.png 없음")
         logo = find_logo(entry, files, round_name, student)
         intro, intro_issues = read_intro(entry, files)
@@ -307,6 +303,8 @@ def collect_round(round_name, prev_round_files):
                 issues.append("prd.md 없음")
             if not logo:
                 issues.append("로고(logo.png) 없음")
+            if not find_site(entry, files, intro):
+                issues.append("버셀 링크 없음 (README.md 배포 주소)")
         elif kind != "example":
             issues += intro_issues
 
