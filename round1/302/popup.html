@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>HR 업무 보드</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <main class="popup">
+    <header class="heading">
+      <img class="heading-doodle" src="doodle.svg" alt="" aria-hidden="true">
+      <div><p class="eyebrow">MY WORK NOTES</p><h1>TO DO LIST</h1><span class="heading-subtitle">HR 업무 보드</span></div>
+    </header>
+    <p id="today" class="today"></p>
+    <section class="overview" aria-label="업무 현황">
+      <div><strong id="people-count">0</strong><span>예정된 입·퇴사</span></div>
+      <div><strong id="jobs-count">0</strong><span>진행 중 채용</span></div>
+      <div><strong id="trainings-count">0</strong><span>예정된 교육</span></div>
+      <div><strong id="todos-count">0</strong><span>남은 할 일</span></div>
+    </section>
+    <section class="upcoming">
+      <div class="section-heading"><h2>다가오는 일정</h2><span>최대 3건</span></div>
+      <ul id="upcoming-list"></ul>
+      <p id="empty-upcoming" class="empty">등록된 예정 일정이 없습니다.</p>
+    </section>
+    <p id="load-error" class="error" role="alert"></p>
+    <button id="open-dashboard" class="primary" type="button">전체 대시보드 열기 <span aria-hidden="true">↗</span></button>
+    <p class="privacy">이 브라우저에만 데이터가 저장됩니다.</p>
+  </main>
+  <script src="popup.js"></script>
+</body>
+</html>

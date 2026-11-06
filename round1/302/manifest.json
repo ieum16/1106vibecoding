@@ -1,0 +1,11 @@
+{
+  "manifest_version": 3,
+  "name": "HR 업무 보드",
+  "version": "2.0.0",
+  "description": "입·퇴사, 채용, 교육과 할 일을 한곳에서 관리합니다.",
+  "permissions": ["storage"],
+  "action": {
+    "default_title": "HR 업무 보드",
+    "default_popup": "popup.html"
+  }
+}
