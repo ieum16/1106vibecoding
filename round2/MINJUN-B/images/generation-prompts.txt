@@ -1,0 +1,18 @@
+Generation method: built-in image_gen tool
+Purpose: fictional website redesign portfolio covers
+
+moa-living.png
+Use case: ui-mockup. Create one polished landscape portfolio cover image showing a straight-on desktop browser website redesign concept for a fictional homeware brand MOA LIVING. Cream editorial website with refined serif headline, large still life photograph of ceramic vessels and linen in a sunlit home, product thumbnail row. A single complete beautifully designed website mockup on a softly colored backdrop, no physical laptop or monitor, crisp professionally art-directed composition. Make it feel like a convincing fictional web design case study. Only use the stated fictional brand name, minimal short English navigation labels, no claims or statistics, no real brands, no watermarks. Landscape 3:2 composition.
+
+onleaf.png
+Use case: ui-mockup. Create one polished landscape portfolio cover image showing a straight-on desktop browser website redesign concept for a fictional botanical skincare brand ONLEAF. Sage green and ivory elegant website, big photograph of amber skincare bottles with green leaves and soft shadows, clean product cards. A single complete beautifully designed website mockup on a softly colored backdrop, no physical laptop or monitor, crisp professionally art-directed composition. Make it feel like a convincing fictional web design case study. Only use the stated fictional brand name, minimal short English navigation labels, no claims or statistics, no real brands, no watermarks. Landscape 3:2 composition.
+
+grain-coffee.png
+Use case: ui-mockup. Create one polished landscape portfolio cover image showing a straight-on desktop browser website redesign concept for a fictional neighborhood coffee roastery GRAIN COFFEE. Warm brown and cream website, large rich photo of a ceramic espresso cup and coffee beans on oak, small coffee product cards. A single complete beautifully designed website mockup on a softly colored backdrop, no physical laptop or monitor, crisp professionally art-directed composition. Make it feel like a convincing fictional web design case study. Only use the stated fictional brand name, minimal short English navigation labels, no claims or statistics, no real brands, no watermarks. Landscape 3:2 composition.
+
+orbit-studio.png
+Use case: ui-mockup. Create one polished landscape portfolio cover image showing a straight-on desktop browser website redesign concept for a fictional architecture studio ORBIT STUDIO. Minimal monochrome architecture website, large photograph of a sunlit contemporary white concrete building and courtyard, project thumbnail grid. A single complete beautifully designed website mockup on a softly colored backdrop, no physical laptop or monitor, crisp professionally art-directed composition. Make it feel like a convincing fictional web design case study. Only use the stated fictional brand name, minimal short English navigation labels, no claims or statistics, no real brands, no watermarks. Landscape 3:2 composition.
+
+flow-work.png
+Use case: ui-mockup. Create one polished landscape portfolio cover image showing a straight-on desktop browser website redesign concept for a fictional team productivity company FLOW WORK. Navy and pale blue software website, simple headline with abstract organized task panels and data cards, professional white space. A single complete beautifully designed website mockup on a softly colored backdrop, no physical laptop or monitor, crisp professionally art-directed composition. Make it feel like a convincing fictional web design case study. Only use the stated fictional brand name, minimal short English navigation labels, no claims or statistics, no real brands, no watermarks. Landscape 3:2 composition.
+

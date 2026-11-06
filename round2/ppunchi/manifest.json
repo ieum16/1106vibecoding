@@ -1,0 +1,12 @@
+{
+  "manifest_version": 3,
+  "name": "Location Tracker — 추적자",
+  "version": "2.0.0",
+  "description": "주소로 지도 핀, 도로명·지번 주소와 위도·경도를 확인하는 위치 검색 도구. 시연 모드와 가상 담당자 확인을 제공합니다.",
+  "action": {
+    "default_title": "Location Tracker 홈페이지 열기"
+  },
+  "background": {
+    "service_worker": "background.js"
+  }
+}

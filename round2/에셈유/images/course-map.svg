@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 450" role="img" aria-labelledby="title desc">
+<title id="title">경복궁 옆, 느린 한 바퀴</title><desc id="desc">경복궁역에서 광화문 앞을 지나 삼청동으로 향하는 산책 코스 개념도. 실제 지도나 축척이 아닙니다.</desc>
+<defs>
+<pattern id="dots" width="16" height="16" patternUnits="userSpaceOnUse"><circle cx="4" cy="4" r=".7" fill="#b2b8a7" opacity=".25"/></pattern>
+<filter id="shadow" x="-50%" y="-50%" width="200%" height="200%"><feDropShadow dx="0" dy="4" stdDeviation="4" flood-opacity=".16"/></filter>
+<g id="tree"><path d="M0 0v12" stroke="#8b795e" stroke-width="3"/><ellipse cy="-7" rx="10" ry="13" fill="#8b9e7a"/><ellipse cx="-3" cy="-10" rx="6" ry="9" fill="#a5b28f"/></g>
+<g id="house"><path d="M-13 4v17h26V4" fill="#d8c5a6"/><path d="M-18 5 0-8 18 5z" fill="#928571"/><path d="M-4 21V10h8v11" fill="#8e806b"/></g>
+<g id="hall"><path d="M-39 6v23h78V6" fill="#b78865"/><path d="M-31 6v21m15-21v21M0 6v21M16 6v21M31 6v21" stroke="#e8d2b1" stroke-width="4"/><path d="M-49 7q12-7 17-17h64q5 10 17 17z" fill="#52665f"/><path d="M-38-8q10-5 15-14h46q5 9 15 14z" fill="#657a70"/><path d="M-48 8h96M-38-7h76" stroke="#344b43" stroke-width="3"/><path d="M-43 30h86" stroke="#c5b69c" stroke-width="5"/></g>
+</defs>
+<rect width="680" height="450" rx="12" fill="#e9e6da"/><rect width="680" height="450" fill="url(#dots)"/>
+<path d="M0 370H680M112 0v450M546 0v450M0 80h680" stroke="#d6d1c3" stroke-width="26"/>
+<path d="M0 370H680M112 0v450M546 0v450M0 80h680" stroke="#f8f5eb" stroke-width="18"/>
+<path d="M22 148h60m-60 58h60m-60 61h60m510-97h88m-88 70h88m-88 71h88" stroke="#faf7ed" stroke-width="12"/>
+<rect x="181" y="90" width="313" height="224" rx="14" fill="#ced5b8"/>
+<rect x="198" y="103" width="279" height="196" rx="6" fill="none" stroke="#b5b999" stroke-width="2" stroke-dasharray="3 5"/>
+<path d="M180 303h314M181 90v213M494 90v213" stroke="#b8ac90" stroke-width="5"/>
+<path d="M337 119v157" stroke="#e4ddc5" stroke-width="35"/>
+<rect x="217" y="149" width="55" height="32" rx="10" fill="#9fb7ad"/><path d="M224 163q14-8 25 0t16 0" stroke="#c9d8cc" stroke-width="2" fill="none"/>
+<use href="#hall" transform="translate(337 163) scale(.9)"/>
+<use href="#hall" transform="translate(337 229) scale(.65)"/>
+<use href="#hall" transform="translate(337 301) scale(.85)"/>
+<g><use href="#tree" x="210" y="126"/><use href="#tree" x="457" y="127"/><use href="#tree" x="455" y="212"/><use href="#tree" x="216" y="259"/><use href="#tree" x="458" y="265"/><use href="#tree" x="289" y="126"/><use href="#tree" x="402" y="126"/></g>
+<g opacity=".85"><use href="#house" x="45" y="126"/><use href="#house" x="45" y="183"/><use href="#house" x="46" y="246"/><use href="#house" x="617" y="138"/><use href="#house" x="617" y="205"/><use href="#house" x="619" y="275"/><use href="#tree" x="585" y="106"/><use href="#tree" x="652" y="236"/><use href="#tree" x="585" y="306"/><use href="#tree" x="157" y="208"/><use href="#tree" x="156" y="267"/><use href="#tree" x="485" y="407"/></g>
+<path d="M112 367H337H546V105" stroke="#fffaf0" stroke-width="13" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+<path d="M112 367H337H546V105" stroke="#4f755f" stroke-width="5" stroke-dasharray="1 11" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+<g font-family="Arial,'Malgun Gothic',sans-serif" fill="#374c40">
+<text x="338" y="58" text-anchor="middle" font-size="10" letter-spacing="3" fill="#7a826f">A LITTLE WALK AROUND THE PALACE</text>
+<text x="397" y="263" font-size="14" font-weight="700">경복궁</text><text x="397" y="279" font-size="8" fill="#79836e">GYEONGBOKGUNG</text>
+<text x="41" y="306" font-size="11" fill="#8b8575" transform="rotate(-90 41 306)">서촌 골목</text><text x="649" y="330" font-size="11" fill="#8b8575" transform="rotate(-90 649 330)">작은 가게와 골목들</text>
+<g filter="url(#shadow)"><circle cx="112" cy="367" r="16" fill="#385745"/><circle cx="337" cy="367" r="16" fill="#385745"/><circle cx="546" cy="105" r="16" fill="#385745"/></g>
+<g text-anchor="middle" fill="#fff" font-size="12" font-weight="700"><text x="112" y="371">1</text><text x="337" y="371">2</text><text x="546" y="109">3</text></g>
+<g font-size="13" font-weight="700"><text x="112" y="402" text-anchor="middle">경복궁역</text><text x="337" y="402" text-anchor="middle">광화문</text><text x="546" y="61" text-anchor="middle">삼청동</text></g>
+<g font-size="9" fill="#7b8273"><text x="112" y="418" text-anchor="middle">여기서 만나요</text><text x="337" y="418" text-anchor="middle">잠깐, 풍경 보기</text><text x="546" y="77" text-anchor="middle">골목으로 한 걸음</text></g>
+<g transform="translate(626 41)"><path d="M0-16-5 0h10z" fill="#61745e"/><path d="M0-9v22" stroke="#61745e"/><text x="0" y="27" font-size="9" text-anchor="middle" fill="#61745e">N</text></g>
+</g></svg>

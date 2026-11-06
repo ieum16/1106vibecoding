@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512" role="img" aria-labelledby="title desc">
+  <title id="title">인사이트랩 로고</title>
+  <desc id="desc">홈페이지의 네 점 로고를 별도 SVG 파일로 정리했습니다. 크림색 배경 위에 초록색 계열 점 네 개가 배치되어 있습니다.</desc>
+  <rect width="512" height="512" rx="96" fill="#f8f6ee"/>
+  <g transform="rotate(-10 256 256)">
+    <circle cx="190" cy="190" r="48" fill="#315c43"/>
+    <circle cx="322" cy="190" r="48" fill="#a2b884"/>
+    <circle cx="190" cy="322" r="48" fill="#c4cead"/>
+    <circle cx="322" cy="322" r="48" fill="#315c43"/>
+  </g>
+</svg>

@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f7f9fc">
+  <meta name="description" content="관심 분야의 최신 뉴스를 한곳에. AI·IT, 경제·금융, 부동산, 해외 토픽을 한국어 요약으로 살펴보세요.">
+  <title>뉴스 수집 — 관심 뉴스, 한눈에 가볍게</title>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <style>
+    :root{--blue:#2563eb;--blue-dark:#1d4ed8;--ink:#17243b;--muted:#657186;--line:#e5eaf2;--bg:#f7f9fc;--mint:#dff6e9;--teal:#166e51;--white:#fff;--shadow:0 8px 26px #20334b05;--radius:22px}
+    *{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:100px}body{margin:0;background:var(--bg);color:var(--ink);font-family:"Pretendard","Apple SD Gothic Neo","Malgun Gothic",sans-serif;font-size:15px;line-height:1.65;letter-spacing:-.025em}button,input{font:inherit}button,a{-webkit-tap-highlight-color:transparent}a{color:inherit;text-decoration:none}button{cursor:pointer}button:disabled{cursor:wait}button:focus-visible,a:focus-visible,input:focus-visible,summary:focus-visible{outline:3px solid #70a2ff;outline-offset:4px}svg{width:20px;height:20px;vertical-align:middle;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}.wrap{max-width:1328px;padding:0 40px;margin:auto}.skip{position:fixed;left:12px;top:-80px;z-index:100;background:white;padding:10px}.skip:focus{top:12px}
+    header{height:84px;background:#ffffffed;backdrop-filter:blur(14px);position:sticky;top:0;z-index:20;border-bottom:1px solid var(--line)}.header-inner{height:100%;display:flex;align-items:center;justify-content:space-between}.brand{display:flex;align-items:center;gap:11px;font-size:22px;font-weight:850;letter-spacing:-1px}.brand-mark{width:38px;height:38px;background:var(--blue);border-radius:12px;display:grid;place-items:center;color:white;position:relative;font-size:23px;font-weight:900}.brand-mark:after{content:"";width:9px;height:9px;background:#b6efcd;border:2px solid white;border-radius:50%;position:absolute;right:-2px;top:-2px}.brand img{width:38px;height:38px;object-fit:contain}.brand small{font-size:10px;letter-spacing:1.4px;color:#8993a2;display:block;font-weight:650;line-height:1.2;margin-top:1px}.nav{display:flex;align-items:center;gap:34px;color:var(--muted);font-size:14px;font-weight:650}.nav a:hover{color:var(--blue)}.nav a:first-child{color:var(--blue)}.header-date{font-size:12px;border-left:1px solid var(--line);padding-left:26px;color:var(--muted);letter-spacing:.02em}.menu-toggle{display:none;border:0;background:none;padding:8px}
+    .hero{padding:50px 0 36px;display:grid;grid-template-columns:1.3fr 1fr;gap:48px;align-items:center}.eyebrow{font-size:11px;letter-spacing:1.7px;color:var(--blue);font-weight:800;display:flex;align-items:center;gap:8px}.little-dot{display:inline-block;width:6px;height:6px;background:currentColor;border-radius:50%}.hero h1{font-size:46px;letter-spacing:-2.5px;line-height:1.32;margin:16px 0 18px;font-weight:800}.hero h1 span{color:var(--blue)}.hero p{color:var(--muted);font-size:15px;line-height:1.9;margin:0}.hero-art{height:232px;position:relative;background:#edf2ff;border-radius:30px;overflow:hidden;border:1px solid #e5ecff}.art-circle{position:absolute;width:240px;height:240px;background:#dce6ff;border-radius:50%;right:-42px;top:27px}.art-dot{position:absolute;border-radius:50%;width:10px;height:10px;background:#8db4fd;top:35px;left:32px}.art-dot.two{width:6px;height:6px;background:#73c8a4;left:auto;top:185px;right:42px}.paper{position:absolute;top:38px;left:19%;width:65%;height:154px;background:#fff;border:1px solid #e4e9f6;border-radius:15px;box-shadow:0 12px 32px #6080c51c;transform:rotate(-5deg);padding:20px 22px}.paper.back{transform:rotate(7deg);background:#b9d0ff;left:23%;top:43px}.paper-top{display:flex;justify-content:space-between;align-items:center;color:var(--blue);font-size:10px;font-weight:800;letter-spacing:1.2px;padding-bottom:10px;border-bottom:1px solid var(--line)}.paper-lines{display:flex;gap:14px;margin-top:16px}.paper-block{width:62px;height:58px;background:var(--mint);border-radius:8px;display:grid;place-items:center;font-size:25px;color:var(--teal)}.paper-text{flex:1}.paper-text i{display:block;background:#e4eaf3;height:6px;border-radius:5px;margin:7px 0}.paper-text i:first-child{background:#6f8eec;height:8px;width:85%}.paper-text i:last-child{width:60%}.art-bubble{position:absolute;bottom:23px;left:12%;padding:8px 13px;background:#fff;border:1px solid #e3e9f4;border-radius:12px;box-shadow:0 5px 20px #4770a414;font-size:11px;font-weight:700;transform:rotate(2deg);display:flex;align-items:center;gap:7px}.art-bubble span{width:18px;height:18px;border-radius:50%;background:var(--mint);display:grid;place-items:center;color:var(--teal);font-size:11px}.art-label{position:absolute;top:20px;right:25px;font-size:9px;letter-spacing:1.2px;color:#6578a5;font-weight:700}
+    .overview{display:flex;align-items:center;justify-content:space-between;padding:18px 24px;border:1px solid var(--line);background:white;border-radius:17px;margin-bottom:32px;box-shadow:var(--shadow);gap:24px}.overview-lead{display:flex;align-items:center;gap:11px}.overview-icon{width:35px;height:35px;display:grid;place-items:center;background:#edf8f1;color:var(--teal);border-radius:11px}.overview-lead strong{font-size:13px;font-weight:750}.overview-lead small{display:block;font-size:11px;color:var(--muted);margin-top:1px}.metrics{display:flex;align-items:center;gap:32px}.metric{display:flex;align-items:baseline;gap:8px}.metric b{font-size:23px;line-height:1.3;letter-spacing:-1px}.metric span{color:var(--muted);font-size:11px}.metric+.metric{border-left:1px solid var(--line);padding-left:32px}
+    .workspace{display:grid;grid-template-columns:minmax(0,1fr) 264px;gap:28px;align-items:start}.section-heading{display:flex;align-items:center;gap:9px;margin:0 0 17px;font-size:21px;letter-spacing:-.8px}.section-heading small{font-size:10px;border-radius:6px;background:#eaf0ff;color:var(--blue);padding:2px 6px;letter-spacing:.4px}.search-row{display:flex;gap:10px}.searchbox{display:flex;align-items:center;gap:10px;background:white;border:1px solid #dfe6ef;border-radius:12px;padding:0 14px;flex:1;min-width:0}.searchbox svg{color:#8793a6;width:19px;flex:none}.searchbox input{border:0;background:none;outline:none;width:100%;height:47px;min-width:0;color:var(--ink);font-size:13px}.searchbox input::placeholder{color:#929cac}.searchbox:focus-within{border-color:#7aa2f6;box-shadow:0 0 0 3px #2563eb0b}.clear-search{border:0;background:none;color:var(--muted);padding:5px;line-height:1}.refresh{display:flex;align-items:center;justify-content:center;gap:7px;border:0;border-radius:12px;background:var(--blue);color:white;padding:0 19px;font-weight:700;font-size:13px;white-space:nowrap}.refresh:hover{background:var(--blue-dark)}.refresh:disabled{background:#6c92e6}.refresh svg{width:17px}.refresh.busy svg{animation:spin 1.3s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}
+    .tabs{display:flex;flex-wrap:wrap;gap:7px;padding:18px 0 16px;border-bottom:1px solid var(--line)}.tab{border:1px solid transparent;background:transparent;color:#677389;display:flex;gap:6px;align-items:center;padding:8px 13px;font-size:12px;font-weight:650;border-radius:9px;transition:.15s}.tab svg{width:15px;height:15px}.tab:hover{background:#edf1f8}.tab[aria-pressed=true]{background:var(--ink);color:white}.results-bar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:17px 0;color:#8490a2;font-size:11px}.results-bar strong{color:var(--ink);font-weight:700}.sort-label{white-space:nowrap}.sort-label:before{content:"";display:inline-block;background:#a1aaba;width:4px;height:4px;border-radius:50%;vertical-align:middle;margin-right:5px}.news-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:17px}.card{border:1px solid var(--line);background:white;border-radius:var(--radius);padding:23px;display:flex;flex-direction:column;box-shadow:var(--shadow);transition:transform .2s,box-shadow .2s;min-width:0}.card:hover{transform:translateY(-3px);box-shadow:0 10px 30px #20334b0c}.card-top{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:14px}.category-badge{font-size:10px;font-weight:750;padding:3px 8px;background:#ebf1ff;border-radius:6px;color:#3b60be}.category-badge.money{background:#e9f7ef;color:#207348}.category-badge.home{background:#fff1e7;color:#a35b25}.category-badge.world{background:#f1edfc;color:#7452a9}.card-origin{font-size:10px;color:#929bac;white-space:nowrap}.card h3{font-size:18px;line-height:1.55;letter-spacing:-.7px;margin:0 0 12px;font-weight:750;overflow-wrap:anywhere}.original-title{font-size:10px;line-height:1.65;color:#8791a1;margin:0 0 16px;overflow-wrap:anywhere}.original-title b{font-size:9px;color:#a0a8b4;letter-spacing:.3px;font-weight:600}.summary{border-top:1px solid #eff2f6;padding-top:14px;flex:1}.summary p{font-size:12px;line-height:1.9;color:#5a687d;margin:0 0 9px;overflow-wrap:anywhere}.summary-label{font-size:9px;letter-spacing:.2px;color:#7484a0;margin-bottom:10px;display:flex;align-items:center;gap:5px}.summary-label svg{width:12px;height:12px;color:#5d83c9}.summary .summary-notice{font-size:11px;color:#7c6b44;background:#fff9ed;border-radius:8px;padding:10px 11px;line-height:1.65}.summary .excerpt{color:#7e8899;font-size:11px}.card-bottom{border-top:1px solid #eff2f6;margin-top:14px;padding-top:14px;display:flex;align-items:center;justify-content:space-between;gap:8px}.publisher{font-size:10px;color:#778397;max-width:70%;line-height:1.7}.publisher b{color:#526078;font-weight:650;display:block}.read-link{display:flex;align-items:center;gap:4px;font-size:11px;color:var(--blue);font-weight:700;white-space:nowrap}.read-link svg{width:13px;height:13px}.stale{color:#b56d2c;font-size:10px;margin-top:8px}
+    .empty{grid-column:1/-1;border:1px dashed #d9e2f0;border-radius:var(--radius);text-align:center;padding:55px 24px;background:linear-gradient(180deg,#fff,#fafdff);min-height:315px}.empty-mark{background:#edf2ff;color:var(--blue);width:58px;height:58px;border-radius:20px;display:grid;place-items:center;margin:0 auto 18px}.empty-mark svg{width:28px;height:28px}.empty h3{font-size:19px;margin:0 0 9px}.empty p{font-size:12px;color:var(--muted);max-width:340px;margin:0 auto;line-height:1.9}.empty button{margin-top:20px;border:0;border-radius:10px;background:var(--blue);color:white;padding:10px 19px;font-size:12px;font-weight:650}.empty-steps{display:flex;justify-content:center;gap:18px;font-size:10px;color:#8a96a8;margin-top:26px}.empty-steps b{color:#6d8ac8;margin-right:4px}.skeleton{height:330px;border-radius:var(--radius);background:linear-gradient(100deg,#edf1f6 20%,#fafdff 45%,#edf1f6 70%);background-size:200% 100%;animation:shimmer 1.5s infinite;border:1px solid var(--line)}@keyframes shimmer{to{background-position:-200% 0}}
+    .side{padding-top:0}.side-panel{background:white;border:1px solid var(--line);border-radius:var(--radius);padding:21px;margin-bottom:17px}.side-heading{display:flex;align-items:center;justify-content:space-between;margin:0 0 17px;font-size:13px;font-weight:750}.side-heading small{color:#9aa4b4;font-size:9px;font-weight:500;letter-spacing:.7px}.source{padding:14px 0;border-top:1px solid #eef1f5}.source:first-child{padding-top:0;border-top:0}.source-line{display:flex;justify-content:space-between;align-items:center;gap:5px}.source-name{font-size:12px;font-weight:700}.source-name:hover{color:var(--blue)}.source-symbol{display:inline-grid;place-items:center;width:23px;height:23px;border-radius:7px;margin-right:7px;font-size:11px;font-weight:800;background:#f0f3f8;color:#536176}.source-symbol.etnews{background:#eaf1ff;color:#245abe}.source-symbol.bbc{background:#222;color:#fff;font-size:7px;letter-spacing:-.7px}.source-symbol.naver{background:#eaf9ef;color:#118944}.source-symbol.nate{background:#fff0ef;color:#d25550}.status{font-size:9px;color:#7b879a;white-space:nowrap}.status:before{content:"";display:inline-block;width:5px;height:5px;border-radius:50%;margin-right:4px;background:#abb5c3}.status.ok{color:#287856}.status.ok:before{background:#4aa67b}.status.partial,.status.error{color:#a16b2b}.status.partial:before,.status.error:before{background:#d99e50}.source p{font-size:10px;line-height:1.8;color:#929cac;margin:7px 0 0 30px}.source time{display:block;color:#9ba5b4;margin:3px 0 0 30px;font-size:9px}.guide{background:#edf4ff;border-color:#dfeaff}.guide-icon{width:32px;height:32px;display:grid;place-items:center;border-radius:10px;background:#dce9ff;color:#3a6bd0;margin-bottom:12px}.guide h3{font-size:13px;margin:0 0 9px}.guide p{font-size:11px;color:#6c7e99;line-height:1.9;margin:0}.guide .guide-rule{border-top:1px solid #dbe5f5;margin-top:14px;padding-top:13px;font-size:10px;color:#7288a8}.side-note{font-size:10px;line-height:1.9;color:#95a0b0;margin:17px 8px}.notice{padding:12px 16px;border:1px solid #dce7fa;border-radius:12px;background:#eef4ff;color:#516d9d;font-size:11px;line-height:1.8;margin-bottom:17px}.notice.error{background:#fff5ee;border-color:#f1dfce;color:#9b6836}.progress{display:flex;gap:9px;align-items:center}.progress svg{width:15px;flex:none;animation:spin 1.4s linear infinite}
+    .about{border-top:1px solid var(--line);margin-top:55px;padding:35px 0 34px;display:flex;justify-content:space-between;gap:35px}.about h2{font-size:15px;margin:0 0 8px}.about p{font-size:12px;line-height:1.9;color:#7b8799;max-width:570px;margin:0}.about-tag{font-size:10px;letter-spacing:1.4px;color:#8c9ab0;margin-bottom:7px}.contact{min-width:220px}.contact p{font-size:11px}footer{border-top:1px solid var(--line);padding:18px 0 23px;display:flex;justify-content:space-between;font-size:10px;color:#9aa5b5;gap:16px}.footer-motto{letter-spacing:.8px}.hidden,[hidden]{display:none!important}
+    @media(min-width:1600px){.wrap{max-width:1530px}.news-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.hero{grid-template-columns:1.5fr 1fr}.hero-art{max-width:500px;justify-self:end;width:100%}}
+    @media(max-width:1050px){.wrap{padding:0 26px}.workspace{grid-template-columns:minmax(0,1fr) 236px;gap:20px}.card{padding:19px}.hero{gap:28px}.hero h1{font-size:40px}.header-date{display:none}.metrics{gap:20px}.metric+.metric{padding-left:20px}.overview-lead small{max-width:230px}.news-grid{gap:13px}}
+    @media(max-width:860px){.workspace{grid-template-columns:1fr}.side{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:22px}.side-panel{margin:0}.side-note{grid-column:1/-1;margin:0 7px}.hero-art{height:210px}.paper{left:12%;width:76%}.paper.back{left:17%}.hero h1{font-size:36px}.hero p{font-size:13px}.overview{padding:16px 20px}.overview-lead small{display:none}.metrics{gap:20px}.nav{gap:22px}}
+    @media(max-width:640px){.wrap{padding:0 16px}header{height:68px}.brand{font-size:19px}.brand-mark{height:33px;width:33px;font-size:20px;border-radius:10px}.brand small{font-size:8px}.menu-toggle{display:block;color:var(--ink)}.nav{display:none;position:absolute;top:67px;left:0;right:0;background:white;border-bottom:1px solid var(--line);padding:20px 24px;flex-direction:column;align-items:stretch;gap:15px}.nav.open{display:flex}.hero{display:block;padding:32px 0 26px}.eyebrow{font-size:9px}.hero h1{font-size:37px;margin:14px 0;letter-spacing:-2px}.hero p{font-size:12px}.hero-art{display:none}.overview{padding:14px 16px;gap:10px;margin-bottom:27px}.overview-lead{gap:8px}.overview-lead strong{font-size:11px}.overview-icon{width:29px;height:29px;border-radius:9px}.overview-icon svg{width:16px}.metrics{gap:12px}.metric{gap:5px}.metric b{font-size:18px}.metric span{font-size:9px}.metric+.metric{padding-left:12px}.metric.topics{display:none}.section-heading{font-size:19px;margin-bottom:14px}.search-row{gap:7px}.searchbox{padding:0 10px;gap:7px}.searchbox input{height:45px;font-size:12px}.refresh{padding:0 12px;font-size:11px;gap:5px}.refresh svg{width:14px}.tabs{gap:5px;padding-top:14px}.tab{padding:7px 10px;font-size:11px;gap:5px}.tab svg{width:13px}.results-bar{font-size:10px}.news-grid{grid-template-columns:1fr;gap:14px}.card{padding:23px}.card h3{font-size:19px}.summary p{font-size:13px}.side{grid-template-columns:1fr;margin-top:25px;gap:15px}.side-panel{padding:21px}.empty{padding:38px 17px;min-height:300px}.empty h3{font-size:18px}.empty p{font-size:11px}.empty-steps{gap:12px;font-size:9px}.about{display:block;margin-top:35px;padding-top:27px}.contact{margin-top:23px}.about p{font-size:11px}footer{font-size:9px}.footer-motto{display:none}.results-bar{align-items:flex-start}.sort-label{padding-top:1px}}
+    @media(max-width:640px){.overview{display:block}.overview-lead{margin-bottom:10px}.metrics{justify-content:space-between;gap:16px}.metric{gap:8px}.metric b{font-size:21px}.metric span{white-space:nowrap}.metric+.metric{padding-left:25px}}
+    @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{animation:none!important;transition:none!important}}
+  </style>
+</head>
+<body>
+  <a class="skip" href="#news">뉴스 목록으로 바로가기</a>
+  <header>
+    <div class="wrap header-inner">
+      <a class="brand" href="#" aria-label="뉴스 수집 홈"><span class="brand-mark" id="brand-mark" aria-hidden="true">N</span><span>뉴스 수집<small>NEWS, IN ONE PLACE</small></span></a>
+      <button class="menu-toggle" id="menu-toggle" aria-expanded="false" aria-controls="navigation" aria-label="메뉴 열기"><svg viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
+      <nav class="nav" id="navigation" aria-label="주 메뉴"><a href="#news">최신 뉴스</a><a href="#intro">팀 소개</a><a href="#sources">수집 안내</a><span class="header-date" id="header-date"></span></nav>
+    </div>
+  </header>
+  <main class="wrap">
+    <section class="hero" aria-labelledby="hero-title">
+      <div><div class="eyebrow"><span class="little-dot"></span> YOUR DAILY NEWS, SIMPLIFIED</div><h1 id="hero-title">세상의 소식,<br><span>가볍게 모아 읽어요.</span></h1><p>관심 있는 소식만, 여러 사이트를 오갈 필요 없이.<br>짧은 한국어 요약으로 살펴보고 원문에서 더 알아보세요.</p></div>
+      <div class="hero-art" aria-hidden="true"><div class="art-circle"></div><i class="art-dot"></i><i class="art-dot two"></i><span class="art-label">A LITTLE LESS SCROLLING.</span><div class="paper back"></div><div class="paper"><div class="paper-top"><span>THE DAILY COLLECTION</span><span>✦</span></div><div class="paper-lines"><div class="paper-block">↗</div><div class="paper-text"><i></i><i></i><i></i><i></i></div></div></div><div class="art-bubble"><span>✓</span> 복잡한 뉴스도, 가볍게 세 문장</div></div>
+    </section>
+    <div class="overview"><div class="overview-lead"><div class="overview-icon"><svg viewBox="0 0 24 24"><path d="m4 13 5 5L20 6"/></svg></div><div><strong>관심사로 연결되는 오늘</strong><small>새로고침을 누르면 새로운 소식을 모아드려요.</small></div></div><div class="metrics"><div class="metric"><b id="metric-count">0</b><span>수집 기사</span></div><div class="metric topics"><b>4</b><span>관심 분야</span></div><div class="metric"><b id="metric-sources">0<span>/ 4</span></b><span>연결 출처</span></div></div></div>
+    <div class="workspace">
+      <section id="news" aria-labelledby="news-title">
+        <h2 class="section-heading" id="news-title">나를 위한 뉴스 <small>COLLECTION</small></h2>
+        <div class="search-row"><form class="searchbox" id="search-form" role="search"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 4 4"/></svg><input id="search" type="search" aria-label="수집한 기사에서 키워드 검색" placeholder="어떤 소식이 궁금하세요?" autocomplete="off" maxlength="120"><button class="clear-search" id="clear-search" type="button" aria-label="검색어 지우기" hidden>×</button></form><button class="refresh" id="refresh" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 7v5h-5M4 17v-5h5"/><path d="M6 7a7 7 0 0 1 12-1l2 3M4 15l2 3a7 7 0 0 0 12-1"/></svg><span id="refresh-label">새로고침</span></button></div>
+        <div class="tabs" role="group" aria-label="뉴스 분야 선택">
+          <button class="tab" aria-pressed="true" data-category="전체"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>전체</button>
+          <button class="tab" aria-pressed="false" data-category="AI·IT"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="6" width="12" height="12" rx="3"/><path d="M9 2v4m6-4v4M9 18v4m6-4v4M2 9h4m-4 6h4m12-6h4m-4 6h4"/></svg>AI·IT</button>
+          <button class="tab" aria-pressed="false" data-category="경제·금융"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20V10m8 10V4m8 16v-8"/></svg>경제·금융</button>
+          <button class="tab" aria-pressed="false" data-category="부동산"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m3 10 9-7 9 7M5 9v12h14V9M9 21v-8h6v8"/></svg>부동산</button>
+          <button class="tab" aria-pressed="false" data-category="해외 토픽"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><ellipse cx="12" cy="12" rx="4" ry="9"/><path d="M3 12h18"/></svg>해외 토픽</button>
+        </div>
+        <div class="results-bar"><span id="results-count">수집된 뉴스 <strong>0</strong>건</span><span class="sort-label">최신순 · 최근 48시간</span></div>
+        <div id="announcement" class="notice" role="status" aria-live="polite" hidden></div>
+        <div id="news-grid" class="news-grid" aria-label="기사 목록" aria-busy="false"></div>
+      </section>
+      <aside class="side" aria-label="뉴스 수집 정보">
+        <section class="side-panel" id="sources"><h2 class="side-heading">함께 모으는 소식 <small>SOURCES</small></h2><div id="source-list"></div></section>
+        <section class="side-panel guide"><div class="guide-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 3 2.5 6.5L21 12l-6.5 2.5L12 21l-2.5-6.5L3 12l6.5-2.5z"/></svg></div><h3>읽기는 짧게, 이해는 깊게.</h3><p>분야를 고르고 키워드를 검색해 보세요. 한국어 요약을 읽고, 더 궁금한 기사는 원문에서 이어 읽을 수 있어요.</p><div class="guide-rule">요약은 제공된 설명을 바탕으로 합니다.<br>기사의 전체 맥락은 원문에서 확인해 주세요.</div></section>
+        <p class="side-note" id="ai-note">해외 기사 번역과 AI 요약은 설정 후 사용할 수 있어요. 설정 전에도 충분한 한국어 설명은 세 문장으로 발췌합니다.</p>
+      </aside>
+    </div>
+    <section class="about" id="intro"><div><div class="about-tag">BEHIND THE COLLECTION</div><h2>좋은 소식을 찾는 시간을 줄입니다.</h2><p>‘뉴스 수집’은 여러 뉴스 사이트의 최신 기사를 모아 헤드라인과 짧은 요약을 전하는 팀입니다. AI·IT, 경제·금융, 부동산, 해외 토픽까지 — 관심 분야를 더 쉽게 만나도록 돕습니다.</p></div><div class="contact" id="contact"><h2>함께 더 나은 수집을</h2><p>team@example.com <span>(예시 주소)</span><br>이 화면에서는 문의가 전송되지 않습니다.</p></div></section>
+    <footer><span>© <span id="year">2026</span> 뉴스 수집 · 모든 기사 권리는 각 원저작자에게 있습니다.</span><span class="footer-motto">STAY CURIOUS. READ LIGHT.</span></footer>
+  </main>
+  <script>
+    const $ = id => document.getElementById(id);
+    const icons = {
+      arrow: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M7 7h10v10"/></svg>',
+      sparkle: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 3 2.5 6.5L21 12l-6.5 2.5L12 21l-2.5-6.5L3 12l6.5-2.5z"/></svg>',
+      news: '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="3"/><path d="M7 8h4v4H7zM14 8h3m-3 4h3M7 16h10"/></svg>',
+      refresh: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 7v5h-5M4 17v-5h5"/><path d="M6 7a7 7 0 0 1 12-1l2 3M4 15l2 3a7 7 0 0 0 12-1"/></svg>'
+    };
+    let data = { articles: [], sources: [], refreshing: false }, category = '전체', query = '', timer, pollTimer, pollFailures = 0, lastGridKey = '', transientError = '';
+    const defaultSources = [
+      { id:'etnews', name:'전자신문', url:'https://www.etnews.com', status:'idle', message:'공식 RSS · 새로고침으로 연결' },
+      { id:'bbc', name:'BBC News', url:'https://www.bbc.com/news', status:'idle', message:'공식 RSS · 새로고침으로 연결' },
+      { id:'naver', name:'네이버 뉴스', url:'https://news.naver.com', status:'idle', message:'뉴스 검색 API · 인증 설정 필요' },
+      { id:'nate', name:'네이트 뉴스', url:'https://news.nate.com', status:'restricted', message:'자동 수집 제한 · 사이트에서 직접 보기' }
+    ];
+    const statuses = { ok:'연결됨', partial:'일부 연결', idle:'대기', unconfigured:'설정 필요', restricted:'수집 제한', error:'연결 실패' };
+    const symbols = { etnews:'e', bbc:'BBC', naver:'N', nate:'n' };
+    const classes = { 'AI·IT':'tech', '경제·금융':'money', '부동산':'home', '해외 토픽':'world' };
+    function element(tag, className, text) { const n = document.createElement(tag); if (className) n.className = className; if (text !== undefined) n.textContent = text; return n; }
+    function icon(name) { const n = element('span'); n.innerHTML = icons[name]; return n; }
+    function safeLink(value) { try { const u = new URL(value); return ['http:','https:'].includes(u.protocol) && !u.username && !u.password ? u.href : '#'; } catch { return '#'; } }
+    function time(value, short = false) { if (!value || !Number.isFinite(Date.parse(value))) return '시각 미제공'; return new Intl.DateTimeFormat('ko-KR', { timeZone:'Asia/Seoul', month:'numeric', day:'numeric', hour:'2-digit', minute:'2-digit', hour12:false, ...(short ? {} : { year:'numeric' }) }).format(new Date(value)); }
+    $('header-date').textContent = new Intl.DateTimeFormat('ko-KR', { timeZone:'Asia/Seoul', year:'numeric', month:'long', day:'numeric', weekday:'short' }).format(new Date());
+    $('year').textContent = new Intl.DateTimeFormat('en', {timeZone:'Asia/Seoul',year:'numeric'}).format(new Date());
+    const logo = new Image(); logo.alt = ''; logo.onload = () => $('brand-mark').replaceWith(logo); logo.src = '/images/logo.png';
+    function renderSources() {
+      const parent = $('source-list'); parent.replaceChildren();
+      for (const source of data.sources.length ? data.sources : defaultSources) {
+        const box = element('div','source'), line = element('div','source-line'), name = element('a','source-name');
+        name.href = safeLink(source.url); name.target = '_blank'; name.rel = 'noopener noreferrer';
+        name.append(element('span','source-symbol '+source.id,symbols[source.id]),document.createTextNode(source.name));
+        line.append(name,element('span','status '+source.status,statuses[source.status] || '대기'));
+        box.append(line,element('p','',source.message));
+        if (source.lastSuccessAt) { const stamp = element('time','', '마지막 성공 '+time(source.lastSuccessAt,true)); stamp.dateTime = source.lastSuccessAt; box.append(stamp); }
+        parent.append(box);
+      }
+    }
+    function card(article) {
+      const box = element('article','card'), top = element('div','card-top');
+      top.append(element('span','category-badge '+(classes[article.category] || ''),article.category),element('span','card-origin',article.language === 'en' ? (article.titleKo ? 'EN → KO' : 'EN') : 'KR'));
+      const title = element('h3','',article.titleKo || article.originalTitle);
+      const original = element('p','original-title'); original.append(element('b','','원문 제목  '),document.createTextNode(article.originalTitle));
+      const summary = element('div','summary');
+      if (article.summarySentences?.length === 3) {
+        const label = element('div','summary-label'); label.append(icon('sparkle'),document.createTextNode(article.summaryStatus === 'ai' ? '한국어 AI 요약 · 제공 설명 기반' : '3문장 발췌 · 제공 설명 기반')); summary.append(label);
+        for (const sentence of article.summarySentences) summary.append(element('p','',sentence));
+        if (article.summaryMessage?.includes('실패')) summary.append(element('p','summary-notice',article.summaryMessage));
+      } else {
+        summary.append(element('p','summary-notice',article.summaryMessage || '요약을 제공하지 못했습니다.'));
+        if (article.description) summary.append(element('p','excerpt',(article.language === 'en' ? '원문 설명 · ' : '제공 설명 · ') + article.description));
+      }
+      const bottom = element('div','card-bottom'), pub = element('div','publisher');
+      const routes = (article.sources || [article.source]).map(id => defaultSources.find(s=>s.id===id)?.name || id).join(' · ');
+      pub.append(element('b','',article.publisher));
+      const stamp = element('time','',`${article.dateLabel || '발행'} ${time(article.publishedAt,true)}`); if (article.publishedAt) stamp.dateTime = article.publishedAt;
+      stamp.title = `${article.dateLabel || '발행'}: ${time(article.publishedAt)} / 수집: ${time(article.fetchedAt)} / 수집 경로: ${routes}`;
+      pub.append(stamp);
+      const link = element('a','read-link','원문 보기'); link.href = safeLink(article.originalUrl); link.target = '_blank'; link.rel = 'noopener noreferrer'; link.setAttribute('aria-label', `${article.titleKo || article.originalTitle} 원문 보기 (새 창)`); link.append(icon('arrow'));
+      bottom.append(pub,link); box.append(top,title,original,summary,bottom);
+      if (article.stale) box.append(element('p','stale','이번 연결 실패로 이전에 수집한 기사를 표시합니다.'));
+      return box;
+    }
+    function emptyView(filtered) {
+      const view = element('div','empty'), mark = element('div','empty-mark'); mark.append(icon('news'));
+      const title = filtered ? '찾는 소식이 아직 없어요.' : '오늘의 첫 소식을 모아볼까요?';
+      const description = filtered ? '현재 수집된 기사 안에서 검색합니다. 다른 키워드나 분야를 선택해 보세요.' : '새로고침을 누르면 연결 가능한 뉴스 사이트에서 최근 48시간의 기사를 가져옵니다.';
+      const button = element('button','',filtered ? '검색과 분야 초기화' : '지금 뉴스 모으기'); button.type = 'button';
+      button.addEventListener('click', filtered ? () => { query=''; category='전체'; $('search').value=''; updateTabs(); render(); } : refresh);
+      view.append(mark,element('h3','',title),element('p','',description),button);
+      if (!filtered) { const steps = element('div','empty-steps'); for (const [i,label] of ['뉴스 수집','분야별 탐색','원문으로 이동'].entries()) { const step=element('span'); step.append(element('b','',String(i+1).padStart(2,'0')),document.createTextNode(label)); steps.append(step); } view.append(steps); }
+      return view;
+    }
+    function updateTabs() { document.querySelectorAll('[data-category]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.category===category))); }
+    function render() {
+      const filtered = data.articles.filter(a => (category==='전체' || a.category===category) && [a.titleKo,a.originalTitle,...(a.summarySentences || [])].join(' ').toLocaleLowerCase().includes(query.toLocaleLowerCase()));
+      const count = $('results-count'); count.replaceChildren(document.createTextNode(query ? '검색 결과 ' : '수집된 뉴스 '),element('strong','',String(filtered.length)),document.createTextNode('건'));
+      const countTime = data.lastCompletedAt ? element('span','', ' · 갱신 '+time(data.lastCompletedAt,true)) : null; if(countTime) count.append(countTime);
+      $('metric-count').textContent = data.articles.length;
+      const connected = data.sources.filter(s=>['ok','partial'].includes(s.status)).length;
+      $('metric-sources').replaceChildren(document.createTextNode(String(connected)),element('span','','/ 4'));
+      $('clear-search').hidden = !$('search').value;
+      $('refresh').disabled = data.refreshing || data.cooldownSeconds>0;
+      $('refresh').classList.toggle('busy',data.refreshing);
+      $('refresh-label').textContent = data.refreshing ? '수집 중' : data.cooldownSeconds>0 ? `대기 ${data.cooldownSeconds}초` : '새로고침';
+      $('news-grid').setAttribute('aria-busy',String(data.refreshing));
+      const note = $('announcement'); note.className='notice';
+      let message = transientError || data.cacheWarning || '';
+      if (data.refreshing) { message = data.phase || '최신 뉴스를 모으고 있습니다.'; note.replaceChildren(); const line=element('div','progress');line.append(icon('refresh'),document.createTextNode(message));note.append(line); }
+      else {
+        if (!message && data.sources.some(s=>s.status==='error')) message='일부 출처에 연결하지 못했습니다. 이전 자료가 있으면 유지하며, 출처별 상태를 확인할 수 있습니다.';
+        if (!message && data.lastCompletedAt && !data.articles.length) message='이번 수집에서 최근 48시간에 해당하는 기사를 찾지 못했습니다. 출처 상태를 확인하고 다시 시도해 주세요.';
+        note.textContent=message; if(transientError) note.classList.add('error');
+      }
+      note.hidden=!message;
+      const key=JSON.stringify([filtered,category,query,data.refreshing && !data.articles.length]);
+      if(key!==lastGridKey) {
+        lastGridKey=key;const grid=$('news-grid');grid.replaceChildren();
+        if(!data.articles.length && data.refreshing) for(let i=0;i<4;i++){const s=element('div','skeleton');s.setAttribute('aria-hidden','true');grid.append(s);}
+        else if(!filtered.length) grid.append(emptyView(Boolean(query || category!=='전체')));
+        else filtered.forEach(a=>grid.append(card(a)));
+      }
+      renderSources();
+      if(data.aiConfigured) $('ai-note').textContent='한국어 AI 요약이 설정되어 있습니다. 제공 설명만으로 충분하지 않은 기사는 요약을 보류합니다. 원문도 함께 확인해 주세요.';
+    }
+    async function request(path, options) { const response=await fetch(path,{cache:'no-store',...options}); const value=await response.json(); if(!response.ok) throw new Error(value.error || '서버 연결에 실패했습니다.'); return value; }
+    function schedulePoll() { clearTimeout(pollTimer); if(data.refreshing || data.cooldownSeconds>0) pollTimer=setTimeout(load,1500); }
+    async function load() {
+      try { data=await request('/api/news');pollFailures=0;transientError=''; render();schedulePoll(); }
+      catch { pollFailures++;transientError='서버에 연결하지 못했습니다. 서버가 실행 중인지 확인한 뒤 다시 시도해 주세요.';data.refreshing=false;data.cooldownSeconds=0;render();if(pollFailures<3)pollTimer=setTimeout(load,3000); }
+    }
+    async function refresh() {
+      if(data.refreshing) return;
+      transientError='';data.refreshing=true;render();
+      try { data=await request('/api/refresh',{method:'POST',headers:{'X-News-Client':'news-collection'}});render();schedulePoll(); }
+      catch(e) { data.refreshing=false;transientError=e.message;render(); }
+    }
+    $('refresh').addEventListener('click',refresh);
+    $('search-form').addEventListener('submit',e=>{e.preventDefault();query=$('search').value.trim();render();});
+    $('search').addEventListener('input',()=>{clearTimeout(timer);timer=setTimeout(()=>{query=$('search').value.trim();render();},150);});
+    $('clear-search').addEventListener('click',()=>{clearTimeout(timer);$('search').value='';query='';render();$('search').focus();});
+    document.querySelectorAll('[data-category]').forEach(button=>button.addEventListener('click',()=>{category=button.dataset.category;updateTabs();render();}));
+    $('menu-toggle').addEventListener('click',()=>{const open=$('menu-toggle').getAttribute('aria-expanded')!=='true';$('menu-toggle').setAttribute('aria-expanded',String(open));$('menu-toggle').setAttribute('aria-label',open?'메뉴 닫기':'메뉴 열기');$('navigation').classList.toggle('open',open);});
+    document.querySelectorAll('.nav a').forEach(link=>link.addEventListener('click',()=>{$('navigation').classList.remove('open');$('menu-toggle').setAttribute('aria-expanded','false');$('menu-toggle').setAttribute('aria-label','메뉴 열기');}));
+    render();load();
+  </script>
+</body>
+</html>

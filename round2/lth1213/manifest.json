@@ -1,0 +1,8 @@
+{
+  "manifest_version": 3,
+  "name": "Bell 팀 소개 홈페이지",
+  "version": "1.0.0",
+  "description": "신사업 발굴과 업무 자동화 팀 Bell의 소개 페이지를 새 탭으로 엽니다.",
+  "action": { "default_title": "Bell 홈페이지 열기" },
+  "background": { "service_worker": "background.js" }
+}

@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512" role="img" aria-labelledby="title description">
+  <title id="title">경영지원팀 임시 글자 로고</title>
+  <desc id="description">주황색 둥근 사각형에 흰색 경 글자를 배치한 수업용 가상 팀 로고</desc>
+  <rect width="512" height="512" fill="#fcfaf7"/>
+  <rect x="48" y="48" width="416" height="416" rx="112" fill="#bd4e0b"/>
+  <text x="256" y="276" dominant-baseline="middle" text-anchor="middle" fill="#ffffff" font-family="system-ui, 'Malgun Gothic', sans-serif" font-size="270" font-weight="600">경</text>
+</svg>

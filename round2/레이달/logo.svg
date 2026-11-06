@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="레이달랩 로고">
+  <rect width="64" height="64" rx="18" fill="#243653"/>
+  <path fill="#F7F3EC" d="M14 14h24l14 14v22H14V14z"/>
+  <path fill="#D9A56E" d="M38 14v14h14L38 14z"/>
+</svg>

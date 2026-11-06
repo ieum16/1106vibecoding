@@ -1,0 +1,12 @@
+{
+  "manifest_version": 3,
+  "name": "느린걸음 — 주말 산책 모임",
+  "version": "2.0.0",
+  "description": "산책 활동, 경복궁 주변 코스 개념도와 네이버지도 링크, 예시 산책 기록을 한 화면에서 보는 산책 페이지입니다.",
+  "action": {
+    "default_title": "느린걸음 산책 페이지 열기"
+  },
+  "background": {
+    "service_worker": "background.js"
+  }
+}

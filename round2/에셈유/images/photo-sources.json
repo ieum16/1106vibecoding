@@ -1,0 +1,32 @@
+{
+  "note": "Existing stock photos used as illustrative mood imagery; not documentary evidence of the fictional journal events.",
+  "assets": [
+    {
+      "old": "walk-palace.png",
+      "file": "palace-stock.jpg",
+      "author": "Huy Phan",
+      "source": "Pexels",
+      "url": "https://www.pexels.com/photo/a-wall-with-doors-in-gyeongbokgung-palace-seoul-south-korea-19271540/",
+      "license": "https://www.pexels.com/license/",
+      "alt": "경복궁의 기와지붕과 돌담 풍경"
+    },
+    {
+      "old": "walk-alley.png",
+      "file": "alley-stock.jpg",
+      "author": "Red Shuheart",
+      "source": "Unsplash",
+      "url": "https://unsplash.com/photos/a-narrow-alley-way-with-a-sign-on-the-side-of-it-ST1mRdFhzpg",
+      "license": "https://unsplash.com/license",
+      "alt": "작은 가게와 화분이 있는 서울의 좁은 골목 풍경"
+    },
+    {
+      "old": "walk-park.png",
+      "file": "park-stock.jpg",
+      "author": "Levent Simsek",
+      "source": "Pexels",
+      "url": "https://www.pexels.com/photo/autumn-park-with-leaves-on-the-footpath-19075971/",
+      "license": "https://www.pexels.com/license/",
+      "alt": "단풍과 낙엽으로 물든 가을 공원의 산책길"
+    }
+  ]
+}

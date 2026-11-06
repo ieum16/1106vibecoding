@@ -1,0 +1,358 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#fff7fa">
+  <meta name="description" content="우리 동네 안전과 봉사 소식을 전하는 떡잎방범대 소개 페이지입니다.">  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
+  <title>떡잎방범대 | 우리 동네 안전 지킴이</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --pink: #e9578b;
+      --pink-dark: #b82d61;
+      --pink-soft: #fff3f7;
+      --sky: #4cc3e0;
+      --sky-soft: #eafaff;
+      --yellow: #ffe43b;
+      --ink: #252126;
+      --body: #625d63;
+      --muted: #817a82;
+      --line: #eee7eb;
+      --canvas: #fff;
+      --radius: 18px;
+      --pill: 999px;
+      --content: 1120px;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 88px; }
+    body { margin: 0; background: var(--canvas); color: var(--ink); font-family: Pretendard, "Apple SD Gothic Neo", "Malgun Gothic", system-ui, sans-serif; line-height: 1.65; }
+    img { max-width: 100%; display: block; }
+    a { color: inherit; }
+    button, input, textarea { font: inherit; }
+    :focus-visible { outline: 3px solid rgba(76,195,224,.65); outline-offset: 3px; }
+    .container { width: min(var(--content), calc(100% - 48px)); margin-inline: auto; }
+    .site-header { position: sticky; top: 0; z-index: 10; background: rgba(255,255,255,.96); border-bottom: 1px solid var(--line); backdrop-filter: blur(12px); }
+    .nav-wrap { min-height: 72px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+    .brand { display: inline-flex; align-items: center; gap: 11px; color: var(--ink); text-decoration: none; font-weight: 800; white-space: nowrap; }
+    .brand img { width: 44px; height: 44px; border-radius: 50%; object-fit: cover; border: 1px solid var(--line); }
+    .nav-links { display: flex; align-items: center; gap: 8px; }
+    .nav-links a { text-decoration: none; font-size: 14px; font-weight: 650; color: var(--body); padding: 9px 13px; border-radius: var(--pill); }
+    .nav-links a:hover { background: var(--pink-soft); color: var(--pink-dark); }
+    .nav-links .nav-cta { background: var(--pink); color: white; padding-inline: 18px; }
+    .menu-toggle { display: none; width: 44px; height: 44px; border: 1px solid var(--line); background: white; border-radius: var(--pill); color: var(--ink); cursor: pointer; font-size: 21px; }
+    .hero { padding: 78px 0 94px; overflow: hidden; }
+    .hero-grid { display: grid; grid-template-columns: minmax(0,1.15fr) minmax(280px,.85fr); align-items: center; gap: 52px; }
+    .eyebrow { display: inline-flex; align-items: center; gap: 8px; border: 1px solid #f4d7e2; border-radius: var(--pill); color: var(--pink-dark); background: #fffafd; padding: 6px 13px; font-size: 13px; font-weight: 700; }
+    .eyebrow .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--sky); box-shadow: 0 0 0 3px var(--sky-soft); }
+    h1 { margin: 20px 0 14px; max-width: 650px; font-size: clamp(38px,5vw,62px); line-height: 1.15; letter-spacing: -.055em; font-weight: 850; }
+    h1 .highlight { color: var(--pink-dark); }
+    .hero-copy { max-width: 590px; color: var(--body); font-size: 18px; margin: 0; animation: rise-in .72s cubic-bezier(.2,.7,.25,1) .28s both; }
+    .hero .eyebrow { animation: rise-in .72s cubic-bezier(.2,.7,.25,1) .02s both; }
+    .hero h1 { animation: rise-in .72s cubic-bezier(.2,.7,.25,1) .14s both; }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 11px; margin-top: 28px; animation: rise-in .72s cubic-bezier(.2,.7,.25,1) .4s both; }
+    .button { display: inline-flex; align-items: center; justify-content: center; min-height: 46px; padding: 10px 21px; border: 1px solid transparent; border-radius: var(--pill); text-decoration: none; font-size: 14px; font-weight: 750; cursor: pointer; transition: transform .18s ease, background .18s ease; }
+    .button:hover { transform: translateY(-1px); }
+    .button-primary { background: var(--pink); color: white; }
+    .button-primary:hover { background: var(--pink-dark); }
+    .button-secondary { background: white; border-color: #ded6db; color: var(--ink); }
+    .hero-note { margin: 17px 0 0; color: var(--muted); font-size: 13px; animation: rise-in .72s cubic-bezier(.2,.7,.25,1) .52s both; }
+    .hero-art { min-height: 350px; position: relative; display: grid; place-items: center; }
+    .hero-art::before { content: ""; width: min(340px,85vw); aspect-ratio: 1; position: absolute; border-radius: 50%; background: #fff4f8; border: 1px solid #f4dce6; animation: circle-enter .9s ease-out .12s both; }
+    .hero-art::after { content: ""; width: 88px; height: 88px; position: absolute; top: 8%; right: 8%; border-radius: 50%; background: var(--yellow); opacity: .9; animation: circle-enter .75s ease-out .3s both; }
+    .logo-card { z-index: 1; width: min(250px,68vw); padding: 13px; border-radius: 26px; background: white; border: 1px solid var(--line); }
+    .logo-card img { width: 100%; border-radius: 16px; }
+    .logo-card { animation: logo-bob 4.6s ease-in-out infinite, rise-in .82s cubic-bezier(.2,.7,.25,1) .22s both; }
+    .floating-tag { position: absolute; z-index: 2; border: 1px solid var(--line); border-radius: var(--pill); background: white; padding: 9px 15px; font-size: 13px; font-weight: 750; }
+    .tag-one { left: 1%; bottom: 15%; transform: rotate(-5deg); animation: tag-one-bob 3.8s ease-in-out infinite, rise-in .75s cubic-bezier(.2,.7,.25,1) .4s both; }
+    .tag-two { right: 0; bottom: 23%; background: var(--sky-soft); border-color: #c9eff8; transform: rotate(4deg); animation: tag-two-bob 4.2s ease-in-out infinite, rise-in .75s cubic-bezier(.2,.7,.25,1) .54s both; }
+    @keyframes rise-in { from { opacity: 0; translate: 0 24px; } to { opacity: 1; translate: 0 0; } }
+    @keyframes circle-enter { from { opacity: 0; scale: .88; } to { opacity: 1; scale: 1; } }
+    html.has-motion .reveal { opacity: 0; translate: 0 24px; transition: opacity .72s cubic-bezier(.2,.7,.25,1) var(--reveal-delay, 0ms), translate .72s cubic-bezier(.2,.7,.25,1) var(--reveal-delay, 0ms); }
+    html.has-motion .reveal.is-visible { opacity: 1; translate: 0 0; }
+    @keyframes logo-bob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-7px); } }
+    @keyframes tag-one-bob { 0%, 100% { transform: translateY(0) rotate(-5deg); } 50% { transform: translateY(-6px) rotate(-5deg); } }
+    @keyframes tag-two-bob { 0%, 100% { transform: translateY(0) rotate(4deg); } 50% { transform: translateY(-8px) rotate(4deg); } }
+    .section { padding: 82px 0; }
+    .section-soft { background: #fffafd; }
+    .section-head { max-width: 680px; margin: 0 auto 34px; text-align: center; }
+    .kicker { margin: 0 0 8px; color: var(--pink-dark); font-size: 13px; font-weight: 800; letter-spacing: .04em; }
+    h2 { margin: 0; font-size: clamp(29px,3vw,40px); line-height: 1.25; letter-spacing: -.04em; }
+    .hero h1, .section-head h2, .closing h2 { font-family: "Jua", Pretendard, "Apple SD Gothic Neo", "Malgun Gothic", system-ui, sans-serif; font-weight: 400; letter-spacing: .01em; }
+    .section-head > p:last-child { margin: 12px auto 0; color: var(--body); }
+    .activity-grid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 18px; }
+    .info-card { padding: 25px; border: 1px solid var(--line); border-radius: var(--radius); background: white; }
+    .card-top { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 19px; }
+    .icon-bubble { width: 48px; height: 48px; display: grid; place-items: center; border-radius: 16px; background: var(--pink-soft); font-size: 23px; }
+    .info-card:nth-child(2) .icon-bubble { background: var(--sky-soft); }
+    .sample-label { border-radius: var(--pill); padding: 5px 11px; color: #6b5b12; background: #fff9cf; font-size: 12px; font-weight: 750; }
+    .info-card h3 { margin: 0; font-size: 20px; letter-spacing: -.02em; }
+    .info-card p { color: var(--body); margin: 9px 0 0; }
+    .sample-detail { margin-top: 19px; padding-top: 14px; border-top: 1px solid var(--line); color: var(--muted); font-size: 13px; }
+    .report-panel { display: grid; grid-template-columns: .9fr 1.1fr; gap: 36px; align-items: start; padding: 34px; border: 1px solid #f0dbe4; border-radius: 24px; background: white; }
+    .report-copy h3 { margin: 0 0 12px; font-size: 24px; line-height: 1.35; }
+    .report-copy p { margin: 0; color: var(--body); }
+    .notice { margin-top: 22px; padding: 14px 16px; border-radius: 14px; color: #704d00; background: #fff8d9; font-size: 13px; }
+    .demo-form { display: grid; gap: 13px; }
+    .field { display: grid; gap: 6px; }
+    .field label { font-size: 13px; font-weight: 750; }
+    .field input, .field textarea { width: 100%; border: 1px solid #e3dce0; border-radius: 12px; padding: 11px 14px; color: var(--ink); background: white; }
+    .field textarea { min-height: 98px; resize: vertical; }
+    .field input::placeholder, .field textarea::placeholder { color: #a39ba1; }
+    .form-help { margin: 0; color: var(--muted); font-size: 12px; }
+    .demo-form .button { justify-self: start; }
+    .form-result { min-height: 1.5em; margin: 0; color: var(--pink-dark); font-size: 13px; font-weight: 700; }
+    .members-grid { display: grid; grid-template-columns: repeat(5,minmax(0,1fr)); gap: 13px; }
+    .member-card { text-align: center; padding: 21px 13px; border: 1px solid var(--line); border-radius: var(--radius); background: white; }
+    .member-avatar { width: 64px; height: 64px; display: grid; place-items: center; margin: 0 auto 13px; border-radius: 50%; background: var(--pink-soft); font-size: 29px; }
+    .member-card:nth-child(even) .member-avatar { background: var(--sky-soft); }
+    .member-card h3 { margin: 0; font-size: 16px; }
+    .member-card p { margin: 4px 0 0; color: var(--body); font-size: 13px; }
+    .members-note { margin: 16px 0 0; color: var(--muted); text-align: center; font-size: 13px; }
+    .closing { padding: 34px; border: 1px solid #f2d9e3; border-radius: 22px; background: var(--pink-soft); display: flex; align-items: center; justify-content: space-between; gap: 22px; }
+    .closing h2 { font-size: 25px; }
+    .closing p { color: var(--body); margin: 7px 0 0; }
+    footer { border-top: 1px solid var(--line); padding: 27px 0; color: var(--muted); font-size: 13px; }
+    .footer-inner { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+    .footer-inner p { margin: 0; }
+    @media (max-width: 820px) {
+      .hero-grid { grid-template-columns: 1fr 300px; gap: 20px; }
+      .members-grid { grid-template-columns: repeat(3,minmax(0,1fr)); }
+      .nav-links { gap: 0; }
+      .nav-links a { padding-inline: 9px; }
+    }
+    @media (max-width: 640px) {
+      html { scroll-padding-top: 72px; }
+      .container { width: min(100% - 32px, var(--content)); }
+      .nav-wrap { min-height: 64px; }
+      .brand img { width: 39px; height: 39px; }
+      .menu-toggle { display: inline-grid; place-items: center; }
+      .nav-links { display: none; position: absolute; top: calc(100% + 1px); left: 0; right: 0; padding: 12px 16px 18px; background: white; border-bottom: 1px solid var(--line); flex-direction: column; align-items: stretch; }
+      .nav-links.is-open { display: flex; }
+      .nav-links a { padding: 11px 14px; }
+      .nav-links .nav-cta { text-align: center; margin-top: 5px; }
+      .hero { padding: 55px 0 62px; }
+      .hero-grid { grid-template-columns: 1fr; gap: 4px; }
+      h1 { font-size: clamp(36px,11vw,50px); }
+      .hero-copy { font-size: 16px; }
+      .hero-art { min-height: 300px; }
+      .hero-art::before { width: 265px; }
+      .hero-art::after { width: 65px; height: 65px; right: 12%; }
+      .logo-card { width: 200px; }
+      .tag-one { left: 3%; bottom: 13%; }
+      .tag-two { right: 2%; bottom: 19%; }
+      .section { padding: 62px 0; }
+      .section-head { margin-bottom: 26px; }
+      .activity-grid, .report-panel { grid-template-columns: 1fr; }
+      .report-panel { padding: 22px; gap: 22px; }
+      .members-grid { grid-template-columns: repeat(2,minmax(0,1fr)); }
+      .member-card:last-child { grid-column: 1 / -1; }
+      .closing { align-items: flex-start; flex-direction: column; padding: 24px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { transition-duration: .01ms !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; }
+      html.has-motion .reveal, html.has-motion .reveal.is-visible { opacity: 1; translate: none; transition: none; }
+      .hero .eyebrow, .hero h1, .hero-copy, .hero-actions, .hero-note, .logo-card, .floating-tag, .hero-art::before, .hero-art::after { animation: none !important; opacity: 1; translate: none; scale: 1; }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container nav-wrap">
+      <a class="brand" href="#top" aria-label="떡잎방범대 첫 화면">
+        <img src="images/logo.png" alt="떡잎방범대 로고">
+        <span>떡잎방범대</span>
+      </a>
+      <button class="menu-toggle" type="button" aria-label="메뉴 열기" aria-expanded="false" aria-controls="primary-nav">☰</button>
+      <nav class="nav-links" id="primary-nav" aria-label="주요 메뉴">
+        <a href="#activities">오늘의 활동</a>
+        <a href="#volunteer">오늘의 봉사</a>
+        <a href="#report">불편 신고</a>
+        <a href="#members">대원 소개</a>
+        <a class="nav-cta" href="#report">안전 의견 남기기</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="container hero-grid">
+        <div>
+          <span class="eyebrow"><span class="dot" aria-hidden="true"></span> 떡잎유치원 동네 안전 지킴이</span>
+          <h1 id="hero-title">우리 동네 안전,<br><span class="highlight">함께 지켜요!</span></h1>
+          <p class="hero-copy">오늘의 안전 활동과 봉사 소식을 전해요. 동네에서 불편하거나 걱정되는 점도 편하게 알려 주세요!</p>
+          <div class="hero-actions">
+            <a class="button button-primary" href="#activities">오늘 활동 보기 <span aria-hidden="true">→</span></a>
+            <a class="button button-secondary" href="#report">불편 신고 안내</a>
+          </div>
+          <p class="hero-note">작은 관심이 모이면 동네가 더 안전해져요. 💗</p>
+        </div>
+        <div class="hero-art" aria-label="떡잎방범대 로고">
+          <div class="logo-card"><img src="images/logo.png" alt="파란 원 안에 노란색 KB 글자가 있는 떡잎방범대 로고"></div>
+          <span class="floating-tag tag-one">오늘도 씩씩하게! ✨</span>
+          <span class="floating-tag tag-two">안전 순찰 중 🛡️</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-soft" id="activities" aria-labelledby="activities-title">
+      <div class="container">
+        <div class="section-head">
+          <p class="kicker">TODAY · SAFETY</p>
+          <h2 id="activities-title">오늘의 활동</h2>
+          <p>떡잎방범대가 동네를 살피며 확인한 안전 소식이에요.</p>
+        </div>
+        <div class="activity-grid">
+          <article class="info-card">
+            <div class="card-top"><span class="icon-bubble" aria-hidden="true">🔎</span><span class="sample-label">예시 콘텐츠</span></div>
+            <h3>우리 동네 안전 살펴보기</h3>
+            <p>골목길과 놀이터 주변을 둘러보며 불편하거나 위험한 곳이 있는지 살펴봤어요.</p>
+            <div class="sample-detail">연습용 예시 · 실제 활동 기록으로 교체해 주세요</div>
+          </article>
+          <article class="info-card">
+            <div class="card-top"><span class="icon-bubble" aria-hidden="true">💡</span><span class="sample-label">예시 콘텐츠</span></div>
+            <h3>어두운 길목 확인하기</h3>
+            <p>가로등이 잘 켜지는지, 밤길에 조심해야 할 곳은 없는지 확인하는 활동이에요.</p>
+            <div class="sample-detail">연습용 예시 · 날짜와 장소는 실제 정보로 바꿔 주세요</div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="volunteer" aria-labelledby="volunteer-title">
+      <div class="container">
+        <div class="section-head">
+          <p class="kicker">TODAY · KINDNESS</p>
+          <h2 id="volunteer-title">오늘의 봉사</h2>
+          <p>함께 도우며 더 다정한 동네를 만들어 가요.</p>
+        </div>
+        <div class="activity-grid">
+          <article class="info-card">
+            <div class="card-top"><span class="icon-bubble" aria-hidden="true">🧹</span><span class="sample-label">예시 콘텐츠</span></div>
+            <h3>놀이터 주변 깨끗하게</h3>
+            <p>친구들과 놀이터 주변을 정리하고, 쓰레기는 정해진 곳에 버렸어요.</p>
+            <div class="sample-detail">연습용 예시 · 실제 봉사 기록으로 교체해 주세요</div>
+          </article>
+          <article class="info-card">
+            <div class="card-top"><span class="icon-bubble" aria-hidden="true">🤝</span><span class="sample-label">예시 콘텐츠</span></div>
+            <h3>이웃에게 먼저 인사하기</h3>
+            <p>오가는 이웃에게 반갑게 인사하며 서로 안부를 나눴어요.</p>
+            <div class="sample-detail">연습용 예시 · 실제 활동 내용으로 교체해 주세요</div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-soft" id="report" aria-labelledby="report-title">
+      <div class="container">
+        <div class="section-head">
+          <p class="kicker">YOUR VOICE MATTERS</p>
+          <h2 id="report-title">동네 불편, 알려 주세요</h2>
+          <p>주민의 한마디가 더 안전한 동네를 만드는 데 도움이 돼요.</p>
+        </div>
+        <div class="report-panel">
+          <div class="report-copy">
+            <h3>함께 살펴볼게요! 📨</h3>
+            <p>위험해 보이는 곳이나 생활 속 불편 사항을 알려 주세요. 현재는 페이지 시안 단계라 신고가 실제로 접수되지는 않습니다.</p>
+            <div class="notice"><strong>시안 안내</strong><br>아래 입력 내용은 전송되거나 저장되지 않아요. 실제 접수 채널이 정해지면 연결할 예정입니다. 이름, 전화번호 등 개인정보는 입력하지 마세요.</div>
+          </div>
+          <form class="demo-form" id="demo-report">
+            <div class="field">
+              <label for="report-area">어느 곳인가요? <span>(선택)</span></label>
+              <input id="report-area" name="area" type="text" placeholder="예: 놀이터 앞 골목">
+            </div>
+            <div class="field">
+              <label for="report-detail">어떤 점이 불편한가요?</label>
+              <textarea id="report-detail" name="detail" placeholder="예: 밤에 길이 어두워요" required></textarea>
+            </div>
+            <p class="form-help">※ 실제 접수 기능이 연결되지 않은 미리보기용 입력란입니다.</p>
+            <button class="button button-primary" type="submit">미리보기 확인</button>
+            <p class="form-result" id="form-result" role="status" aria-live="polite"></p>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="members" aria-labelledby="members-title">
+      <div class="container">
+        <div class="section-head">
+          <p class="kicker">MEET THE TEAM</p>
+          <h2 id="members-title">떡잎방범대 대원 소개</h2>
+          <p>다섯 명이 힘을 합쳐 동네의 안전과 웃음을 지켜요.</p>
+        </div>
+        <div class="members-grid">
+          <article class="member-card"><div class="member-avatar" aria-hidden="true">🧭</div><h3>짱구</h3><p>골목길 돌아다니기</p></article>
+          <article class="member-card"><div class="member-avatar" aria-hidden="true">🧹</div><h3>철수</h3><p>꼼꼼하게 쓰레기 줍기</p></article>
+          <article class="member-card"><div class="member-avatar" aria-hidden="true">💪</div><h3>유리</h3><p>나쁜 사람 혼내주기</p></article>
+          <article class="member-card"><div class="member-avatar" aria-hidden="true">🪨</div><h3>맹구</h3><p>길가에 돌 치우기</p></article>
+          <article class="member-card"><div class="member-avatar" aria-hidden="true">🥹</div><h3>훈이</h3><p>무서운 사람 만나면 울기</p></article>
+        </div>
+        <p class="members-note">대원들의 특징을 재미있게 소개했어요. 실제 안전 신고는 믿을 수 있는 어른이나 공식 기관에 알려 주세요.</p>
+      </div>
+    </section>
+
+    <section class="section section-soft">
+      <div class="container closing">
+        <div><h2>우리 동네, 같이 지켜요!</h2><p>관심과 배려를 모아 오늘도 안전한 동네를 만들어요.</p></div>
+        <a class="button button-primary" href="#report">불편 신고 안내 보기</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-inner">
+      <p>떡잎유치원 소속 · 떡잎방범대</p>
+      <p>안전한 동네를 위한 연습용 팀 소개 페이지</p>
+    </div>
+  </footer>
+  <script>
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (!reduceMotion && 'IntersectionObserver' in window) {
+      document.documentElement.classList.add('has-motion');
+      const revealItems = document.querySelectorAll('.section-head, .info-card, .report-copy, .demo-form, .member-card, .closing');
+      revealItems.forEach((item) => item.classList.add('reveal'));
+      document.querySelectorAll('.activity-grid, .members-grid').forEach((group) => {
+        group.querySelectorAll('.reveal').forEach((item, index) => item.style.setProperty('--reveal-delay', `${index * 90}ms`));
+      });
+      const revealObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.12, rootMargin: '0px 0px -36px 0px' });
+      revealItems.forEach((item) => revealObserver.observe(item));
+    }    const toggle = document.querySelector('.menu-toggle');
+    const nav = document.querySelector('#primary-nav');
+    toggle.addEventListener('click', () => {
+      const isOpen = nav.classList.toggle('is-open');
+      toggle.setAttribute('aria-expanded', String(isOpen));
+      toggle.setAttribute('aria-label', isOpen ? '메뉴 닫기' : '메뉴 열기');
+      toggle.textContent = isOpen ? '×' : '☰';
+    });
+    nav.addEventListener('click', (event) => {
+      if (event.target.closest('a')) {
+        nav.classList.remove('is-open');
+        toggle.setAttribute('aria-expanded', 'false');
+        toggle.setAttribute('aria-label', '메뉴 열기');
+        toggle.textContent = '☰';
+      }
+    });
+    document.querySelector('#demo-report').addEventListener('submit', (event) => {
+      event.preventDefault();
+      document.querySelector('#form-result').textContent = '미리보기 확인만 했어요. 입력 내용은 전송되거나 저장되지 않았습니다.';
+      event.currentTarget.reset();
+    });
+  </script>
+</body>
+</html>
+
+
+
+
+
+
