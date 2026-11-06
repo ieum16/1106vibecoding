@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>고라파덕 오늘의 할 일</title>
+<style>
+  :root { --ink:#28324a; --pink:#fff0a3; --pink-deep:#eec52e; --cream:#fffdf1; --lavender:#b9ddff; --mint:#e5f1b5; --red:#e76b4d; --line:#333c4e; }
+  * { box-sizing:border-box; }
+  body { margin:0; min-height:100vh; color:var(--ink); font-family:"Malgun Gothic","Apple SD Gothic Neo",sans-serif; font-weight:700; background:radial-gradient(circle at 12% 15%,#fff 0 3px,transparent 4px),radial-gradient(circle at 85% 32%,#fff 0 4px,transparent 5px),linear-gradient(150deg,#e9f7ff,#cde8ff 58%,#fff1a8); background-size:42px 42px,57px 57px,auto; }
+  header { text-align:center; padding:21px 14px 7px; }
+  .title-card { display:inline-block; padding:10px 24px 12px; border:3px solid var(--line); border-radius:22px 22px 18px 18px; background:var(--cream); box-shadow:4px 5px 0 rgba(113,95,114,.22); transform:rotate(-1.4deg); }
+  .title-card small { display:block; color:var(--pink-deep); font-size:11px; letter-spacing:.14em; }
+  .title-card h1 { margin:2px 0 0; font-size:27px; letter-spacing:-.07em; }
+  main { max-width:960px; margin:auto; padding:13px 13px 28px; display:grid; grid-template-columns:1fr 1.08fr; gap:18px; align-items:start; }
+  .panel { border:3px solid var(--line); border-radius:24px; background:rgba(255,253,249,.94); box-shadow:5px 6px 0 rgba(113,95,114,.18); }
+  .stage { min-height:455px; padding:18px 15px 0; overflow:hidden; position:sticky; top:12px; background:linear-gradient(180deg,#eaf8ff 0 69%,#c9e896 69%); }
+  .stage::after { content:""; position:absolute; inset:auto 0 0; height:78px; background:repeating-radial-gradient(ellipse at 25% 100%,#acd77f 0 20px,transparent 21px 42px); opacity:.72; }
+  .bubble { position:relative; z-index:2; min-height:105px; display:flex; align-items:center; justify-content:center; padding:17px 20px; border:3px solid var(--line); border-radius:31px; background:#fff; text-align:center; font-size:20px; line-height:1.45; word-break:keep-all; box-shadow:3px 4px 0 rgba(113,95,114,.14); }
+  .bubble::after { content:""; position:absolute; bottom:-16px; left:50%; width:25px; height:25px; background:#fff; border-right:3px solid var(--line); border-bottom:3px solid var(--line); transform:translateX(-50%) rotate(45deg); }
+  .bubble.shout { background:#fff2a8; animation:wobble .45s 2; }
+  .bubble b { color:#e05b85; }
+  .char-wrap { position:relative; z-index:1; height:300px; margin-top:30px; display:flex; justify-content:center; align-items:flex-end; }
+  .mascot { position:relative; width:238px; height:238px; object-fit:cover; border:4px solid var(--line); border-radius:48% 48% 42% 42%; transform-origin:bottom center; filter:drop-shadow(4px 5px 0 rgba(51,60,78,.17)); }
+  .mascot .ear { position:absolute; top:0; width:58px; height:89px; border:3px solid var(--line); border-radius:50% 50% 42% 42%; background:var(--face); z-index:0; }
+  .mascot .ear::after { content:""; position:absolute; inset:12px 16px 18px; border-radius:50%; background:#ffdce7; }
+  .mascot .ear.left { left:17px; transform:rotate(-17deg); } .mascot .ear.right { right:17px; transform:rotate(17deg); }
+  .mascot .head { position:absolute; top:41px; left:15px; width:158px; height:143px; border:3px solid var(--line); border-radius:48% 48% 46% 46% / 44% 44% 54% 54%; background:var(--face); z-index:1; }
+  .mascot .eye { position:absolute; top:61px; width:11px; height:17px; border-radius:50%; background:var(--line); } .mascot .eye.left { left:53px; } .mascot .eye.right { right:53px; }
+  .mascot .cheek { position:absolute; top:91px; width:27px; height:13px; border-radius:50%; background:#ffc4d5; opacity:.8; } .mascot .cheek.left { left:25px; } .mascot .cheek.right { right:25px; }
+  .mascot .mouth { position:absolute; top:87px; left:70px; width:20px; height:13px; border-bottom:3px solid var(--line); border-radius:0 0 50% 50%; }
+  .mascot .body { position:absolute; bottom:0; left:41px; width:106px; height:90px; border:3px solid var(--line); border-radius:48px 48px 20px 20px; background:#c8e9d6; z-index:0; }
+  .mascot .paw { position:absolute; bottom:22px; width:43px; height:34px; border:3px solid var(--line); border-radius:50%; background:var(--face); z-index:2; } .mascot .paw.left { left:22px; transform:rotate(21deg); } .mascot .paw.right { right:22px; transform:rotate(-21deg); }
+  .mascot.cheer { animation:jump .58s ease-out 2; } .mascot.talk { animation:bob .5s ease-in-out 2; }
+  .mascot.cheer .mouth { top:83px; height:20px; border:3px solid var(--line); border-radius:50%; background:#ff9eb9; }
+  .sparkle { position:absolute; z-index:3; color:#f2bd39; font-size:35px; opacity:0; text-shadow:1px 1px #fff; } .sparkle.pop { animation:pop .9s ease-out forwards; }
+  .board { padding:17px; }
+  .board h2 { margin:0 0 13px; display:flex; justify-content:space-between; align-items:center; font-size:22px; letter-spacing:-.06em; }
+  .badge { padding:4px 10px; border:2px solid var(--line); border-radius:999px; background:var(--lavender); font-size:14px; }
+  form { display:flex; gap:7px; margin-bottom:15px; } form input { flex:1; min-width:0; padding:10px 11px; border:2px solid var(--line); border-radius:13px; color:var(--ink); font:inherit; font-size:16px; background:#fff; } form input:focus { outline:3px solid #d6c6ff; outline-offset:1px; }
+  .btn { border:2px solid var(--line); border-radius:13px; padding:8px 11px; background:#fff; color:var(--ink); font:inherit; font-size:15px; cursor:pointer; box-shadow:2px 3px 0 rgba(113,95,114,.22); white-space:nowrap; } .btn:active { transform:translate(2px,3px); box-shadow:none; } .btn-add { background:var(--pink-deep); color:#fff; } .btn-ok { background:#8dd4ae; } .btn-undo { font-size:13px; }
+  ul { display:flex; flex-direction:column; gap:10px; margin:0; padding:0; list-style:none; } li { display:flex; align-items:center; gap:8px; }
+  .mini { width:40px; height:40px; flex:none; overflow:hidden; border:2px solid var(--line); border-radius:50%; background:#fff6df; } .mini img { width:100%; height:100%; object-fit:cover; object-position:center; display:block; } 
+  .item-bubble { position:relative; flex:1; min-width:0; padding:9px 11px; border:2px solid var(--line); border-radius:15px; background:#fff; font-size:16px; cursor:pointer; word-break:break-all; } li.done .item-bubble { background:#e8f7ed; color:#7e827e; text-decoration:line-through; } .stamp { position:absolute; top:-11px; right:-4px; padding:1px 5px; border:2px solid #eb82a2; border-radius:7px; background:#fff; color:#dc668a; font-size:11px; text-decoration:none; transform:rotate(8deg); } .del { border:0; background:transparent; color:#ab9cab; cursor:pointer; font-size:19px; padding:3px; } .del:hover { color:#e05b85; } .empty { margin:0; padding:23px 0 6px; color:#938993; text-align:center; font-size:16px; }
+  @keyframes bob { 25% { transform:rotate(-3deg) } 75% { transform:rotate(3deg) } } @keyframes jump { 40% { transform:translateY(-23px) scale(1.04) } } @keyframes wobble { 25% { transform:translateX(-5px) rotate(-1deg) } 75% { transform:translateX(5px) rotate(1deg) } } @keyframes pop { 25% { opacity:1; transform:scale(1.25) rotate(-10deg) } 100% { opacity:0; transform:translateY(-36px) rotate(-15deg) } }
+  .open-full { position:absolute; top:10px; right:10px; z-index:4; display:none; padding:4px 8px; border:2px solid var(--line); border-radius:99px; background:#fff; color:var(--ink); font:inherit; font-size:12px; cursor:pointer; } html.popup .open-full { display:block; } html.popup body { width:400px; } html.popup header { padding:13px 10px 4px; } html.popup .title-card { padding:7px 18px 8px; } html.popup .title-card small { font-size:9px; } html.popup .title-card h1 { font-size:22px; } html.popup main { grid-template-columns:1fr; gap:12px; padding:10px 10px 18px; } html.popup .stage { position:relative; top:0; min-height:0; padding:13px 11px 0; } html.popup .bubble { min-height:75px; padding:12px 14px; font-size:17px; } html.popup .char-wrap { height:180px; margin-top:19px; transform:scale(.75); transform-origin:bottom center; } html.popup .board { padding:13px; } html.popup .board h2 { font-size:20px; } html.popup form input,.item-bubble { font-size:15px; }
+  @media (max-width:720px) { main { grid-template-columns:1fr; } .stage { position:relative; top:0; } } @media (prefers-reduced-motion:reduce) { * { animation:none !important; } }
+</style>
+</head>
+<body>
+<header><button class="open-full" id="openFull" type="button">↗ 크게 보기</button><div class="title-card"><small>PSYDUCK'S PLAN</small><h1>고라파덕 오늘의 할 일</h1></div></header>
+<main>
+  <section class="panel stage" aria-live="polite">
+    <div class="bubble" id="bubble"><span id="bubbleText">안녕! 오늘은 뭘 해볼까?</span></div>
+    <div class="sparkle" id="sfx" style="left:24px; top:137px;">✦</div><div class="sparkle" id="sfx2" style="right:25px; top:186px;">♥</div>
+    <div class="char-wrap"><img id="mascot" class="mascot" src="img/psyduck-reference.jpg" alt="안경과 책가방을 든 고라파덕"></div>
+  </section>
+  <section class="panel board"><h2>오늘의 작은 목표 <span class="badge" id="count">0 / 0</span></h2><form id="form" autocomplete="off"><input id="input" placeholder="할 일을 적어줘!" maxlength="60"><button class="btn btn-add" type="submit">추가</button></form><ul id="list"></ul><p class="empty" id="empty">아직 할 일이 없어. 하나 적어볼까?</p></section>
+</main>
+<script src="todo.js"></script>
+</body>
+</html>

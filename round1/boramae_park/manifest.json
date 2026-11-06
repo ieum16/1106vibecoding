@@ -1,0 +1,10 @@
+{
+  "manifest_version": 3,
+  "name": "고라파덕 오늘의 할 일",
+  "version": "1.0.0",
+  "description": "고라파덕이 오늘 할 일을 함께 챙겨 주는 투두리스트",
+  "action": {
+    "default_popup": "todo.html",
+    "default_title": "고라파덕 오늘의 할 일"
+  }
+}
