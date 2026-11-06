@@ -1,0 +1,1 @@
+﻿{"manifest_version":3,"name":"갈피 — 문서는 맡기고, 잠시 쉼","version":"1.0.0","description":"문서 요청과 기본 초안 정리를 돕는 갈피 홈페이지를 새 탭에서 엽니다.","action":{"default_title":"갈피 열기"},"background":{"service_worker":"background.js"}}
