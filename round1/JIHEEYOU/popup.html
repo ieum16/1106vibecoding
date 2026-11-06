@@ -9,7 +9,13 @@
 <body>
   <main class="app">
     <header>
-      <div class="topline"><p class="eyebrow">USAGI'S LITTLE DAYS</p><span class="today-tag">きょう · 오늘</span></div>
+      <div class="topline">
+        <p class="eyebrow">USAGI'S LITTLE DAYS</p>
+        <a class="weather-badge" href="https://open-meteo.com/" target="_blank" rel="noopener noreferrer" aria-label="서울 날씨 · 제공: Open-Meteo">
+          <span id="weather-icon" class="weather-icon" aria-hidden="true">◌</span>
+          <span id="weather-status" role="status" aria-live="polite">불러오는 중…</span>
+        </a>
+      </div>
       <div class="mascot" aria-hidden="true">
         <span class="doodle doodle-left">✳</span>
         <span class="mascot-bubble">야하~!</span>
@@ -21,12 +27,6 @@
       <p class="subtitle">우사기와 함께, 오늘도 사부작사부작</p>
       <p id="remaining" class="remaining" aria-live="polite">남은 할 일 0개</p>
     </header>
-
-    <section class="weather-card" aria-labelledby="weather-title">
-      <h2 id="weather-title">서울 · 오늘의 날씨</h2>
-      <p id="weather-status" role="status" aria-live="polite">불러오는 중…</p>
-      <a class="weather-source" href="https://open-meteo.com/" target="_blank" rel="noopener noreferrer">날씨 제공: Open-Meteo</a>
-    </section>
 
     <form id="todo-form" novalidate>
       <label for="todo-input" class="sr-only">새 할 일</label>

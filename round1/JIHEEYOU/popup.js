@@ -7,6 +7,19 @@ const list = document.querySelector("#todo-list");
 const remaining = document.querySelector("#remaining");
 const emptyMessage = document.querySelector("#empty-message");
 const weatherStatus = document.querySelector("#weather-status");
+const weatherIcon = document.querySelector("#weather-icon");
+const weatherBadge = document.querySelector(".weather-badge");
+
+function weatherSymbol(code) {
+  if (code === 0 || code === 1) return "☀️";
+  if (code === 2) return "🌤️";
+  if (code === 3) return "☁️";
+  if ([45, 48].includes(code)) return "🌫️";
+  if ([71, 73, 75, 77, 85, 86].includes(code)) return "❄️";
+  if ([95, 96, 97, 99].includes(code)) return "⛈️";
+  if ([51, 53, 55, 56, 57, 61, 63, 65, 66, 67, 80, 81, 82].includes(code)) return "🌧️";
+  return "🌡️";
+}
 
 function describeWeather(code) {
   if (code === 0) return "맑음";
@@ -28,6 +41,7 @@ function describeWeather(code) {
 
 async function loadWeather() {
   weatherStatus.textContent = "불러오는 중…";
+  weatherIcon.textContent = "◌";
   const controller = new AbortController();
   const timeoutId = setTimeout(() => controller.abort(), 10000);
 
@@ -52,9 +66,16 @@ async function loadWeather() {
       throw new Error("Invalid weather data");
     }
 
-    weatherStatus.textContent = `현재 ${temperature.toFixed(1)}°C · ${describeWeather(code)}`;
+    const description = describeWeather(code);
+    weatherIcon.textContent = weatherSymbol(code);
+    weatherStatus.textContent = `${temperature.toFixed(1)}°C`;
+    weatherBadge.title = `서울 · ${description} · 현재 ${temperature.toFixed(1)}°C · 제공: Open-Meteo`;
+    weatherBadge.setAttribute("aria-label", weatherBadge.title);
   } catch {
+    weatherIcon.textContent = "☁️";
     weatherStatus.textContent = "날씨를 가져오지 못했어요";
+    weatherBadge.title = "서울 · 날씨를 가져오지 못했어요 · 제공: Open-Meteo";
+    weatherBadge.setAttribute("aria-label", weatherBadge.title);
   } finally {
     clearTimeout(timeoutId);
   }

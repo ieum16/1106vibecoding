@@ -18,7 +18,10 @@ button { cursor: pointer; }
 header { text-align: center; }
 .topline { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
 .eyebrow { margin: 0; color: #897554; font-size: 9px; font-weight: 800; letter-spacing: 0.15em; }
-.today-tag { padding: 5px 9px; border: 1px solid #eadfc9; border-radius: 20px; background: #ffffffa6; color: #8a7860; font-size: 10px; }
+.weather-badge { display: inline-flex; align-items: center; justify-content: center; gap: 6px; max-width: 190px; padding: 6px 10px; border: 1px solid #eadfc9; border-radius: 20px; background: #ffffffa6; color: #785d2f; font-size: 11px; font-weight: 700; text-decoration: none; line-height: 1.5; }
+.weather-badge:hover { background: #fff0bc; }
+.weather-badge:focus-visible { outline: 3px solid #bd9855; outline-offset: 3px; }
+.weather-icon { flex-shrink: 0; font-size: 19px; line-height: 1; }
 .mascot { position: relative; width: 270px; height: 186px; margin: 8px auto 0; }
 .mascot img { display: block; position: absolute; left: 48px; top: 0; width: 174px; height: 174px; object-fit: contain; mix-blend-mode: multiply; transform: rotate(-5deg); }
 .doodle { position: absolute; color: #cfab62; }
@@ -29,11 +32,6 @@ header { text-align: center; }
 h1 { margin: 1px 0 0; font-size: 29px; font-weight: 900; line-height: 1.3; letter-spacing: -0.065em; }
 .subtitle { margin: 7px 0 13px; color: #978269; font-size: 12px; letter-spacing: -0.03em; }
 .remaining { display: inline-block; margin: 0 0 23px; padding: 7px 14px; border: 1px solid #e9cd82; border-radius: 20px; background: #fff0bc; color: #785d2f; font-size: 12px; font-weight: 800; }
-.weather-card { margin-bottom: 16px; padding: 12px 14px; border: 1px solid #eadfc9; border-radius: 14px; background: #fff9e9; }
-.weather-card h2 { margin: 0; color: #897554; font-size: 11px; font-weight: 700; }
-.weather-card p { margin: 7px 0; font-size: 14px; font-weight: 700; line-height: 1.5; }
-.weather-source { color: #897554; font-size: 10px; text-underline-offset: 2px; }
-.weather-source:focus-visible { outline: 3px solid #bd9855; outline-offset: 3px; }
 .input-row { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 7px; }
 input[type="text"] { width: 100%; min-width: 0; padding: 13px 12px; border: 1.5px solid #e7dac4; border-radius: 13px; outline: none; background: #fffefb; color: #514333; font-size: 12px; box-shadow: 0 2px 4px #6a4d2810; }
 input[type="text"]::placeholder { color: #a6957d; }
