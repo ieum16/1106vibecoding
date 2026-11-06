@@ -1,0 +1,26 @@
+{
+  "manifest_version": 3,
+  "name": "Icon Desk · 아이콘 데스크",
+  "version": "1.0.0",
+  "description": "한글·영문 키워드로 아이콘과 인물 그림을 검색하고 SVG·PNG로 저장하세요.",
+  "icons": {
+    "16": "icons/icon-16.png",
+    "32": "icons/icon-32.png",
+    "48": "icons/icon-48.png",
+    "128": "icons/icon-128.png"
+  },
+  "host_permissions": ["https://api.iconify.design/*", "https://api.mymemory.translated.net/*"],
+  "content_security_policy": {
+    "extension_pages": "script-src 'self'; object-src 'none'; connect-src 'self' https://api.iconify.design https://api.mymemory.translated.net; img-src 'self' blob: data: https://api.iconify.design"
+  },
+  "action": {
+    "default_icon": {
+      "16": "icons/icon-16.png",
+      "24": "icons/icon-24.png",
+      "32": "icons/icon-32.png",
+      "48": "icons/icon-48.png"
+    },
+    "default_title": "Icon Desk · 아이콘 검색",
+    "default_popup": "popup.html"
+  }
+}
