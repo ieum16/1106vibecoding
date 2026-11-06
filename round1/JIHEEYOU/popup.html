@@ -1,74 +1,51 @@
 <!doctype html>
 <html lang="ko">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>오늘 할 일 작성기</title>
-  <link rel="stylesheet" href="popup.css">
-</head>
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>우사기 테크 브리핑</title><link rel="stylesheet" href="popup.css"></head>
 <body>
-  <main class="app">
-    <header>
-      <div class="topline">
-        <p class="eyebrow">USAGI'S LITTLE DAYS</p>
-        <a class="weather-badge" href="https://open-meteo.com/" target="_blank" rel="noopener noreferrer" aria-label="서울 날씨 · 제공: Open-Meteo">
-          <span id="weather-icon" class="weather-icon" aria-hidden="true">◌</span>
-          <span id="weather-status" role="status" aria-live="polite">불러오는 중…</span>
-        </a>
-      </div>
-      <div class="mascot" aria-hidden="true">
-        <span class="doodle doodle-left">✳</span>
-        <span class="mascot-bubble">야하~!</span>
-        <img src="assets/usagi.png" alt="" width="174" height="174">
-        <span class="doodle doodle-right">♡</span>
-        <span class="little-note">하나씩, 천천히!</span>
-      </div>
-      <h1>오늘 할 일</h1>
-      <p class="subtitle">우사기와 함께, 오늘도 사부작사부작</p>
-      <p id="remaining" class="remaining" aria-live="polite">남은 할 일 0개</p>
-    </header>
-
-    <form id="todo-form" novalidate>
-      <label for="todo-input" class="sr-only">새 할 일</label>
-      <div class="input-row">
-        <input
-          id="todo-input"
-          type="text"
-          maxlength="100"
-          placeholder="작은 할 일 하나 적어볼까?"
-          autocomplete="off"
-          autofocus
-        >
-        <button type="submit" class="add-button"><span aria-hidden="true">＋</span> 추가</button>
-      </div>
-      <p id="input-error" class="error" role="alert" aria-live="assertive"></p>
-    </form>
-
-    <div class="list-heading"><span>나의 작은 체크리스트</span><span aria-hidden="true">✿</span></div>
-    <ul id="todo-list" class="todo-list" aria-label="할 일 목록"></ul>
-    <p id="empty-message" class="empty-message"><span class="empty-flower" aria-hidden="true">✿</span>무엇부터 해볼까?<br><span class="empty-hint">작은 할 일 하나부터 적어 봐요.</span></p>
-    <section class="news-section" aria-labelledby="news-title">
-      <div class="news-heading">
-        <div><h2 id="news-title">오늘의 IT 뉴스</h2><p>새로운 기술 소식, 한 번에 5개</p></div>
-        <button id="news-refresh" type="button">새로고침</button>
-      </div>
-      <div class="news-tabs" role="group" aria-label="뉴스 보기">
-        <button id="news-latest" type="button" aria-pressed="true">최신 뉴스</button>
-        <button id="news-saved" type="button" aria-pressed="false">저장한 기사 (0)</button>
-      </div>
+<main class="app">
+  <header class="header">
+    <div class="header-meta"><p class="eyebrow">USAGI'S LITTLE DAYS</p><a class="weather-badge" href="https://open-meteo.com/" target="_blank" rel="noopener noreferrer" aria-label="서울 날씨 · 제공: Open-Meteo"><span id="weather-icon" aria-hidden="true">◌</span><span id="weather-status" role="status" aria-live="polite">불러오는 중…</span></a></div>
+    <div class="brand">
+      <div class="mascot-scene"><span class="doodle flower" aria-hidden="true">✳</span><img src="assets/usagi.png" alt="우사기" width="142" height="142"><span class="mascot-bubble" aria-hidden="true">야하~!</span><span class="doodle heart" aria-hidden="true">♡</span><span class="little-note" aria-hidden="true">하나씩, 천천히!</span></div>
+      <h1>우사기 테크 브리핑</h1><p class="welcome">새로운 발견 하나, 해볼 일 하나.</p>
+      <span id="today-date" class="hand-date"></span>
+    </div>
+  </header>
+  <section class="dashboard" aria-label="오늘의 업무 대시보드">
+    <div class="stats">
+      <button class="stat" data-go="todos" type="button"><span>해낸 일</span><strong id="stat-todos">0/0</strong></button>
+      <button class="stat" data-go="latest" type="button"><span>새 소식</span><strong id="stat-news">0</strong></button>
+      <button class="stat" data-go="saved" type="button"><span>모아둔 글</span><strong id="stat-saved">—</strong></button>
+    </div>
+    <div class="progress-row"><span id="progress-label">할 일을 불러오는 중…</span><progress id="task-progress" max="100" value="0" aria-label="전체 할 일 완료율"></progress></div>
+    <div class="keyword-row"><span class="widget-label">오늘의 발견</span><div id="tech-keywords">뉴스를 기다리고 있어요.</div></div>
+    <details class="daily-tip"><summary><span class="tip-label">작은 팁</span><span id="tip-title"></span></summary><p id="tip-detail"></p><a id="tip-source" target="_blank" rel="noopener noreferrer">공식 문서 ↗</a></details>
+  </section>
+  <nav class="tabs" role="tablist" aria-label="콘텐츠">
+    <button id="news-latest" type="button" role="tab" data-view="latest" aria-selected="true" aria-controls="news-panel">오늘의 브리핑</button>
+    <button id="todo-tab" type="button" role="tab" data-view="todos" aria-selected="false" aria-controls="todo-panel" tabindex="-1">내 할 일 <span id="todo-count">0</span></button>
+    <button id="news-saved" type="button" role="tab" data-view="saved" aria-selected="false" aria-controls="news-panel" tabindex="-1">저장한 기사 <span id="saved-count">0</span></button>
+  </nav>
+  <p id="app-feedback" class="feedback" role="status" aria-live="polite"></p>
+  <div class="content-scroll">
+    <section id="todo-panel" role="tabpanel" aria-labelledby="todo-tab" hidden>
+      <div class="section-heading"><div><h2>내 할 일</h2><p id="remaining" aria-live="polite">남은 할 일 0개</p></div><span class="section-flower" aria-hidden="true">✳</span></div>
+      <form id="todo-form" novalidate><label class="sr-only" for="todo-input">새 할 일</label><div class="input-row"><input id="todo-input" type="text" maxlength="100" placeholder="오늘 해볼 일을 적어보세요" autocomplete="off"><button class="primary" type="submit">＋ 추가</button></div><p id="input-error" class="error" role="alert"></p></form>
+      <ul id="todo-list" class="todo-list" aria-label="할 일 목록"></ul>
+      <div id="empty-message" class="empty-message"><span aria-hidden="true">✿</span><strong>작은 실행이 큰 변화를 만들어요</strong><p>직접 할 일을 적거나, 브리핑의 활용 아이디어를 가져와 보세요.</p><button type="button" data-go="latest">브리핑 살펴보기 →</button></div>
+    </section>
+    <section id="news-panel" role="tabpanel" aria-labelledby="news-latest">
+      <div class="section-heading"><div><h2 id="news-title">오늘의 브리핑</h2><p id="news-subtitle">오늘의 발견을 다음 행동으로 연결해 보세요.</p></div><button id="news-refresh" type="button">↻ 새로고침</button></div>
       <p id="news-status" class="news-status" role="status" aria-live="polite">뉴스를 불러오는 중…</p>
-      <div class="news-permission-actions">
-        <button id="news-permission" class="news-save" type="button" hidden>뉴스 접근 허용</button>
-        <button id="news-restart" class="news-save" type="button" hidden>확장 다시 시작</button>
-      </div>
+      <details class="news-criteria"><summary>선정 기준과 업데이트</summary><p>GeekNews RSS에서 서울 시간 오늘 등록된 신기술·개발 도구·구현 소식을 키워드로 선별합니다. 사건·정치·주가 기사와 중복을 제외하고 최신순 최대 5개를 표시합니다. 기술 출시일 기준은 아니며 모든 뉴스를 검색하지는 않습니다.</p><p>팝업 열기·새로고침·팝업이 열린 동안 15분마다 갱신합니다. 활용 아이디어는 제목과 분야를 바탕으로 한 일반 제안이며, AI 원문 분석이나 기술 검증 결과가 아닙니다.</p></details>
+      <div class="news-permission-actions"><button id="news-permission" type="button" hidden>뉴스 접근 허용</button><button id="news-restart" type="button" hidden>확장 다시 시작</button></div>
       <p id="news-storage-error" class="error" role="alert" hidden></p>
-      <ul id="news-list" class="news-list" aria-label="IT 뉴스 목록"></ul>
+      <div id="news-empty" class="empty-message" hidden><span aria-hidden="true">✧</span><strong>다음 인사이트를 기다리고 있어요</strong><p>아직 표시할 기사가 없어요. 조건과 상태 안내를 확인해 주세요.</p></div>
+      <ul id="news-list" class="news-list" aria-label="기술 기사 목록"></ul>
       <p class="news-source">출처: <a href="https://news.hada.io/" target="_blank" rel="noopener noreferrer">GeekNews</a> · 소개는 RSS 제공 내용입니다.</p>
     </section>
-    <footer class="footer-note">오늘의 나에게 작은 칭찬 하나 <span aria-hidden="true">✦</span></footer>
-  </main>
-
-  <script src="popup.js"></script>
-  <script src="news.js"></script>
-</body>
-</html>
+  </div>
+  <footer>오늘의 나에게 작은 칭찬 하나 <span aria-hidden="true">✦</span></footer>
+</main>
+<script src="news-rules.js"></script><script src="ui.js"></script><script src="popup.js"></script><script src="news.js"></script>
+</body></html>

@@ -82,88 +82,147 @@ async function loadWeather() {
 }
 
 let todos = [];
+let todosLoaded = false;
+let writeQueue = Promise.resolve();
 
 function makeId() {
   return globalThis.crypto?.randomUUID?.() ?? `${Date.now()}-${Math.random()}`;
 }
-
+function validTodo(todo) { return todo && typeof todo.text === "string" && todo.id != null; }
+function canonicalUrl(value) {
+  const url = new URL(value);
+  if (!["https:", "http:"].includes(url.protocol)) throw new Error("Invalid article URL");
+  url.hash = "";
+  for (const key of [...url.searchParams.keys()]) if (key.startsWith("utm_")) url.searchParams.delete(key);
+  return url.href;
+}
 async function loadTodos() {
   const stored = await chrome.storage.local.get(STORAGE_KEY);
-  todos = Array.isArray(stored[STORAGE_KEY]) ? stored[STORAGE_KEY] : [];
+  if (stored[STORAGE_KEY] !== undefined && !Array.isArray(stored[STORAGE_KEY])) throw new Error("Invalid todo storage");
+  todos = stored[STORAGE_KEY] || [];
+  todosLoaded = true;
   render();
 }
-
-async function saveTodos() {
-  await chrome.storage.local.set({ [STORAGE_KEY]: todos });
+function updateTodos(change) {
+  const operation = writeQueue.then(async () => {
+    await todosReady;
+    if (!todosLoaded) throw new Error("Todo storage unavailable");
+    const stored = await chrome.storage.local.get(STORAGE_KEY);
+    if (stored[STORAGE_KEY] !== undefined && !Array.isArray(stored[STORAGE_KEY])) throw new Error("Invalid todo storage");
+    const current = stored[STORAGE_KEY] || [];
+    const next = change(current);
+    if (next !== current) await chrome.storage.local.set({ [STORAGE_KEY]: next });
+    todos = next;
+    render();
+  });
+  writeQueue = operation.catch(() => {});
+  return operation;
 }
-
+async function addArticleTodo(article) {
+  const url = canonicalUrl(article.url);
+  const idea = article.idea || null;
+  let existingId, added = false;
+  await updateTodos(current => {
+    const existing = current.find(todo => {
+      if (!validTodo(todo) || !todo.articleUrl) return false;
+      try { return canonicalUrl(todo.articleUrl) === url && (!todo.ideaId || todo.ideaId === idea?.id); }
+      catch { return false; }
+    });
+    if (existing) { existingId = existing.id; return current; }
+    const id = makeId();
+    existingId = id; added = true;
+    return [{ id, text: (article.taskLabel || "기사 검토") + ": " + article.title,
+      completed: false, articleId: article.id || url, articleUrl: url,
+      articleTitle: article.title, ideaId: idea?.id || "review-v1", idea,
+      createdAt: Date.now() }, ...current];
+  });
+  UsagiUI.highlight(existingId);
+  UsagiUI.notify(added ? "내 할 일에 추가했어요. 기사와 활용 아이디어도 함께 저장했어요." : "이미 등록한 활용 아이디어예요. 기존 할 일을 표시했어요.");
+  return added;
+}
+function showTaskError() {
+  error.textContent = "변경 내용을 저장하지 못했어요. 다시 시도해 주세요.";
+  UsagiUI.notify("할 일을 저장하지 못했어요. 기존 데이터는 유지됩니다.");
+  render();
+}
 function render() {
   list.replaceChildren();
-
-  for (const todo of todos) {
+  for (const todo of todos.filter(validTodo)) {
     const item = document.createElement("li");
     item.className = `todo-item${todo.completed ? " completed" : ""}`;
-
+    item.id = `todo-${todo.id}`;
     const checkbox = document.createElement("input");
-    checkbox.type = "checkbox";
-    checkbox.checked = todo.completed;
+    checkbox.type = "checkbox"; checkbox.checked = Boolean(todo.completed);
     checkbox.setAttribute("aria-label", `${todo.text} 완료 표시`);
     checkbox.addEventListener("change", async () => {
-      todo.completed = checkbox.checked;
-      await saveTodos();
-      render();
+      checkbox.disabled = true;
+      const completed = checkbox.checked;
+      try {
+        await updateTodos(current => current.map(value => value?.id === todo.id ? { ...value, completed } : value));
+        error.textContent = "";
+        UsagiUI.notify(completed ? "할 일 완료! 오늘도 한 걸음 나아갔어요." : "다시 진행할 할 일로 바꿨어요.");
+      } catch { showTaskError(); }
     });
-
-    const text = document.createElement("span");
+    const text = document.createElement("div");
     text.className = "todo-text";
-    text.textContent = todo.text;
-
-    const deleteButton = document.createElement("button");
-    deleteButton.type = "button";
-    deleteButton.className = "delete-button";
-    deleteButton.textContent = "×";
+    const title = document.createElement("span"); title.className = "todo-title"; title.textContent = todo.text;
+    text.append(title);
+    if (todo.articleUrl) {
+      const source = document.createElement("span"); source.className = "todo-source"; source.textContent = "↗ 기술 브리핑에서 가져온 할 일"; text.append(source);
+      try {
+        const link = document.createElement("a"); link.className = "todo-article-link";
+        link.href = canonicalUrl(todo.articleUrl); link.target = "_blank"; link.rel = "noopener noreferrer";
+        link.textContent = todo.articleTitle || "기사 다시 보기 ↗"; text.append(link);
+      } catch { /* Keep the task; never render an unsafe URL. */ }
+      if (todo.idea && typeof todo.idea.label === "string") {
+        const details = document.createElement("details"); details.className = "todo-idea";
+        const summary = document.createElement("summary"); summary.textContent = "활용 아이디어 다시 보기";
+        const label = document.createElement("p"); label.textContent = todo.idea.label;
+        const steps = document.createElement("ol");
+        for (const step of Array.isArray(todo.idea.steps) ? todo.idea.steps : []) {
+          const li = document.createElement("li"); li.textContent = String(step); steps.append(li);
+        }
+        details.append(summary, label, steps); text.append(details);
+      }
+    }
+    const deleteButton = document.createElement("button"); deleteButton.type = "button";
+    deleteButton.className = "delete-button"; deleteButton.textContent = "×";
     deleteButton.setAttribute("aria-label", `${todo.text} 삭제`);
     deleteButton.addEventListener("click", async () => {
-      todos = todos.filter((item) => item.id !== todo.id);
-      await saveTodos();
-      render();
+      deleteButton.disabled = true;
+      try { await updateTodos(current => current.filter(value => value?.id !== todo.id)); error.textContent = ""; UsagiUI.notify("할 일을 삭제했어요."); }
+      catch { showTaskError(); }
     });
-
-    item.append(checkbox, text, deleteButton);
-    list.append(item);
+    item.append(checkbox, text, deleteButton); list.append(item);
   }
-
-  const remainingCount = todos.filter((todo) => !todo.completed).length;
-  remaining.textContent = `남은 할 일 ${remainingCount}개`;
-  emptyMessage.hidden = todos.length > 0;
+  const valid = todos.filter(validTodo);
+  remaining.textContent = `남은 할 일 ${valid.filter(todo => !todo.completed).length}개`;
+  emptyMessage.hidden = valid.length > 0 || !todosLoaded;
+  form.querySelector("button").disabled = !todosLoaded;
+  UsagiUI.tasks(valid, todosLoaded);
 }
-
-form.addEventListener("submit", async (event) => {
+form.addEventListener("submit", async event => {
   event.preventDefault();
-  const text = input.value.trim();
-
-  if (!text) {
-    error.textContent = "할 일을 입력해 주세요.";
-    input.focus();
-    return;
-  }
-
-  error.textContent = "";
-  todos.unshift({ id: makeId(), text, completed: false });
-  await saveTodos();
-  input.value = "";
-  render();
-  input.focus();
+  const value = input.value.trim();
+  if (!value) { error.textContent = "할 일을 입력해 주세요."; input.focus(); return; }
+  const button = form.querySelector("button");
+  if (button.disabled) return;
+  button.disabled = true;
+  try {
+    await updateTodos(current => [{ id: makeId(), text: value, completed: false, createdAt: Date.now() }, ...current]);
+    if (input.value.trim() === value) input.value = "";
+    error.textContent = ""; UsagiUI.notify("새 할 일을 추가했어요."); input.focus();
+  } catch { showTaskError(); }
+  finally { button.disabled = !todosLoaded; }
 });
-
-input.addEventListener("input", () => {
-  if (input.value.trim()) {
-    error.textContent = "";
-  }
+input.addEventListener("input", () => { if (input.value.trim()) error.textContent = ""; });
+chrome.storage.onChanged.addListener((changes, area) => {
+  if (area !== "local" || !changes[STORAGE_KEY] || !Array.isArray(changes[STORAGE_KEY].newValue)) return;
+  todos = changes[STORAGE_KEY].newValue;
+  todosLoaded = true; render();
 });
-
 loadWeather();
-
-loadTodos().catch(() => {
-  error.textContent = "목록을 불러오지 못했습니다. 다시 열어 주세요.";
+const todosReady = loadTodos().catch(() => {
+  error.textContent = "목록을 불러오지 못했어요. 팝업을 다시 열어 주세요.";
+  render();
 });

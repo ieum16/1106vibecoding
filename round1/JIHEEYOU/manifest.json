@@ -1,12 +1,17 @@
 {
   "manifest_version": 3,
-  "name": "오늘 할 일 작성기",
-  "version": "1.1.1",
+  "name": "우사기 테크 브리핑",
+  "version": "2.0.0",
   "description": "할 일과 서울 날씨를 확인하고 최신 IT 뉴스 5개를 스크랩합니다.",
-  "permissions": ["storage"],
-  "host_permissions": ["https://api.open-meteo.com/*", "https://feeds.feedburner.com/*"],
+  "permissions": [
+    "storage"
+  ],
+  "host_permissions": [
+    "https://api.open-meteo.com/*",
+    "https://feeds.feedburner.com/*"
+  ],
   "action": {
-    "default_title": "오늘 할 일 작성기",
+    "default_title": "Usagi Tech Briefing",
     "default_popup": "popup.html"
   }
 }
