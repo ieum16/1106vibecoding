@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>오늘 할 일 작성기</title>
+    <link rel="stylesheet" href="popup.css">
+    <script src="popup.js" defer></script>
+  </head>
+  <body>
+    <main>
+      <header>
+        <p class="eyebrow">하나씩, 차근차근</p>
+        <h1>오늘 할 일 작성기<span aria-hidden="true">.</span></h1>
+        <p id="remaining" class="remaining" role="status">목록을 불러오는 중…</p>
+      </header>
+      <form id="todo-form">
+        <label for="todo-input">어떤 일을 할까요?</label>
+        <div class="input-row">
+          <input id="todo-input" type="text" placeholder="할 일을 적어 주세요" maxlength="200" autocomplete="off" required disabled aria-describedby="message">
+          <button id="add-button" type="submit" disabled>추가</button>
+        </div>
+      </form>
+      <p id="message" class="message" role="alert"></p>
+      <ul id="todo-list" aria-label="할 일 목록"></ul>
+      <div id="empty-state" class="empty-state" hidden>
+        <span class="empty-icon" aria-hidden="true">✓</span>
+        <p>작은 일부터 시작해 보세요</p>
+        <p class="hint">오늘 할 일을 위에 적어 주세요.</p>
+      </div>
+      <footer id="save-status" role="status">목록은 이 브라우저에 자동 저장됩니다.</footer>
+    </main>
+  </body>
+</html>

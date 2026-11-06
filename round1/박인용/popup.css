@@ -1,0 +1,37 @@
+:root {
+  color-scheme: light;
+  font-family: "Malgun Gothic", "Apple SD Gothic Neo", sans-serif;
+  color: #17233b;
+  background: #f5f7fc;
+  font-size: 18px;
+}
+* { box-sizing: border-box; }
+body { width: 360px; margin: 0; }
+main { padding: 26px 20px 18px; }
+.eyebrow { margin: 0 0 8px; color: #3665cf; font-size: 14px; font-weight: 700; }
+h1 { margin: 0; font-size: 26px; letter-spacing: -1px; line-height: 1.4; }
+h1 span { color: #2862e9; }
+.remaining { display: inline-block; margin: 16px 0 24px; padding: 8px 12px; border-radius: 12px; background: #e6edff; color: #214fb5; font-weight: 700; }
+label { display: block; margin-bottom: 9px; font-size: 17px; font-weight: 700; }
+.input-row { display: flex; gap: 8px; }
+input[type="text"] { min-width: 0; width: 100%; padding: 12px; border: 1px solid #c3cee2; border-radius: 12px; background: white; font: inherit; font-size: 17px; }
+input::placeholder { color: #707d93; }
+button { cursor: pointer; font: inherit; }
+button[type="submit"] { flex-shrink: 0; padding: 0 14px; border: 0; border-radius: 12px; background: #2862e9; color: white; font-weight: 700; }
+button[type="submit"]:hover { background: #1d4fc4; }
+button:disabled, input:disabled { opacity: .6; cursor: wait; }
+:focus-visible { outline: 3px solid #739bff; outline-offset: 3px; }
+.message { min-height: 20px; margin: 6px 0; color: #b2293d; font-size: 14px; line-height: 1.5; }
+ul { max-height: 320px; overflow-y: auto; list-style: none; padding: 3px; margin: 0 -3px; }
+.todo-item { display: flex; align-items: center; gap: 8px; padding: 12px 10px; margin-bottom: 8px; background: white; border: 1px solid #e1e6f0; border-radius: 12px; }
+.todo-label { display: flex; flex: 1; align-items: center; gap: 10px; min-width: 0; margin: 0; font-size: 18px; font-weight: 400; cursor: pointer; }
+.todo-label input { width: 22px; height: 22px; margin: 0; flex-shrink: 0; accent-color: #2862e9; cursor: pointer; }
+.todo-text { overflow-wrap: anywhere; line-height: 1.5; white-space: pre-wrap; }
+.completed .todo-text { text-decoration: line-through; color: #788398; }
+.delete-button { flex-shrink: 0; padding: 10px 6px; border: 0; border-radius: 8px; color: #65718a; background: transparent; font-size: 15px; }
+.delete-button:hover { color: #b2293d; background: #fff0f2; }
+.empty-state { padding: 20px 0 26px; text-align: center; }
+.empty-icon { display: inline-grid; place-items: center; width: 46px; height: 46px; border-radius: 50%; background: #e6edff; color: #2862e9; font-size: 26px; }
+.empty-state p { margin: 12px 0 6px; font-size: 18px; font-weight: 700; }
+.empty-state .hint { font-size: 14px; color: #65718a; font-weight: 400; }
+footer { margin-top: 18px; border-top: 1px solid #dfe5f0; padding-top: 14px; font-size: 13px; color: #65718a; line-height: 1.5; }
