@@ -1,0 +1,22 @@
+{
+  "manifest_version": 3,
+  "name": "오늘 할 일 작성기",
+  "version": "1.1.0",
+  "description": "계수정 선생님이 오늘 할 일을 안내하고, 완료하면 함께 축하합니다.",
+  "permissions": ["storage"],
+  "action": {
+    "default_title": "오늘 할 일 작성기",
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "32": "icons/icon32.png",
+      "48": "icons/icon48.png"
+    }
+  },
+  "icons": {
+    "16": "icons/icon16.png",
+    "32": "icons/icon32.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  }
+}
