@@ -1,0 +1,280 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>브릿지팀 소개</title>
+<meta name="description" content="부서 사이의 일을 잇고, 반복 업무를 도구로 바꾸는 브릿지팀을 소개합니다.">
+<link rel="icon" href="images/logo.png">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<style>
+  :root {
+    --navy: #1E2A5A;
+    --navy-2: #2B3A75;
+    --sky: #E8EEFB;
+    --point: #4C6FFF;
+    --text: #1B2033;
+    --muted: #5B6480;
+    --line: #E3E7F0;
+    --bg-alt: #F6F8FC;
+    --radius: 16px;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; scroll-padding-top: 72px; }
+  body {
+    margin: 0;
+    font-family: Pretendard, -apple-system, "Malgun Gothic", "Segoe UI", sans-serif;
+    color: var(--text);
+    background: #fff;
+    line-height: 1.6;
+    word-break: keep-all;
+  }
+  a { color: inherit; }
+  .wrap { max-width: 1120px; margin: 0 auto; padding: 0 20px; }
+
+  /* 헤더 */
+  header {
+    position: sticky; top: 0; z-index: 10;
+    background: rgba(255,255,255,.92);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--line);
+  }
+  .nav { display: flex; align-items: center; justify-content: space-between; height: 64px; }
+  .brand { display: flex; align-items: center; gap: 10px; text-decoration: none; font-weight: 800; color: var(--navy); font-size: 18px; }
+  /* logo.png에서 아이콘 부분만 잘라 보여 준다 */
+  .brand-mark {
+    width: 36px; height: 36px; border-radius: 9px;
+    background: url(images/logo.png) no-repeat;
+    background-size: 115.2px 115.2px;
+    background-position: -39.6px -23.6px;
+  }
+  .menu { display: flex; gap: 28px; list-style: none; margin: 0; padding: 0; }
+  .menu a { text-decoration: none; font-weight: 600; color: var(--muted); font-size: 15px; }
+  .menu a:hover { color: var(--navy); }
+  .menu-btn { display: none; background: none; border: 0; padding: 8px; cursor: pointer; }
+  .menu-btn span { display: block; width: 22px; height: 2px; background: var(--navy); margin: 5px 0; border-radius: 2px; }
+
+  /* 섹션 공통 */
+  section { padding: 88px 0; }
+  .alt { background: var(--bg-alt); }
+  .eyebrow { color: var(--point); font-weight: 700; font-size: 14px; letter-spacing: .08em; margin: 0 0 8px; }
+  h2 { font-size: 30px; margin: 0 0 12px; color: var(--navy); line-height: 1.3; }
+  .lead { color: var(--muted); margin: 0 0 40px; font-size: 17px; }
+
+  /* ① 한 줄 소개 */
+  .hero { padding: 96px 0 104px; background: linear-gradient(180deg, var(--sky) 0%, #fff 100%); }
+  .hero .wrap { display: grid; grid-template-columns: 1.3fr 1fr; gap: 48px; align-items: center; }
+  .hero h1 { font-size: 46px; line-height: 1.25; margin: 0 0 18px; color: var(--navy); letter-spacing: -.02em; }
+  .hero h1 em { font-style: normal; color: var(--point); }
+  .hero p { font-size: 18px; color: var(--muted); margin: 0 0 32px; }
+  .hero-logo { width: 100%; max-width: 360px; justify-self: center; border-radius: 28px; box-shadow: 0 20px 50px rgba(30,42,90,.12); }
+  .btns { display: flex; gap: 12px; flex-wrap: wrap; }
+  .btn {
+    display: inline-block; padding: 14px 24px; border-radius: 12px;
+    font-weight: 700; text-decoration: none; font-size: 16px;
+  }
+  .btn-main { background: var(--navy); color: #fff; }
+  .btn-main:hover { background: var(--navy-2); }
+  .btn-sub { background: #fff; color: var(--navy); border: 1px solid var(--line); }
+
+  .ways { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  .way { padding: 24px; border-left: 3px solid var(--point); background: #fff; border-radius: 0 var(--radius) var(--radius) 0; }
+  .way b { display: block; color: var(--navy); font-size: 17px; margin-bottom: 4px; }
+  .way span { color: var(--muted); font-size: 15px; }
+
+  /* ② 업무 카드 */
+  .cards { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+  .card {
+    background: #fff; border: 1px solid var(--line); border-radius: var(--radius);
+    padding: 28px 24px; box-shadow: 0 2px 10px rgba(30,42,90,.04);
+    transition: transform .15s, box-shadow .15s;
+  }
+  .card:hover { transform: translateY(-3px); box-shadow: 0 10px 24px rgba(30,42,90,.08); }
+  .icon {
+    width: 48px; height: 48px; border-radius: 12px; background: var(--sky);
+    display: grid; place-items: center; margin-bottom: 18px;
+  }
+  .icon svg { width: 24px; height: 24px; stroke: var(--navy); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+  .card h3 { margin: 0 0 8px; font-size: 18px; color: var(--navy); }
+  .card p { margin: 0; color: var(--muted); font-size: 15px; }
+  .ask { margin-top: 14px; font-size: 13px; color: var(--point); font-weight: 600; }
+
+  /* ③ 우리가 만든 도구 (준비 중) */
+  .tools { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  .tool {
+    border: 1.5px dashed #C9D3EA; border-radius: var(--radius); padding: 28px 24px;
+    background: #fff; position: relative; min-height: 170px;
+  }
+  .badge {
+    display: inline-block; font-size: 12px; font-weight: 700; color: var(--point);
+    background: var(--sky); padding: 4px 10px; border-radius: 999px; margin-bottom: 14px;
+  }
+  .tool h3 { margin: 0 0 6px; font-size: 18px; color: #8B93AC; }
+  .tool p { margin: 0; color: #9AA1B8; font-size: 15px; }
+
+  /* ④ 문의 */
+  .contact { background: var(--navy); color: #fff; }
+  .contact h2 { color: #fff; }
+  .contact .lead { color: #C3CBE6; }
+  .contact .eyebrow { color: #9DB2FF; }
+  .channels { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  .channel { background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.12); border-radius: var(--radius); padding: 24px; }
+  .channel small { display: block; color: #9DB2FF; font-weight: 700; margin-bottom: 6px; }
+  .channel strong { font-size: 18px; display: block; margin-bottom: 4px; }
+  .channel span { color: #C3CBE6; font-size: 14px; }
+
+  footer { background: var(--navy); color: #8E99C2; border-top: 1px solid rgba(255,255,255,.1); padding: 24px 0; font-size: 14px; }
+  footer .wrap { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+
+  /* 태블릿 */
+  @media (max-width: 960px) {
+    .cards { grid-template-columns: repeat(2, 1fr); }
+    .tools, .channels, .ways { grid-template-columns: 1fr 1fr; }
+    .hero h1 { font-size: 38px; }
+  }
+  /* 휴대폰 */
+  @media (max-width: 640px) {
+    .wrap { padding: 0 16px; }
+    section { padding: 64px 0; }
+    .hero { padding: 48px 0 64px; }
+    .hero .wrap { grid-template-columns: 1fr; gap: 28px; }
+    .hero-logo { order: -1; max-width: 160px; border-radius: 20px; }
+    .hero h1 { font-size: 30px; }
+    .hero p { font-size: 16px; }
+    .btn { flex: 1; text-align: center; }
+    h2 { font-size: 24px; }
+    .lead { font-size: 15px; margin-bottom: 28px; }
+    .cards, .tools, .channels, .ways { grid-template-columns: 1fr; }
+    .menu-btn { display: block; }
+    .menu {
+      display: none; position: absolute; top: 64px; left: 0; right: 0;
+      flex-direction: column; gap: 0; background: #fff; border-bottom: 1px solid var(--line);
+    }
+    .menu.open { display: flex; }
+    .menu a { display: block; padding: 14px 20px; border-top: 1px solid var(--line); }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <nav class="wrap nav">
+    <a class="brand" href="#intro"><span class="brand-mark" role="img" aria-label="브릿지팀 로고"></span>브릿지팀</a>
+    <button class="menu-btn" aria-label="메뉴 열기" aria-expanded="false"><span></span><span></span><span></span></button>
+    <ul class="menu">
+      <li><a href="#intro">소개</a></li>
+      <li><a href="#work">하는 일</a></li>
+      <li><a href="#tools">우리가 만든 도구</a></li>
+      <li><a href="#contact">문의</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main>
+  <!-- ① 한 줄 소개 -->
+  <section class="hero" id="intro">
+    <div class="wrap">
+      <div>
+        <p class="eyebrow">TEAM BRIDGE</p>
+        <h1>부서 사이의 일을 잇는 팀,<br><em>브릿지</em>입니다.</h1>
+        <p>흩어진 업무 흐름을 정리하고, 반복되는 일은 도구로 바꿉니다.<br>처음 오셨다면 아래 업무 카드부터 보세요.</p>
+        <div class="btns">
+          <a class="btn btn-main" href="#contact">요청하기</a>
+          <a class="btn btn-sub" href="#work">하는 일 보기</a>
+        </div>
+      </div>
+      <img class="hero-logo" src="images/logo.png" alt="브릿지팀 로고">
+    </div>
+  </section>
+
+  <section class="alt" style="padding:56px 0">
+    <div class="wrap">
+      <div class="ways">
+        <div class="way"><b>먼저 듣습니다</b><span>요청 전에 지금 일하는 방식부터 함께 봅니다.</span></div>
+        <div class="way"><b>작게 바꿉니다</b><span>한 번에 다 바꾸지 않고, 2주 단위로 고쳐 갑니다.</span></div>
+        <div class="way"><b>문서로 남깁니다</b><span>바뀐 내용은 누구나 찾을 수 있게 정리합니다.</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ② 업무 카드 -->
+  <section id="work">
+    <div class="wrap">
+      <p class="eyebrow">WHAT WE DO</p>
+      <h2>이런 일을 합니다</h2>
+      <p class="lead">아래 일 중 하나라면 브릿지팀에 편하게 요청해 주세요.</p>
+      <div class="cards">
+        <article class="card">
+          <div class="icon"><svg viewBox="0 0 24 24"><path d="M4 6h16M4 12h10M4 18h7"/><circle cx="18" cy="17" r="3"/></svg></div>
+          <h3>업무 프로세스 정리</h3>
+          <p>부서 사이에 오가는 요청·승인 흐름을 한 장으로 정리합니다.</p>
+          <div class="ask">예: "결재가 어디서 막히는지 봐 주세요"</div>
+        </article>
+        <article class="card">
+          <div class="icon"><svg viewBox="0 0 24 24"><path d="M21 12a9 9 0 1 1-3-6.7"/><path d="M21 4v5h-5"/></svg></div>
+          <h3>반복 업무 자동화</h3>
+          <p>매주 손으로 하는 집계·알림·복붙 작업을 자동으로 바꿉니다.</p>
+          <div class="ask">예: "주간 리포트를 자동으로 받고 싶어요"</div>
+        </article>
+        <article class="card">
+          <div class="icon"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M8 21h8M12 18v3"/></svg></div>
+          <h3>사내 도구 운영</h3>
+          <p>협업 툴의 권한, 채널, 템플릿을 관리하고 문제를 해결합니다.</p>
+          <div class="ask">예: "새 프로젝트 공간을 만들어 주세요"</div>
+        </article>
+        <article class="card">
+          <div class="icon"><svg viewBox="0 0 24 24"><path d="M4 19V5a2 2 0 0 1 2-2h12v16H6a2 2 0 0 0-2 2z"/><path d="M8 7h6M8 11h6"/></svg></div>
+          <h3>협업 가이드 · 온보딩</h3>
+          <p>신규 입사자가 첫 주에 헤매지 않도록 안내 자료를 만듭니다.</p>
+          <div class="ask">예: "우리 팀 신규 입사자 안내를 같이 짜요"</div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ③ 우리가 만든 도구 -->
+  <section class="alt" id="tools">
+    <div class="wrap">
+      <p class="eyebrow">OUR TOOLS</p>
+      <h2>우리가 만든 도구</h2>
+      <p class="lead">지금 열심히 만들고 있어요. 나오면 이 자리에 소개합니다.</p>
+      <div class="tools">
+        <div class="tool"><span class="badge">준비 중</span><h3>도구 1</h3><p>곧 공개됩니다.</p></div>
+        <div class="tool"><span class="badge">준비 중</span><h3>도구 2</h3><p>곧 공개됩니다.</p></div>
+        <div class="tool"><span class="badge">준비 중</span><h3>도구 3</h3><p>곧 공개됩니다.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ④ 문의 -->
+  <section class="contact" id="contact">
+    <div class="wrap">
+      <p class="eyebrow">CONTACT</p>
+      <h2>무엇이든 편하게 물어보세요</h2>
+      <p class="lead">요청은 슬랙 채널이 가장 빠릅니다.</p>
+      <div class="channels">
+        <div class="channel"><small>요청 채널</small><strong>#ask-bridge</strong><span>업무 요청 · 질문은 여기로</span></div>
+        <div class="channel"><small>이메일</small><strong>bridge@example.com</strong><span>외부 공유가 필요한 건</span></div>
+        <div class="channel"><small>응답 시간</small><strong>평일 하루 안에</strong><span>10:00 – 18:00 기준</span></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap"><span>© 2026 브릿지팀 (Team Bridge)</span><span>부서 사이의 일을 잇습니다</span></div>
+</footer>
+
+<script>
+  const btn = document.querySelector('.menu-btn');
+  const menu = document.querySelector('.menu');
+  btn.addEventListener('click', () => {
+    const open = menu.classList.toggle('open');
+    btn.setAttribute('aria-expanded', open);
+  });
+  menu.addEventListener('click', e => {
+    if (e.target.tagName === 'A') { menu.classList.remove('open'); btn.setAttribute('aria-expanded', false); }
+  });
+</script>
+</body>
+</html>
